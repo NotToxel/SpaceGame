@@ -7,11 +7,11 @@ For prototype:
   o	Forward
   o	Backward
   o	Turn left / right
-  o	Strife left / right
+  o	Strafe left / right
   o	Jump
   o	Crouch
 -	First person view (third person if we have time)
--	Combat enemies
+-	Combat enemies 
 -	Collecting resources
   o	Include puzzles and parkour to collect resources
   o	Unlocking recipes for items (not for prototype)
@@ -45,3 +45,5 @@ Extras:
   o	Subtitles
   o	Colour blind mode?
   o	Customisable controls 
+- Enemies spawn randomly
+- Saving progress
