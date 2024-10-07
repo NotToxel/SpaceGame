@@ -1,0 +1,47 @@
+For prototype:
+-	Game views
+  o	Start menu
+  o	Pause menu
+  o	End menu
+-	Movement
+  o	Forward
+  o	Backward
+  o	Turn left / right
+  o	Strife left / right
+  o	Jump
+  o	Crouch
+-	First person view (third person if we have time)
+-	Combat enemies
+-	Collecting resources
+  o	Include puzzles and parkour to collect resources
+  o	Unlocking recipes for items (not for prototype)
+-	Inventory
+  o	Storing items
+  o	Accessing items 
+  o	Using items 
+-	Player health bar, health regenerates automatically
+-	Player oxygen bar
+  o	Player dies when oxygen runs out
+  o	Unlimited oxygen inside the ship
+
+
+Extras: 
+- Objectives menu
+-	Upgrade weapons
+-	Upgrade outfit
+- Enemies drop items and trophies
+-	Instead of taking pictures have a information book??
+-	Player can craft items
+-	Collectable items 
+-	Audio
+-	Player should have a pet
+-	Accessibility:
+  o	Increase size font?
+  o	Increase audio volume?
+  o	Change brightness
+  o	Change sensitivity
+  o	Text that explains sounds the player might be hearing **
+  o	Text to speech
+  o	Subtitles
+  o	Colour blind mode?
+  o	Customisable controls 
