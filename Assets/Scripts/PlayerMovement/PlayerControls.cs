@@ -57,7 +57,11 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""Crouch"",
                     ""type"": ""Value"",
+<<<<<<< Updated upstream
                     ""id"": ""ffd7ac86-a99b-4e82-8a58-c98da1b8e867"",
+=======
+                    ""id"": ""08584916-2ab3-4531-aff2-c0838cdf9890"",
+>>>>>>> Stashed changes
                     ""expectedControlType"": ""Double"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -199,11 +203,19 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+<<<<<<< Updated upstream
                     ""id"": ""ed1a74f8-4c25-4b70-8e19-5e36b1f11a2f"",
                     ""path"": ""<Keyboard>/c"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
+=======
+                    ""id"": ""95883b44-ac3b-4205-8d2d-6c671e4271e3"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+>>>>>>> Stashed changes
                     ""action"": ""Crouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
