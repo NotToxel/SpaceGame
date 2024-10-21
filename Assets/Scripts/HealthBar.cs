@@ -10,9 +10,9 @@ public class HealthBar : MonoBehaviour
     public float maxHP = 100f;
     public float health;
     public float naturalRegenRate = 5f;
-    private float lerpSpeed = 0.005f;
-    private float combatTimer = 10f;
-    private float combatCD = 10f;
+    private float lerpSpeed = 0.025f;
+    private float combatTimer = 5f;
+    private float combatCD = 5f;
     private bool isInCombat = false;
 
     // Start is called before the first frame update
