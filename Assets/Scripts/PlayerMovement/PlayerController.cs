@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float playerSpeed = 2.0f;
+    [SerializeField] private float playerSpeed = 5.0f;
     [SerializeField] private float jumpHeight = 1.0f;
     [SerializeField] private float gravityValue = -9.81f;
     [SerializeField] private float normalHeight, crouchHeight;
@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
         cameraTransform = Camera.main.transform;
     }
 
+//Make player slower when crouched
     void Update()
     {
         groundedPlayer = controller.isGrounded;
@@ -46,7 +47,6 @@ public class PlayerController : MonoBehaviour
 
         if(inputManager.PlayerCrouchedThisFrame() != 0.0 && crouching == false){
             controller.height = crouchHeight;
-            controller.Move(move * Time.deltaTime * playerCrouchingSpeed);
             Debug.Log("Crouched"); //TESTING
             crouching = true;
         }
