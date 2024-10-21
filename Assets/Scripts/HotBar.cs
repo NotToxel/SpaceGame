@@ -8,11 +8,17 @@ public class HotBar : MonoBehaviour
     public int hotbarSize = 9;
     public Image[] hotbarSlots;
     public int selectedSlot = 0;
+    Color selectedColor;
+    Color defaultColor;
 
     // Start is called before the first frame update
     void Start()
     {   
-        UpdateHotbar();
+        // initialize colours
+        ColorUtility.TryParseHtmlString("#414141", out selectedColor);
+        ColorUtility.TryParseHtmlString("#959595", out defaultColor);
+
+        UpdateHotbar(selectedSlot);
     }
 
     // Update is called once per frame
@@ -26,37 +32,34 @@ public class HotBar : MonoBehaviour
         for (int i=0; i<hotbarSize; i++) {
             if (Input.GetKeyDown((KeyCode)((int)KeyCode.Alpha1 + i))) {
                 selectedSlot = i;
-                UpdateHotbar();
+                UpdateHotbar(selectedSlot);
             }
         }
 
         // Selecting a slot with scroll wheel
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         if (scroll != 0) {
-            if (scroll > 0f) {
-                selectedSlot--;
-            } else if (scroll < 0f) {
-                selectedSlot++;
-            }
+            if (scroll > 0f) { selectedSlot = nextSlot(selectedSlot); } 
+            else if (scroll < 0f) { selectedSlot = prevSlot(selectedSlot); }
 
-            // Wrap around if we are on the first/last slot
-            if (selectedSlot < 0) {
-                selectedSlot = hotbarSize - 1;
-            } else if (selectedSlot > 0) {
-                selectedSlot = 0;
-            }
-            
-            UpdateHotbar();
+            UpdateHotbar(selectedSlot);
         }
     }
-    
 
-    void UpdateHotbar() {
+    int nextSlot(int slotNumber) {
+        slotNumber++;
+        return slotNumber%hotbarSize;
+    }
+
+    int prevSlot(int slotNumber) {
+        slotNumber--;
+        if (slotNumber<0) { slotNumber+=hotbarSize; }
+        return slotNumber%hotbarSize;
+    }
+
+    void UpdateHotbar(int activeSlot) {
         for(int i=0; i<hotbarSize; i++) {
-            Transform highlight = hotbarSlots[i].transform.Find("Highlight");
-            if(highlight != null) {
-                highlight.gameObject.SetActive(i == selectedSlot);
-            }
+            hotbarSlots[i].color = (i == activeSlot) ? selectedColor : defaultColor;
         }
     }
 
