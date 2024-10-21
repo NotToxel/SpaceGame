@@ -190,6 +190,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4347365351805593074}
+  - component: {fileID: 4509634095744919358}
   m_Layer: 5
   m_Name: HotBar
   m_TagString: Untagged
@@ -217,6 +218,30 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 100}
   m_SizeDelta: {x: 910, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4509634095744919358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 569387059183907244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 312b464af8de4ac4fa452938622e0035, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hotbarSize: 9
+  hotbarSlots:
+  - {fileID: 6417587435200465123}
+  - {fileID: 2665415640497587995}
+  - {fileID: 7050475854492357802}
+  - {fileID: 9166701371678029820}
+  - {fileID: 4474549578322859498}
+  - {fileID: 2603554320828814312}
+  - {fileID: 2959293442347748539}
+  - {fileID: 5956985607550668240}
+  - {fileID: 1334462001364824212}
+  selectedSlot: 0
 --- !u!1 &1507127889694141304
 GameObject:
   m_ObjectHideFlags: 0
@@ -599,6 +624,7 @@ MonoBehaviour:
   easeHealthSlider: {fileID: 2260473529787919438}
   maxHP: 100
   health: 0
+  naturalRegenRate: 5
 --- !u!1 &2679681679130311777
 GameObject:
   m_ObjectHideFlags: 0
