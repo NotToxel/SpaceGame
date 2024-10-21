@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpHeight = 1.0f;
     [SerializeField] private float gravityValue = -9.81f;
     [SerializeField] private float normalHeight, crouchHeight;
+    [SerializeField] private float playerCrouchingSpeed = 1.0f;
     private CharacterController controller;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
@@ -45,6 +46,7 @@ public class PlayerController : MonoBehaviour
 
         if(inputManager.PlayerCrouchedThisFrame() != 0.0 && crouching == false){
             controller.height = crouchHeight;
+            controller.Move(move * Time.deltaTime * playerCrouchingSpeed);
             Debug.Log("Crouched"); //TESTING
             crouching = true;
         }
