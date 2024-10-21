@@ -14,12 +14,16 @@ using UnityEngine.UI;
 
 public class OxygenTrigger : MonoBehaviour
 {
+    public HealthBar healthBar;
     public Slider oxygenSlider;
     public float maxO = 100f;
     public float oxygenLvl;
+    public float healthLvl;
     public float oxygenTickRate = 1f;
     public float breatheTickRate = 1f;
-    private bool oxygenPresent = true;
+    public float healthTickRate = 1f;
+    public float damageNoAir = 1f;
+    public bool oxygenPresent = true;
 
     void Start()
     {
@@ -49,6 +53,11 @@ public class OxygenTrigger : MonoBehaviour
             yield return new WaitForSeconds(breatheTickRate);
             Breathe(1);
         }
+
+        while(oxygenPresent == false && oxygenLvl == 0){
+            yield return new WaitForSeconds(healthTickRate);
+            healthBar.TakeDamage(damageNoAir);
+        }
     }
 
     void OxygenDepletion(float amount) {
@@ -68,6 +77,10 @@ public class OxygenTrigger : MonoBehaviour
             oxygenLvl = maxO;
         }
         oxygenSlider.value = oxygenLvl;
+
+        if(healthBar.health != maxO){
+            healthBar.regenHP(1f);
+        }
     }
 
     public void getOxygen(float oxygenTank){

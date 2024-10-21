@@ -19440,6 +19440,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1693254454}
   - component: {fileID: 1693254455}
+  - component: {fileID: 1693254456}
   m_Layer: 5
   m_Name: SliderHP
   m_TagString: Untagged
@@ -19520,6 +19521,24 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1693254456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693254453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a55a603b6eac789489e83cc6b4238fb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  oxygenTrigger: {fileID: 2070999014}
+  healthSlider: {fileID: 1693254455}
+  easeHealthSlider: {fileID: 0}
+  maxHP: 100
+  health: 0
+  naturalRegenRate: 5
 --- !u!43 &1701200685
 Mesh:
   m_ObjectHideFlags: 0
@@ -23281,11 +23300,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64bc101a9d4976342917b9b38a74e073, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthBar: {fileID: 1693254456}
   oxygenSlider: {fileID: 317903055}
   maxO: 100
   oxygenLvl: 0
+  healthLvl: 0
   oxygenTickRate: 1
   breatheTickRate: 1
+  healthTickRate: 1
+  damageNoAir: 1
+  oxygenPresent: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
