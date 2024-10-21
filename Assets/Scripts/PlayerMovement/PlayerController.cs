@@ -9,19 +9,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float playerSpeed = 2.0f;
     [SerializeField] private float jumpHeight = 1.0f;
     [SerializeField] private float gravityValue = -9.81f;
-    [SerializeField] private float normalHeight, crouchHeight;
-    [SerializeField] private float playerCrouchingSpeed = 1.0f;
     private CharacterController controller;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
-    private bool crouching = false;
     private InputManager inputManager;
     private Transform cameraTransform;
 
     private void Start()
     {
         controller = GetComponent<CharacterController>();
-        normalHeight = controller.height;
         inputManager = InputManager.Instance;
         cameraTransform = Camera.main.transform;
     }
@@ -39,24 +35,17 @@ public class PlayerController : MonoBehaviour
         move = cameraTransform.forward * move.z + cameraTransform.right * move.x;
         controller.Move(move * Time.deltaTime * playerSpeed);
 
+        // if (move != Vector3.zero)
+        // {
+        //     gameObject.transform.forward = move;
+        // }
+
+        // Changes the height position of the player..
         if (inputManager.PlayerJumpedThisFrame() && groundedPlayer)
         {
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
         }
 
-        if(inputManager.PlayerCrouchedThisFrame() != 0.0 && crouching == false){
-            controller.height = crouchHeight;
-            controller.Move(move * Time.deltaTime * playerCrouchingSpeed);
-            Debug.Log("Crouched"); //TESTING
-            crouching = true;
-        }
-
-        if(inputManager.PlayerCrouchedThisFrame() == 0.0 && crouching == true){
-            controller.height = normalHeight;
-            Debug.Log("Uncrouched"); //TESTING
-            crouching = false;
-        }
-    
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
     }

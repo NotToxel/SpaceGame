@@ -4,12 +4,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
     private static InputManager _instance;
-    public bool CrouchIsPressed = false;
 
     public static InputManager Instance{
         get{
@@ -32,7 +30,6 @@ public class InputManager : MonoBehaviour
     }
 
     private void OnEnable(){
-
         playerControls.Enable();
     }
 
@@ -50,9 +47,5 @@ public class InputManager : MonoBehaviour
 
     public bool PlayerJumpedThisFrame(){
         return playerControls.Player.Jump.triggered;
-    }
-
-    public float PlayerCrouchedThisFrame(){
-        return playerControls.Player.Crouch.ReadValue<float>();
     }
 }
