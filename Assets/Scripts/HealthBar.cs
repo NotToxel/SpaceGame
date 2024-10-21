@@ -29,7 +29,7 @@ public class HealthBar : MonoBehaviour
         }
 
         // Testing
-        if(Input.GetKeyDown(KeyCode.Space)) {
+        if(Input.GetKeyDown(KeyCode.T)) {
             TakeDamage(10);
         }
     }
