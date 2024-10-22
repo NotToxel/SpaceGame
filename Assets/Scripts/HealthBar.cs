@@ -5,16 +5,11 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-    public OxygenTrigger oxygenTrigger;
     public Slider healthSlider;
     public Slider easeHealthSlider;
     public float maxHP = 100f;
     public float health;
-    public float naturalRegenRate = 5f;
-    private float lerpSpeed = 0.025f;
-    private float combatTimer = 5f;
-    private float combatCD = 5f;
-    private bool isInCombat = false;
+    private float lerpSpeed = 0.005f;
 
     // Start is called before the first frame update
     void Start() {
@@ -33,37 +28,19 @@ public class HealthBar : MonoBehaviour
             easeHealthSlider.value = Mathf.Lerp(easeHealthSlider.value, health, lerpSpeed);
         }
 
-        // Exit combat state if Player has not taken any damage in 10s
-        if (isInCombat == true) {
-            combatTimer -= Time.deltaTime;
-            if(combatTimer <= 0) {
-                ExitCombat();
-            }
-        }
-
-        // Regenerate Health while Player is out of Combat
-        if (isInCombat == false) {
-            regenHP(naturalRegenRate);
+        // Testing
+        if(Input.GetKeyDown(KeyCode.T)) {
+            TakeDamage(10);
         }
     }
 
-    public void regenHP(float rate) {
-        health += rate;
-        health = Mathf.Clamp(health, 0, maxHP);
-    }
-
-    public void EnterCombat() {
-        isInCombat = true;
-        combatTimer = combatCD;
-    }
-
-    public void ExitCombat() {
-        isInCombat = false;
-    }
     
-    public void TakeDamage(float damage) {
-        EnterCombat();
+    void TakeDamage(float damage) {
         health -= damage;
-        health = Mathf.Clamp(health, 0, maxHP);
+        if(health < 0) {
+            health = 0;
+        }
+
+       // healthSlider.value = health;
     }
 }
