@@ -14,6 +14,8 @@ public class EndGameTrigger : MonoBehaviour
     }
 
     private void EndGame() {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         SceneManager.LoadSceneAsync(2);
     }
 }
