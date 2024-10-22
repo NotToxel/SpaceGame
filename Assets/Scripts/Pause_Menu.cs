@@ -72,9 +72,11 @@ public class Pause_Menu : MonoBehaviour
 
     public void MainScreen()
 	{
+ 	Time.timeScale = 1;
+        AudioListener.pause = false;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
-		SceneManager.LoadSceneAsync(0);
+	SceneManager.LoadSceneAsync(0);
     }
 
     public void QuitGame(){
