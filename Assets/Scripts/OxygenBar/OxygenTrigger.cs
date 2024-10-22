@@ -5,6 +5,9 @@ If the player has left the ship, their oxygen becomes limited and
 decreases until 0.
 If the player enters the ship again, they will have an unlimited supply of oxygen,
 and so their oxygen levels should increase gradually.
+
+Reference: https://www.youtube.com/watch?v=3JjBJfoWDCM
+
 *********/
 
 using System.Collections;
