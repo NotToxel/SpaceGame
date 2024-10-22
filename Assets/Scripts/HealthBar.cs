@@ -13,9 +13,14 @@ public class HealthBar : MonoBehaviour
 {
     public OxygenTrigger oxygenTrigger;
     public Slider healthSlider;
-    public Slider easeHealthSlider;
+    //public Slider easeHealthSlider;
     public float maxHP = 100f;
     public float health;
+    public float naturalRegenRate = 5f;
+    private float lerpSpeed = 0.025f;
+    private float combatTimer = 5f;
+    private float combatCD = 5f;
+    private bool isInCombat = false;
     public float naturalRegenRate = 1f;
     private float lerpSpeed = 0.005f;
     private float combatTimer = 5f;
