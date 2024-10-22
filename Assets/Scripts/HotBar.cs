@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class HotBar : MonoBehaviour
 {
+    private ItemHandler itemHandler;
     public int hotbarSize = 9;
-    public Image[] hotbarSlots;
+    public GameObject[] hotbarSlots;
     public int selectedSlot = 0;
     Color selectedColor;
     Color defaultColor;
@@ -14,9 +15,14 @@ public class HotBar : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {   
+        gameObject.SetActive(false); // Hides the GameObject, delete later
+
         // initialize colours
         ColorUtility.TryParseHtmlString("#414141", out selectedColor);
         ColorUtility.TryParseHtmlString("#959595", out defaultColor);
+
+        // Get ItemHandler methods
+        itemHandler = GetComponent<ItemHandler>();
 
         UpdateHotbar(selectedSlot);
     }
@@ -25,6 +31,19 @@ public class HotBar : MonoBehaviour
     void Update()
     {
         HandleHotbarInput();
+
+        if (Input.GetKeyDown(KeyCode.F)) {
+            if (itemHandler != null) {
+                if (itemHandler.getHeldObject() == null){
+                    if (hotbarSlots[selectedSlot] != null) {
+                        itemHandler.PickupObject(hotbarSlots[selectedSlot]);
+                    }
+                }
+                else {
+                    itemHandler.DropObject();
+                }
+            }
+        }
     }
 
     private void HandleHotbarInput() {
@@ -59,9 +78,14 @@ public class HotBar : MonoBehaviour
 
     void UpdateHotbar(int activeSlot) {
         for(int i=0; i<hotbarSize; i++) {
-            hotbarSlots[i].color = (i == activeSlot) ? selectedColor : defaultColor;
+            Image slotImage = getSlotImage(i);
+            if (slotImage != null) {
+                slotImage.color = (i == activeSlot) ? selectedColor : defaultColor;
+            }
         }
     }
+
+    Image getSlotImage(int index) { return hotbarSlots[index].GetComponent<Image>(); }
 
 }
 

@@ -2,12 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemHandling : MonoBehaviour
+public class ItemHandler : MonoBehaviour
 {
+    //private GameObject player;
     public float pickupRange = 2.5f;
     public Transform holdPoint;
     private GameObject heldObject;
     public float throwForce = 10f;
+
+    void Start() { 
+        //player = GameObject.FindGameObjectWithTag("Player");
+     }
  
     // Update is called once per frame
     void Update()
@@ -22,8 +27,8 @@ public class ItemHandling : MonoBehaviour
     }
 
     // Attempt to pick up an object
-    void TryPickUPObject() {
-        // Perform a raycast from the Player's camera to check if an onject is within range
+    public void TryPickUPObject() {
+        // Perform a raycast from the Player's camera to check if an object is within range
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, pickupRange)) {
@@ -34,7 +39,7 @@ public class ItemHandling : MonoBehaviour
     }
 
     // Pick up the object
-    void PickupObject (GameObject obj) {
+    public void PickupObject (GameObject obj) {
         heldObject = obj;
         Rigidbody objRb = obj.GetComponent<Rigidbody>();
         if (objRb != null) { objRb.isKinematic = true; }
@@ -44,10 +49,14 @@ public class ItemHandling : MonoBehaviour
     }
 
     // Drop the object
-    void DropObject() {
+    public void DropObject() {
         Rigidbody objRb = heldObject.GetComponent<Rigidbody>();
         if (objRb != null) { objRb.isKinematic = false; }
         heldObject.transform.parent = null;
         heldObject = null;
+    }
+
+    public GameObject getHeldObject() {
+        return heldObject;
     }
 }
