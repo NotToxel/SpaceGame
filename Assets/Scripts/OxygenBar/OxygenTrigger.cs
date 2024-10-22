@@ -28,6 +28,12 @@ public class OxygenTrigger : MonoBehaviour
     void Start()
     {
         oxygenLvl = maxO;
+
+        //Finds the health bar if it's not been assigned so it actuallly works
+        if (healthBar == null) {
+            healthBar = FindObjectOfType<HealthBar>();
+        }
+        
     }
 
     //Checks if player has collided with object (player has left ship)
