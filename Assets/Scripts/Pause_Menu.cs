@@ -11,13 +11,15 @@ using UnityEngine.SceneManagement;
 
 public class Pause_Menu : MonoBehaviour
 {
+
+    // Handles player input
     private PlayerControls playerControls;
     private InputAction menu;
 
     [SerializeField] private GameObject pauseUI;
-    private bool isPaused;
+    private bool isPaused; // tracks whether game is paused
 
-    // Start is called before the first frame update
+    // This is called when the script is loaded
     void Awake()
     {
         playerControls = new PlayerControls();
@@ -25,18 +27,21 @@ public class Pause_Menu : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
     }
 
+    // Runs when the objectt is active
     private void OnEnable()
     {
         menu = playerControls.Menu.Escape;
         menu.Enable();
         menu.performed += Pause;
     }
-
+    
+    // Runs when the object is no longer active
     private void OnDisable()
     {
         menu.Disable();
     }
-
+    
+    // Called when escape[enter] key is pressed 
     void Pause(InputAction.CallbackContext context)
     {
         isPaused = !isPaused;
@@ -51,6 +56,7 @@ public class Pause_Menu : MonoBehaviour
         }
     }
 
+    // Pull up the pause menu and stop the gameworlds time
     private void ActivateMenu()
     {
         Time.timeScale = 0;
@@ -60,6 +66,7 @@ public class Pause_Menu : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
     }
 
+    // close the pause menu and resume gameworlds time
     public void DeactivateMenu()
     {
         Time.timeScale = 1;
@@ -69,7 +76,8 @@ public class Pause_Menu : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         isPaused = false;
     }
-
+    
+    // Load the main menu scene
     public void MainScreen()
 	{
  	Time.timeScale = 1;
@@ -79,6 +87,7 @@ public class Pause_Menu : MonoBehaviour
 	SceneManager.LoadSceneAsync(0);
     }
 
+    // Quit the game
     public void QuitGame(){
 		Application.Quit();
 	}

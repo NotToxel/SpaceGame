@@ -12,7 +12,7 @@ public class EndGameTrigger : MonoBehaviour
             EndGame();
         }
     }
-
+    //loads credits scene upon trigger
     private void EndGame() {
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
