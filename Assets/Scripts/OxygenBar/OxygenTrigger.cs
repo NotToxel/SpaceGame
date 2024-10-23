@@ -17,16 +17,26 @@ using UnityEngine.UI;
 
 public class OxygenTrigger : MonoBehaviour
 {
+    public HealthBar healthBar;
     public Slider oxygenSlider;
     public float maxO = 100f;
     public float oxygenLvl;
-    public float oxygenTickRate = 1f;
+    public float healthLvl;
+    public float oxygenTickRate = 5f;
     public float breatheTickRate = 1f;
-    private bool oxygenPresent = true;
+    public float healthTickRate = 1f;
+    public float damageNoAir = 1f;
+    public bool oxygenPresent = true;
 
     void Start()
     {
         oxygenLvl = maxO;
+
+        //Finds the health bar if it's not been assigned so it actuallly works
+        if (healthBar == null) {
+            healthBar = FindFirstObjectByType<HealthBar>();
+        }
+        
     }
 
     //Checks if player has collided with object (player has left ship)
@@ -52,6 +62,11 @@ public class OxygenTrigger : MonoBehaviour
             yield return new WaitForSeconds(breatheTickRate);
             Breathe(1);
         }
+
+        while(oxygenPresent == false && oxygenLvl == 0){
+            yield return new WaitForSeconds(healthTickRate);
+            healthBar.TakeDamage(damageNoAir);
+        }
     }
 
     void OxygenDepletion(float amount) {
@@ -71,7 +86,13 @@ public class OxygenTrigger : MonoBehaviour
             oxygenLvl = maxO;
         }
         oxygenSlider.value = oxygenLvl;
+
+        if(healthBar.health != maxO){
+            healthBar.regenHP(1f);
+        }
     }
+
+    
 
     public void getOxygen(float oxygenTank){
         oxygenLvl += oxygenTank;

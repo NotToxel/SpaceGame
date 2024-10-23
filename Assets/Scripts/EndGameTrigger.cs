@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EndGameTrigger : MonoBehaviour
 {
@@ -11,8 +12,10 @@ public class EndGameTrigger : MonoBehaviour
             EndGame();
         }
     }
-
+    //loads credits scene upon trigger
     private void EndGame() {
-        Debug.Log("Game Over!");
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        SceneManager.LoadSceneAsync(2);
     }
 }
