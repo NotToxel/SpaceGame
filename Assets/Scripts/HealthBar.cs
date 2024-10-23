@@ -15,6 +15,8 @@ public class HealthBar : MonoBehaviour
     private float combatTimer = 5f;
     private float combatCD = 5f;
     private bool isInCombat = false;
+    public float regenCooldown = 1f; // Regenerate health every 1 second
+    private float regenTimer = 0f;   // Internal timer for regen
 
     // Start is called before the first frame update
     void Start() {
@@ -36,14 +38,18 @@ public class HealthBar : MonoBehaviour
         // Exit combat state if Player has not taken any damage in 10s
         if (isInCombat == true) {
             combatTimer -= Time.deltaTime;
-            if(combatTimer <= 0) {
+            if (combatTimer <= 0) {
                 ExitCombat();
             }
         }
 
         // Regenerate Health while Player is out of Combat
         if (isInCombat == false) {
-            regenHP(naturalRegenRate);
+            regenTimer -= Time.deltaTime;
+            if (regenTimer <= 0f) {
+                regenHP(naturalRegenRate);
+                regenTimer = regenCooldown; // Reset the regen timer
+            }
         }
     }
 
