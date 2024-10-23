@@ -10,7 +10,7 @@ public class HealthBar : MonoBehaviour
     public Slider easeHealthSlider;
     public float maxHP = 100f;
     public float health;
-    public float naturalRegenRate = 5f;
+    public float naturalRegenRate = 1f;
     private float lerpSpeed = 0.025f;
     private float combatTimer = 5f;
     private float combatCD = 5f;
