@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     private bool crouching = false;
     private InputManager inputManager;
     private Transform cameraTransform;
+    private HealthBar healthBar;
 
     private void Start()
     {
@@ -56,8 +57,30 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Uncrouched"); //TESTING
             crouching = false;
         }
+
+        healthBar = FindFirstObjectByType<HealthBar>();
+        if (healthBar == null)
+        {
+            Debug.LogError("HealthBar component not found on the player!");
+        }
+        
     
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Enemy")
+        {
+            other.gameObject.SetActive(false);
+
+            // Call TakeDamage from HealthBar when player collides with enemy
+            if (healthBar != null)
+            {
+                healthBar.TakeDamage(70);  // Deal damage
+                healthBar.EnterCombat();
+            }
+        }
     }
 }

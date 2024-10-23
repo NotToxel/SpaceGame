@@ -19,7 +19,7 @@ public class OxygenTrigger : MonoBehaviour
     public float maxO = 100f;
     public float oxygenLvl;
     public float healthLvl;
-    public float oxygenTickRate = 1f;
+    public float oxygenTickRate = 5f;
     public float breatheTickRate = 1f;
     public float healthTickRate = 1f;
     public float damageNoAir = 1f;
@@ -31,7 +31,7 @@ public class OxygenTrigger : MonoBehaviour
 
         //Finds the health bar if it's not been assigned so it actuallly works
         if (healthBar == null) {
-            healthBar = FindObjectOfType<HealthBar>();
+            healthBar = FindFirstObjectByType<HealthBar>();
         }
         
     }
@@ -88,6 +88,8 @@ public class OxygenTrigger : MonoBehaviour
             healthBar.regenHP(1f);
         }
     }
+
+    
 
     public void getOxygen(float oxygenTank){
         oxygenLvl += oxygenTank;
