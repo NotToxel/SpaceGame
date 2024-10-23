@@ -7,7 +7,7 @@ public class HealthBar : MonoBehaviour
 {
     public OxygenTrigger oxygenTrigger;
     public Slider healthSlider;
-    public Slider easeHealthSlider;
+    //public Slider easeHealthSlider;
     public float maxHP = 100f;
     public float health;
     public float naturalRegenRate = 1f;
@@ -30,10 +30,10 @@ public class HealthBar : MonoBehaviour
             healthSlider.value = health;
         }
 
-        // Update Ease Health Slider
+        /*// Update Ease Health Slider
         if(healthSlider.value != easeHealthSlider.value) {
             easeHealthSlider.value = Mathf.Lerp(easeHealthSlider.value, health, lerpSpeed);
-        }
+        }*/
 
         // Exit combat state if Player has not taken any damage in 10s
         if (isInCombat == true) {
