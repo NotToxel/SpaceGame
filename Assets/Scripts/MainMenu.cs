@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+	//starts the game and locks cursor to the game
 	public void Playgame()
 	{
 		Cursor.visible = false;
@@ -12,6 +13,8 @@ public class MainMenu : MonoBehaviour
 		SceneManager.LoadSceneAsync(1);
 
 	}
+
+	// quits out of the application
 	public void QuitGame(){
 		Application.Quit();
 	}
