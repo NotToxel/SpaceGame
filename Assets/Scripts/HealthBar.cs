@@ -13,7 +13,7 @@ public class HealthBar : MonoBehaviour
 {
     public OxygenTrigger oxygenTrigger;
     public Slider healthSlider;
-    //public Slider easeHealthSlider;
+    public Slider easeHealthSlider;
     public float maxHP = 100f;
     public float health;
     public float naturalRegenRate = 5f;

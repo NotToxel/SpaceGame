@@ -13,233 +13,263 @@ using System.Collections;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
-    // --- Player movement settings --- 
-    [Header("Player Movement")]
+    // Player movement settings
     [SerializeField] private float playerSpeed = 5.0f; // Defaul walking speed
+    [SerializeField] private float currentSpeed; // Current movement speed (varies based on crouching, walking or running)
     [SerializeField] private float jumpHeight = 1.0f; // Height the player can jump
     [SerializeField] private float gravityValue = -9.81f; // Gravity applied to the player
     [SerializeField] private float normalHeight, crouchHeight; // Character heights for standing and crouching
-    [SerializeField] private float crouchingSpeed = 2.0f; // Speed while crouching
+    [SerializeField] private float playerCrouchingSpeed = 2.0f; // Speed while crouching
 
-    private float currentSpeed; // Current movement speed (varies based on crouching, walking or running)
-    private bool groundedPlayer; // Tracks if the player is grounded
-    private bool isCrouching = false; // Tracks if the player is currently crouching
-    private Vector3 playerVelocity; // Tracks the player's vertical velocity
-
-
-    // --- Interaction Settings ---
-    [Header("Item Interaction")]
-    [SerializeField] private float pickupRange = 2.5f; // Range within which objects can be picked up
-    [SerializeField] private Transform holdPoint; // Position where held objects are placed
-    [SerializeField] private float throwForce = 10f; // Force applied when throwing an object
-    [SerializeField] private float puzzle1Range = 5f; // Interaction range for Puzzle1 objects
-
-    private GameObject heldObject; // Currently held objects
-    private int currentColorIndex = 0;
-    private Color[] colors = { Color.red, Color.green, Color.blue, Color.yellow, Color.magenta };
-
-
-    // --- Combat Settings ---
-    [Header("Combat")]
-    [SerializeField] private float attackDistance = 3f;
-    [SerializeField] private float attackDelay = 0.4f;
-    [SerializeField] private float attackSpeed = 1f;
-    [SerializeField] private int attackDamage = 1;
-    [SerializeField] private LayerMask attackLayer;
-
-    private bool attacking = false;
-    private bool readyToAttack = true;
-    private int attackCount;
-
-
-    // --- Components and References ---
+    // References to components and game objects
     private CharacterController controller; // CharacterController component for movement
+    private Vector3 playerVelocity; // Tracks the player's vertical velocity
+    private bool groundedPlayer; // Tracks if the player is grounded
+    private bool crouching = false; // Tracks if the player is currently crouching
     private InputManager inputManager; // Input manager to handle player input
     private Transform cameraTransform; // Reference to the main camera's transform
     private HealthBar healthBar; // Reference to the player's health bar
+
+    // Object interaction settings
+    public float pickupRange = 2.5f; // Range within which objects can be picked up
+    public Transform holdPoint; // Position where held objects are placed
+    private GameObject heldObject; // Currently held objects
+    public float throwForce = 10f; // Force applied when throwing an object
     private Collider playerCollider; // Collider for the player (used to disable collision with held objects)
-    private Coroutine crouchCoroutine; // Coroutine for smooth crouching transitions
+
+    // Attacking behaviour
+    [Header("Attacking")]
+    public float attackDistance = 3f;
+    public float attackDelay = 0.4f;
+    public float attackSpeed = 1f;
+    public int attackDamage = 1;
+    public LayerMask attackLayer;
+    private bool attacking = false;
+    private bool readyToAttack = true;
+    int attackCount;
+
+    // Coroutine for smooth crouching transitions
+    private Coroutine crouchTransitionCoroutine;
 
     private void Start()
     {
-        //Initialize references
+        //Initialize variables and get references
+        currentSpeed = playerSpeed; // Set initial speed
         controller = GetComponent<CharacterController>();
+        normalHeight = controller.height; // Store the default character height
         inputManager = InputManager.Instance; // Get the input manager instance
         cameraTransform = Camera.main.transform; // Get the main camera's transform
         playerCollider = GameObject.FindWithTag("Player").GetComponent<Collider>(); // Get the player's collider
-
-        currentSpeed = playerSpeed; // Set initial speed
-        normalHeight = controller.height; // Store the default character height
     }
 
     void Update()
     {
-        HandleMovement();
-        HandleInteraction();
-        HandleCombat();
-        ApplyGravity();
-    }
-
-    #region Movement
-    private void HandleMovement()
-    {
-        // Ground check
+        // Check if the player is grounded and reset vertical velocity if true
         groundedPlayer = controller.isGrounded;
         if (groundedPlayer && playerVelocity.y < 0)
+        {
             playerVelocity.y = 0f;
+        }
 
-        // Movement input
-        Vector2 movementInput = inputManager.GetPlayerMovement();
-        Vector3 move = new Vector3(movementInput.x, 0f, movementInput.y);
-        move = cameraTransform.forward * move.z + cameraTransform.right * move.x;
-        controller.Move(move * Time.deltaTime * currentSpeed);
+        // Handle player movement input
+        Vector2 movement = inputManager.GetPlayerMovement();
+        Vector3 move = new Vector3(movement.x, 0f, movement.y);
+        move = cameraTransform.forward * move.z + cameraTransform.right * move.x; // Align movement with camera direction
+        controller.Move(move * Time.deltaTime * currentSpeed); // Apply movement with the current speed
 
-        // Jumping
+        // Handle jumping
         if (inputManager.PlayerJumpedThisFrame() && groundedPlayer)
-            playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+        {
+            playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue); // Calculate jump velocity
+        }
 
-        // Crouching
-        if (inputManager.PlayerCrouchedThisFrame() != 0.0 && !isCrouching)
-            ToggleCrouch(true);
-        else if (inputManager.PlayerCrouchedThisFrame() == 0.0 && isCrouching)
-            ToggleCrouch(false);
+        // Handle crouching
+        if(inputManager.PlayerCrouchedThisFrame() != 0.0 && crouching == false)
+        {
+            StartCrouching(); // Begin crouching
+        }
+
+        // Handle standing up from crouch
+        if(inputManager.PlayerCrouchedThisFrame() == 0.0 && crouching == true)
+        {
+            StopCrouching(); // End crouching
+        }
+
+        // Handle item pickup
+        if (inputManager.PlayerPickedItemUp())
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, pickupRange)) 
+            {
+                if (hit.collider.CompareTag("Pickup") || hit.collider.CompareTag("Sword") ) // Check if the object is tagges as "Pickup"
+                {
+                    PickupObject(hit.collider.gameObject); // Pick up the object
+                }
+            }
+        }
+
+        // Handle item drop
+        if (inputManager.PlayerDroppedItem())
+        {
+            DropObject(); // Drop the held object
+        }
+
+        // Handle light attack
+        if (inputManager.PlayerLightAttack())
+        {
+            LightAttack();
+        }
+
+        // Find the health bar component if it's not already asigned
+        healthBar = FindFirstObjectByType<HealthBar>();
+        if (healthBar == null)
+        {
+            Debug.LogError("HealthBar component not found on the player!");
+        }
+        
+        // Apply gravity
+        playerVelocity.y += gravityValue * Time.deltaTime;
+        controller.Move(playerVelocity * Time.deltaTime);
     }
 
-    private void ToggleCrouch(bool crouch)
+    // Handle collisions with enemy
+    void OnTriggerEnter(Collider other)
     {
-        if (crouchCoroutine != null)
-            StopCoroutine(crouchCoroutine);
+        if (other.gameObject.tag == "Enemy")
+        {
+            other.gameObject.SetActive(false);
 
-        float targetHeight = crouch ? crouchHeight : normalHeight;
-        float targetSpeed = crouch ? crouchingSpeed : playerSpeed;
-
-        crouchCoroutine = StartCoroutine(CrouchTransition(targetHeight, targetSpeed));
-        isCrouching = crouch;
+            // Call TakeDamage from HealthBar when player collides with enemy
+            if (healthBar != null)
+            {
+                healthBar.TakeDamage(70);  // Deal damage
+                healthBar.EnterCombat();
+            }
+        }
     }
 
+    // Pick up an object
+    public void PickupObject (GameObject obj) {
+        heldObject = obj;
+        Rigidbody objRb = obj.GetComponent<Rigidbody>();
+        if (objRb != null) 
+        { 
+            objRb.isKinematic = true; // Make the object non-physical
+        }
+
+        // Disable collision between player and held object
+        Collider objCollider = obj.GetComponent<Collider>();
+        if (objCollider != null && playerCollider != null) 
+        {
+            Physics.IgnoreCollision(playerCollider, objCollider, true);
+        }
+
+        obj.transform.position = holdPoint.position; // Place the objact at the hold point
+        obj.transform.parent = holdPoint; // Make the object a child of the hold point
+    }
+
+    // Drop the held object
+    public void DropObject() {
+        Rigidbody objRb = heldObject.GetComponent<Rigidbody>();
+
+        if (objRb != null) 
+        { 
+            objRb.isKinematic = false; // Re-enable physics
+        }
+
+        // Re-enable collision between player and held object
+        Collider objCollider = heldObject.GetComponent<Collider>();
+        if (objCollider != null && playerCollider != null) 
+        {
+            Physics.IgnoreCollision(playerCollider, objCollider, false);
+        }
+
+        heldObject.transform.parent = null; // Detach the object from the player
+        heldObject = null; // Clear the reference
+    }
+
+    // Start crouching
+    private void StartCrouching()
+    {
+        if (crouchTransitionCoroutine != null)
+        {
+            StopCoroutine(crouchTransitionCoroutine); // Stop any ongoing crouch transition
+        }
+
+        crouchTransitionCoroutine = StartCoroutine(CrouchTransition(crouchHeight, playerCrouchingSpeed));
+        crouching = true; // Set crouching state
+    }
+
+    // Stop crouching
+    private void StopCrouching()
+    {
+        if (crouchTransitionCoroutine != null)
+        {
+            StopCoroutine(crouchTransitionCoroutine); // Stop any ongoing crouch transition
+        }
+
+        crouchTransitionCoroutine = StartCoroutine(CrouchTransition(normalHeight, playerSpeed));
+        crouching = false; // Set standing state
+    }
+
+    // Smoothly transition between crouching and standing
     private IEnumerator CrouchTransition(float targetHeight, float targetSpeed)
     {
-        float initialHeight = controller.height;
-        float initialSpeed = currentSpeed;
+        float initialHeight = controller.height; // Initial character height
+        float initialSpeed = currentSpeed; // Initial seed
         float elapsedTime = 0f;
-        float duration = 0.3f;
+        float duration = 0.3f; // Duration of the transition
 
         while (elapsedTime < duration)
         {
             elapsedTime += Time.deltaTime;
-            controller.height = Mathf.Lerp(initialHeight, targetHeight, elapsedTime / duration);
-            currentSpeed = Mathf.Lerp(initialSpeed, targetSpeed, elapsedTime / duration);
+            controller.height = Mathf.Lerp(initialHeight, targetHeight, elapsedTime / duration); // Smoothly change height
+            currentSpeed = Mathf.Lerp(initialSpeed, targetSpeed, elapsedTime / duration); // Smoothly change speed
             yield return null;
         }
 
+        // Ensure the final values are set after the transition
         controller.height = targetHeight;
         currentSpeed = targetSpeed;
     }
-    #endregion
 
-
-    #region Interaction
-    private void HandleInteraction()
+    private void LightAttack()
     {
-        if (inputManager.PlayerPickedItemUp())
-            TryPickUpObject();
+        if (!readyToAttack || attacking) return;
 
-        if (inputManager.PlayerDroppedItem())
-            DropObject();
-
-        if (inputManager.PlayerInteract())
-            InteractWithObject();
-    }
-
-    private void TryPickUpObject()
-    {
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, pickupRange))
-        {
-            if (hit.collider.CompareTag("Pickup") || hit.collider.CompareTag("Sword"))
-                PickupObject(hit.collider.gameObject);
-        }
-    }
-
-    private void PickupObject(GameObject obj)
-    {
-        Rigidbody rb = obj.GetComponent<Rigidbody>();
-        if (rb != null) rb.isKinematic = true;
-
-        Collider objCollider = obj.GetComponent<Collider>();
-        if (objCollider != null && playerCollider != null)
-            Physics.IgnoreCollision(playerCollider, objCollider, true);
-
-        obj.transform.SetParent(holdPoint);
-        obj.transform.localPosition = Vector3.zero;
-        if (obj.CompareTag("Sword"))
-            obj.transform.localRotation = Quaternion.identity;
-
-        heldObject = obj;
-    }
-
-    private void DropObject()
-    {
-        if (heldObject == null) return;
-
-        Rigidbody rb = heldObject.GetComponent<Rigidbody>();
-        if (rb != null) rb.isKinematic = false;
-
-        Collider objCollider = heldObject.GetComponent<Collider>();
-        if (objCollider != null && playerCollider != null)
-            Physics.IgnoreCollision(playerCollider, objCollider, false);
-
-        heldObject.transform.parent = null;
-        heldObject = null;
-    }
-
-    private void InteractWithObject()
-    {
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, puzzle1Range))
-        {
-            if (hit.collider.CompareTag("Puzzle1"))
-                CycleObjectColor(hit.collider.gameObject);
-        }
-    }
-
-    private void CycleObjectColor(GameObject obj)
-    {
-        Renderer renderer = obj.GetComponent<Renderer>();
-        if (renderer != null)
-        {
-            currentColorIndex = (currentColorIndex + 1) % colors.Length;
-            renderer.material.color = colors[currentColorIndex];
-        }
-    }
-    #endregion
-
-
-    #region Combat
-    private void HandleCombat()
-    {
-        if (inputManager.PlayerLightAttack() && readyToAttack)
-            PerformLightAttack();
-    }
-
-    private void PerformLightAttack()
-    {
         readyToAttack = false;
-        Debug.Log("Performing light attack");
-        StartCoroutine(AttackCooldown());
+        attacking = true; 
+
+        Invoke(nameof(ResetAttack), attackSpeed);
+        Invoke(nameof(PerformAttack), attackDelay);
+
     }
 
-    private IEnumerator AttackCooldown()
+    private void PerformAttack()
     {
-        yield return new WaitForSeconds(attackSpeed);
+        // Detect enemies within range
+        Ray ray = new Ray(cameraTransform.position, cameraTransform.forward); // Ray in the camera's forward direction
+        if (Physics.Raycast(ray, out RaycastHit hit, attackDistance, attackLayer))
+        {
+            // Debug.Log($"Hit: {hit.collider.name}");
+
+            // Deal damage if it's an enemy
+            // EnemyHealth enemyHealth = hit.collider.GetComponent<EnemyHealth>();
+            // if (enemyHealth != null)
+            // {
+            //     enemyHealth.TakeDamage(attackDamage); // Assume the enemy has a TakeDamage method
+            //     // Debug.Log($"Dealt {attackDamage} damage to {hit.collider.name}");
+            // }
+        }
+
+        // Optional: Add visual or sound effects here
+    }
+
+    void ResetAttack()
+    {
+        attacking = false;
         readyToAttack = true;
     }
-    #endregion
 
-
-    #region Utility
-    private void ApplyGravity()
-    {
-        playerVelocity.y += gravityValue * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);
-    }
-    #endregion
 }
