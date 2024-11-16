@@ -14,12 +14,12 @@ using System.Collections;
 public class PlayerController : MonoBehaviour
 {
     // Player movement settings
-    [SerializeField] private float playerSpeed = 2.0f; // Defaul walking speed
+    [SerializeField] private float playerSpeed = 5.0f; // Defaul walking speed
     [SerializeField] private float currentSpeed; // Current movement speed (varies based on crouching, walking or running)
-    [SerializeField] private float jumpHeight = 1.0f; // Height the plaeyr can jump
+    [SerializeField] private float jumpHeight = 1.0f; // Height the player can jump
     [SerializeField] private float gravityValue = -9.81f; // Gravity applied to the player
     [SerializeField] private float normalHeight, crouchHeight; // Character heights for standing and crouching
-    [SerializeField] private float playerCrouchingSpeed = 1.0f; // Speed while crouching
+    [SerializeField] private float playerCrouchingSpeed = 2.0f; // Speed while crouching
 
     // References to components and game objects
     private CharacterController controller; // CharacterController component for movement
@@ -36,6 +36,17 @@ public class PlayerController : MonoBehaviour
     private GameObject heldObject; // Currently held objects
     public float throwForce = 10f; // Force applied when throwing an object
     private Collider playerCollider; // Collider for the player (used to disable collision with held objects)
+
+    // Attacking behaviour
+    [Header("Attacking")]
+    public float attackDistance = 3f;
+    public float attackDelay = 0.4f;
+    public float attackSpeed = 1f;
+    public int attackDamage = 1;
+    public LayerMask attackLayer;
+    private bool attacking = false;
+    private bool readyToAttack = true;
+    int attackCount;
 
     // Coroutine for smooth crouching transitions
     private Coroutine crouchTransitionCoroutine;
@@ -91,7 +102,7 @@ public class PlayerController : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, pickupRange)) 
             {
-                if (hit.collider.CompareTag("Pickup")) // Check if the object is tagges as "Pickup"
+                if (hit.collider.CompareTag("Pickup") || hit.collider.CompareTag("Sword") ) // Check if the object is tagges as "Pickup"
                 {
                     PickupObject(hit.collider.gameObject); // Pick up the object
                 }
@@ -102,6 +113,12 @@ public class PlayerController : MonoBehaviour
         if (inputManager.PlayerDroppedItem())
         {
             DropObject(); // Drop the held object
+        }
+
+        // Handle light attack
+        if (inputManager.PlayerLightAttack())
+        {
+            LightAttack();
         }
 
         // Find the health bar component if it's not already asigned
@@ -216,4 +233,43 @@ public class PlayerController : MonoBehaviour
         controller.height = targetHeight;
         currentSpeed = targetSpeed;
     }
+
+    private void LightAttack()
+    {
+        if (!readyToAttack || attacking) return;
+
+        readyToAttack = false;
+        attacking = true; 
+
+        Invoke(nameof(ResetAttack), attackSpeed);
+        Invoke(nameof(PerformAttack), attackDelay);
+
+    }
+
+    private void PerformAttack()
+    {
+        // Detect enemies within range
+        Ray ray = new Ray(cameraTransform.position, cameraTransform.forward); // Ray in the camera's forward direction
+        if (Physics.Raycast(ray, out RaycastHit hit, attackDistance, attackLayer))
+        {
+            // Debug.Log($"Hit: {hit.collider.name}");
+
+            // Deal damage if it's an enemy
+            // EnemyHealth enemyHealth = hit.collider.GetComponent<EnemyHealth>();
+            // if (enemyHealth != null)
+            // {
+            //     enemyHealth.TakeDamage(attackDamage); // Assume the enemy has a TakeDamage method
+            //     // Debug.Log($"Dealt {attackDamage} damage to {hit.collider.name}");
+            // }
+        }
+
+        // Optional: Add visual or sound effects here
+    }
+
+    void ResetAttack()
+    {
+        attacking = false;
+        readyToAttack = true;
+    }
+
 }

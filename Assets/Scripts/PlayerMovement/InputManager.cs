@@ -63,4 +63,12 @@ public class InputManager : MonoBehaviour
     public bool PlayerDroppedItem(){
         return playerControls.Player.DropObject.triggered;
     }
+
+    public bool PlayerLightAttack(){
+        return playerControls.Player.LightAttack.triggered;
+    }
+    
+    public bool PlayerHeavyAttack(){
+        return playerControls.Player.HeavyAttack.triggered;
+    }
 }
