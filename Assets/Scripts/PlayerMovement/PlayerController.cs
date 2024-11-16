@@ -2,12 +2,13 @@
 //https://youtu.be/5n_hmqHdijM?si=5ii-oBqL-S9Pn-7_
 
 using UnityEngine;
+using System.Collections;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float playerSpeed = 2.0f;
-    [SerializeField] private float currentSpeed = 2.0f;
+    [SerializeField] private float currentSpeed;
     [SerializeField] private float jumpHeight = 1.0f;
     [SerializeField] private float gravityValue = -9.81f;
     [SerializeField] private float normalHeight, crouchHeight;
@@ -26,8 +27,11 @@ public class PlayerController : MonoBehaviour
     public float throwForce = 10f;
     private Collider playerCollider;
 
+    private Coroutine crouchTransitionCoroutine;
+
     private void Start()
     {
+        currentSpeed = playerSpeed;
         controller = GetComponent<CharacterController>();
         normalHeight = controller.height;
         inputManager = InputManager.Instance;
@@ -55,15 +59,11 @@ public class PlayerController : MonoBehaviour
         }
 
         if(inputManager.PlayerCrouchedThisFrame() != 0.0 && crouching == false){
-            controller.height = crouchHeight;
-            currentSpeed = playerCrouchingSpeed; // Switch to crouch speed
-            crouching = true;
+            StartCrouching();
         }
 
         if(inputManager.PlayerCrouchedThisFrame() == 0.0 && crouching == true){
-            controller.height = normalHeight;
-            currentSpeed = playerSpeed; // Switch to normal speed
-            crouching = false;
+            StopCrouching();
         }
 
         if (inputManager.PlayerPickedItemUp())
@@ -138,5 +138,43 @@ public class PlayerController : MonoBehaviour
 
         heldObject.transform.parent = null;
         heldObject = null;
+    }
+
+    private void StartCrouching()
+    {
+        if (crouchTransitionCoroutine != null)
+            StopCoroutine(crouchTransitionCoroutine);
+
+        crouchTransitionCoroutine = StartCoroutine(CrouchTransition(crouchHeight, playerCrouchingSpeed));
+        crouching = true;
+    }
+
+    private void StopCrouching()
+    {
+        if (crouchTransitionCoroutine != null)
+            StopCoroutine(crouchTransitionCoroutine);
+
+        crouchTransitionCoroutine = StartCoroutine(CrouchTransition(normalHeight, playerSpeed));
+        crouching = false;
+    }
+
+    private IEnumerator CrouchTransition(float targetHeight, float targetSpeed)
+    {
+        float initialHeight = controller.height;
+        float initialSpeed = currentSpeed;
+        float elapsedTime = 0f;
+        float duration = 0.3f; // Adjust for desired smoothness
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            controller.height = Mathf.Lerp(initialHeight, targetHeight, elapsedTime / duration);
+            currentSpeed = Mathf.Lerp(initialSpeed, targetSpeed, elapsedTime / duration);
+            yield return null;
+        }
+
+        // Ensure final values are set
+        controller.height = targetHeight;
+        currentSpeed = targetSpeed;
     }
 }
