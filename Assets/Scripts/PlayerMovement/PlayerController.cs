@@ -19,12 +19,19 @@ public class PlayerController : MonoBehaviour
     private Transform cameraTransform;
     private HealthBar healthBar;
 
+    public float pickupRange = 2.5f;
+    public Transform holdPoint;
+    private GameObject heldObject;
+    public float throwForce = 10f;
+    private Collider playerCollider;
+
     private void Start()
     {
         controller = GetComponent<CharacterController>();
         normalHeight = controller.height;
         inputManager = InputManager.Instance;
         cameraTransform = Camera.main.transform;
+        playerCollider = GameObject.FindWithTag("Player").GetComponent<Collider>();
     }
 
     void Update()
@@ -58,6 +65,22 @@ public class PlayerController : MonoBehaviour
             crouching = false;
         }
 
+        if (inputManager.PlayerPickedItemUp())
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, pickupRange)) {
+                if (hit.collider.CompareTag("Pickup")) {// Targeted object must have Pickup tag
+                    PickupObject(hit.collider.gameObject);
+                }
+            }
+        }
+
+        if (inputManager.PlayerDroppedItem())
+        {
+            DropObject();
+        }
+
         healthBar = FindFirstObjectByType<HealthBar>();
         if (healthBar == null)
         {
@@ -82,5 +105,37 @@ public class PlayerController : MonoBehaviour
                 healthBar.EnterCombat();
             }
         }
+    }
+
+    public void PickupObject (GameObject obj) {
+        heldObject = obj;
+        Rigidbody objRb = obj.GetComponent<Rigidbody>();
+        if (objRb != null) { objRb.isKinematic = true; }
+
+        // Disable collision between player and held object
+        Collider objCollider = obj.GetComponent<Collider>();
+        if (objCollider != null && playerCollider != null) {
+            Physics.IgnoreCollision(playerCollider, objCollider, true);
+        }
+
+        obj.transform.position = holdPoint.position;
+        obj.transform.parent = holdPoint;
+    }
+
+    public void DropObject() {
+        Rigidbody objRb = heldObject.GetComponent<Rigidbody>();
+
+        if (objRb != null) { 
+            objRb.isKinematic = false; 
+        }
+
+        // Re-enable collision between player and held object
+        Collider objCollider = heldObject.GetComponent<Collider>();
+        if (objCollider != null && playerCollider != null) {
+            Physics.IgnoreCollision(playerCollider, objCollider, false);
+        }
+
+        heldObject.transform.parent = null;
+        heldObject = null;
     }
 }
