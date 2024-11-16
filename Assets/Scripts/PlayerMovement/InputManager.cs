@@ -55,4 +55,20 @@ public class InputManager : MonoBehaviour
     public float PlayerCrouchedThisFrame(){
         return playerControls.Player.Crouch.ReadValue<float>();
     }
+    
+    public bool PlayerPickedItemUp(){
+        return playerControls.Player.PickUpObject.triggered;
+    }
+
+    public bool PlayerDroppedItem(){
+        return playerControls.Player.DropObject.triggered;
+    }
+
+    public bool PlayerLightAttack(){
+        return playerControls.Player.LightAttack.triggered;
+    }
+    
+    public bool PlayerHeavyAttack(){
+        return playerControls.Player.HeavyAttack.triggered;
+    }
 }
