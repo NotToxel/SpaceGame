@@ -7,6 +7,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float playerSpeed = 2.0f;
+    [SerializeField] private float currentSpeed = 2.0f;
     [SerializeField] private float jumpHeight = 1.0f;
     [SerializeField] private float gravityValue = -9.81f;
     [SerializeField] private float normalHeight, crouchHeight;
@@ -45,7 +46,8 @@ public class PlayerController : MonoBehaviour
         Vector2 movement = inputManager.GetPlayerMovement();
         Vector3 move = new Vector3(movement.x, 0f, movement.y);
         move = cameraTransform.forward * move.z + cameraTransform.right * move.x;
-        controller.Move(move * Time.deltaTime * playerSpeed);
+        
+        controller.Move(move * Time.deltaTime * currentSpeed);
 
         if (inputManager.PlayerJumpedThisFrame() && groundedPlayer)
         {
@@ -54,14 +56,13 @@ public class PlayerController : MonoBehaviour
 
         if(inputManager.PlayerCrouchedThisFrame() != 0.0 && crouching == false){
             controller.height = crouchHeight;
-            controller.Move(move * Time.deltaTime * playerCrouchingSpeed);
-            Debug.Log("Crouched"); //TESTING
+            currentSpeed = playerCrouchingSpeed; // Switch to crouch speed
             crouching = true;
         }
 
         if(inputManager.PlayerCrouchedThisFrame() == 0.0 && crouching == true){
             controller.height = normalHeight;
-            Debug.Log("Uncrouched"); //TESTING
+            currentSpeed = playerSpeed; // Switch to normal speed
             crouching = false;
         }
 
