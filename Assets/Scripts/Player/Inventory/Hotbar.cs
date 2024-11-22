@@ -36,10 +36,10 @@ public class Hotbar : MonoBehaviour
                 // Find and set the image to the item's sprite
                 Image image = itemSlotRectTransform.Find("image").GetComponent<Image>();
                 Sprite itemSprite = item.GetSprite();
-                //image.sprite = itemSprite;
+                image.sprite = itemSprite;
                 x++;
             } 
-            else { Debug.Log("Hotbar is full!"); }
+            else { Debug.Log("Hotbar is full!"); break; }
         }
     }
 }
