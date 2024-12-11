@@ -24,7 +24,9 @@ public class PlayerController : MonoBehaviour
     private float currentSpeed; // Current movement speed (varies based on crouching, walking or running)
     private bool groundedPlayer; // Tracks if the player is grounded
     private bool isCrouching = false; // Tracks if the player is currently crouching
+    private bool isRunning = false;
     private Vector3 playerVelocity; // Tracks the player's vertical velocity
+    private Quaternion currentRotation;
 
 
     // --- Interaction Settings ---
@@ -49,8 +51,12 @@ public class PlayerController : MonoBehaviour
 
     private bool attacking = false;
     private bool readyToAttack = true;
+    private bool holdingWeapon = false;
     private int attackCount;
 
+    // --- Animation Settings ---
+    [Header("Animation")]
+    public Animator animator;
 
     // --- Components and References ---
     private CharacterController controller; // CharacterController component for movement
@@ -67,6 +73,7 @@ public class PlayerController : MonoBehaviour
         inputManager = InputManager.Instance; // Get the input manager instance
         cameraTransform = Camera.main.transform; // Get the main camera's transform
         playerCollider = GameObject.FindWithTag("Player").GetComponent<Collider>(); // Get the player's collider
+        // animator = GetComponent<Animator>(); // Get the player's animator
 
         currentSpeed = playerSpeed; // Set initial speed
         normalHeight = controller.height; // Store the default character height
@@ -93,6 +100,9 @@ public class PlayerController : MonoBehaviour
         Vector3 move = new Vector3(movementInput.x, 0f, movementInput.y);
         move = cameraTransform.forward * move.z + cameraTransform.right * move.x;
         controller.Move(move * Time.deltaTime * currentSpeed);
+        
+        Turn(move);
+        AnimateRun(move);
 
         // Jumping
         if (inputManager.PlayerJumpedThisFrame() && groundedPlayer)
@@ -103,6 +113,34 @@ public class PlayerController : MonoBehaviour
             ToggleCrouch(true);
         else if (inputManager.PlayerCrouchedThisFrame() == 0.0 && isCrouching)
             ToggleCrouch(false);
+    }
+
+    void AnimateRun(Vector3 direction)
+    {
+        isRunning = (direction.x > 0.1f || direction.x < -0.1f) || (direction.z > 0.1f || direction.z < -0.1f) ? true : false;
+        animator.SetBool("isRunning", isRunning);
+    }
+
+    void Turn(Vector3 direction) 
+    {
+        // Project the movement direction onto the XZ plane to ignore vertical movement
+        Vector3 horizontalDirection = new Vector3(direction.x, 0, direction.z);
+
+        // Check if the player is moving significantly in the horizontal plane
+        if (horizontalDirection.sqrMagnitude > 0.01f) // Adjust the threshold as needed
+        {
+            currentRotation = Quaternion.LookRotation(horizontalDirection);
+            transform.rotation = currentRotation;
+        }
+        // if ((direction.x > 0.1f || direction.x < -0.1f) || (direction.z > 0.1f || direction.z < -0.1f)) 
+        // {
+        //     currentRotation = Quaternion.LookRotation(direction);
+        //     transform.rotation = currentRotation;
+        // }
+        // else
+        // {
+        //     transform.rotation = currentRotation;
+        // }
     }
 
     private void ToggleCrouch(bool crouch)
@@ -155,8 +193,10 @@ public class PlayerController : MonoBehaviour
     {
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, pickupRange))
         {
-            if (hit.collider.CompareTag("Pickup") || hit.collider.CompareTag("Sword"))
-                PickupObject(hit.collider.gameObject);
+            if (hit.collider.CompareTag("Pickup") || hit.collider.CompareTag("Sword")){
+                PickupObject(hit.collider.gameObject);   
+                holdingWeapon = true;
+            }
         }
     }
 
@@ -190,6 +230,7 @@ public class PlayerController : MonoBehaviour
 
         heldObject.transform.parent = null;
         heldObject = null;
+        holdingWeapon = false;
     }
 
     private void InteractWithObject()
@@ -224,6 +265,7 @@ public class PlayerController : MonoBehaviour
     {
         readyToAttack = false;
         Debug.Log("Performing light attack");
+        animator.SetTrigger("isLightAttack");
         StartCoroutine(AttackCooldown());
     }
 
