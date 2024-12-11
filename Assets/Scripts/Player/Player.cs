@@ -14,10 +14,17 @@ public class PlayerStartup : MonoBehaviour
         inventory = new Inventory();
         hotbar.SetInventory(inventory);
 
-        Debug.Log("Spawning!");
         ItemWorld.SpawnItemWorld(new Vector3(-7, 1, 2), new Item { itemType = Item.ItemType.Sword, amount = 1 });
-        Debug.Log("Sword spawned!");
         ItemWorld.SpawnItemWorld(new Vector3(-7, 1, 1), new Item { itemType = Item.ItemType.Wrench, amount = 1 });
-        Debug.Log("Wrench spawned!");
+        ItemWorld.SpawnItemWorld(new Vector3(-7, 1, 3), new Item { itemType = Item.ItemType.Sword, amount = 1 });
+        ItemWorld.SpawnItemWorld(new Vector3(-7, 1, 4), new Item { itemType = Item.ItemType.Wrench, amount = 1 });
     }
+
+    private void OnTriggerEnter(Collider collider) {
+    ItemWorld itemWorld = collider.GetComponent<ItemWorld>();
+    if (itemWorld != null) {
+        inventory.AddItem(itemWorld.GetItem());
+        Destroy(itemWorld.gameObject);
+    }
+}
 }

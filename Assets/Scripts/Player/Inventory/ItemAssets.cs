@@ -17,12 +17,12 @@ public class ItemAssets : MonoBehaviour
     // === Sprites === //
     // Add more sprites here
     // Make sure to add them in the enum class in Item.cs
+    // Uses: Displaying items in the UI
     public Sprite swordSprite;
     public Sprite wrenchSprite;
 
     // === Prefabs === //
     // Add more prefabs here
-    public Transform pfItemWorld;
     public GameObject swordPrefab;
     public GameObject wrenchPrefab;
 }

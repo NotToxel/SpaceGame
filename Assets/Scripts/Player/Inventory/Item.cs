@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class Item
 {
     public enum ItemType {
@@ -25,6 +27,16 @@ public class Item
         default:
         case ItemType.Sword: return ItemAssets.Instance.swordPrefab;
         case ItemType.Wrench: return ItemAssets.Instance.wrenchPrefab;
+        }
+    }
+
+    public bool IsStackable() {
+        switch (itemType) {
+        default:
+        case ItemType.Sword:
+            return true;
+        case ItemType.Wrench:
+            return false;
         }
     }
 }

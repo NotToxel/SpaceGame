@@ -8,18 +8,28 @@ public class ItemWorld : MonoBehaviour
         GameObject prefab = Instantiate(item.GetPrefab(), position, Quaternion.identity);
 
         ItemWorld itemWorld = prefab.GetComponent<ItemWorld>();
+        //Debug.Log(itemWorld);
+        itemWorld.SetItem(item);
 
         return itemWorld;
     }   
-    private Item item;
-    private GameObject prefabRenderer;
+    Item item;
+    GameObject prefabRenderer;
 
     private void Awake() {
-        prefabRenderer = GetComponent<GameObject>();
+        //prefabRenderer = GetComponent<GameObject>();
     }
 
     public void SetItem(Item item) {
         this.item = item;
-        prefabRenderer = item.GetPrefab();
+        //prefabRenderer = item.GetPrefab();
+    }
+
+    public Item GetItem() {
+        return item;
+    }
+
+    public void DestroySelf() {
+        Destroy(gameObject);
     }
 }

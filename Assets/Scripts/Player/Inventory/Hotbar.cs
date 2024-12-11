@@ -1,3 +1,4 @@
+using TMPro;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,16 +12,21 @@ public class Hotbar : MonoBehaviour
 
     public void SetInventory(Inventory inventory) {
         this.inventory = inventory;
+        inventory.OnItemListChanged += Inventory_OnItemListChanged;
+        RefreshInventoryItems();
+    }
+
+    private void Inventory_OnItemListChanged(object sender, System.EventArgs e) {
         RefreshInventoryItems();
     }
 
     private void RefreshInventoryItems() {
         // Clear existing slots
-        /*foreach (Transform child in itemSlotContainer) {
+        foreach (Transform child in itemSlotContainer) {
             if (child != itemSlotTemplate) { 
                 Destroy(child.gameObject);
             }
-        }*/
+        }
 
         List<Item> itemList = inventory.GetItemList();
         int x = 0;
@@ -37,6 +43,16 @@ public class Hotbar : MonoBehaviour
                 Image image = itemSlotRectTransform.Find("image").GetComponent<Image>();
                 Sprite itemSprite = item.GetSprite();
                 image.sprite = itemSprite;
+
+                // Set the amount text
+                TextMeshProUGUI text = itemSlotRectTransform.Find("amount").GetComponent<TextMeshProUGUI>();
+                if (item.amount > 1) {
+                    text.SetText(item.amount.ToString());
+                }
+                else {
+                    text.SetText("");
+                }
+
                 x++;
             } 
             else { Debug.Log("Hotbar is full!"); break; }
