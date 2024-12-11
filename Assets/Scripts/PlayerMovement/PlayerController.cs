@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
     [Header("Combat")]
     [SerializeField] private float attackDistance = 3f;
     [SerializeField] private float attackDelay = 0.4f;
-    [SerializeField] private float attackSpeed = 1f;
+    [SerializeField] private float attackSpeed = 0.1f;
     [SerializeField] private int attackDamage = 1;
     [SerializeField] private LayerMask attackLayer;
 
@@ -57,21 +57,23 @@ public class PlayerController : MonoBehaviour
     // --- Animation Settings ---
     [Header("Animation")]
     public Animator animator;
+    [SerializeField] private float animationFinishTime = 0.9f;
 
     // --- Components and References ---
     private CharacterController controller; // CharacterController component for movement
     private InputManager inputManager; // Input manager to handle player input
-    private Transform cameraTransform; // Reference to the main camera's transform
+    public Transform cameraTransform; // Reference to the main camera's transform
     private HealthBar healthBar; // Reference to the player's health bar
     private Collider playerCollider; // Collider for the player (used to disable collision with held objects)
     private Coroutine crouchCoroutine; // Coroutine for smooth crouching transitions
+    public GameObject holdingMelee; // Stores Melee player is currently holding
 
     private void Start()
     {
         //Initialize references
         controller = GetComponent<CharacterController>();
         inputManager = InputManager.Instance; // Get the input manager instance
-        cameraTransform = Camera.main.transform; // Get the main camera's transform
+        // cameraTransform = Camera.main.transform; // Get the main camera's transform
         playerCollider = GameObject.FindWithTag("Player").GetComponent<Collider>(); // Get the player's collider
         // animator = GetComponent<Animator>(); // Get the player's animator
 
@@ -84,6 +86,12 @@ public class PlayerController : MonoBehaviour
         HandleMovement();
         HandleInteraction();
         HandleCombat();
+
+        if (attacking && animator.GetCurrentAnimatorStateInfo(1).normalizedTime >= animationFinishTime)
+        {
+            attacking = false;
+        }
+
         ApplyGravity();
     }
 
@@ -100,8 +108,8 @@ public class PlayerController : MonoBehaviour
         Vector3 move = new Vector3(movementInput.x, 0f, movementInput.y);
         move = cameraTransform.forward * move.z + cameraTransform.right * move.x;
         controller.Move(move * Time.deltaTime * currentSpeed);
-        
-        Turn(move);
+
+        // Turn(move);
         AnimateRun(move);
 
         // Jumping
@@ -121,27 +129,6 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("isRunning", isRunning);
     }
 
-    void Turn(Vector3 direction) 
-    {
-        // Project the movement direction onto the XZ plane to ignore vertical movement
-        Vector3 horizontalDirection = new Vector3(direction.x, 0, direction.z);
-
-        // Check if the player is moving significantly in the horizontal plane
-        if (horizontalDirection.sqrMagnitude > 0.01f) // Adjust the threshold as needed
-        {
-            currentRotation = Quaternion.LookRotation(horizontalDirection);
-            transform.rotation = currentRotation;
-        }
-        // if ((direction.x > 0.1f || direction.x < -0.1f) || (direction.z > 0.1f || direction.z < -0.1f)) 
-        // {
-        //     currentRotation = Quaternion.LookRotation(direction);
-        //     transform.rotation = currentRotation;
-        // }
-        // else
-        // {
-        //     transform.rotation = currentRotation;
-        // }
-    }
 
     private void ToggleCrouch(bool crouch)
     {
@@ -183,7 +170,7 @@ public class PlayerController : MonoBehaviour
             TryPickUpObject();
 
         if (inputManager.PlayerDroppedItem())
-            DropObject();
+            DropMelee(); // Implement tryDropItem which identifies what kind of item player is holding.
 
         if (inputManager.PlayerInteract())
             InteractWithObject();
@@ -193,31 +180,39 @@ public class PlayerController : MonoBehaviour
     {
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, pickupRange))
         {
-            if (hit.collider.CompareTag("Pickup") || hit.collider.CompareTag("Sword")){
-                PickupObject(hit.collider.gameObject);   
+            // if (hit.collider.CompareTag("Pickup")){
+            //     PickupObject(hit.collider.gameObject); 
+            // }
+
+            if (hit.collider.CompareTag("Knife")) 
+            {
+                PickUpMelee(hit.collider.gameObject);
                 holdingWeapon = true;
+                animator.SetBool("isHoldingMelee", true);
             }
         }
     }
 
-    private void PickupObject(GameObject obj)
+    private void PickUpMelee(GameObject melee)
     {
-        Rigidbody rb = obj.GetComponent<Rigidbody>();
+        Rigidbody rb = melee.GetComponent<Rigidbody>();
         if (rb != null) rb.isKinematic = true;
 
-        Collider objCollider = obj.GetComponent<Collider>();
-        if (objCollider != null && playerCollider != null)
-            Physics.IgnoreCollision(playerCollider, objCollider, true);
+        Collider meleeCollider = melee.GetComponent<Collider>();
+        if (meleeCollider != null && playerCollider != null)
+            Physics.IgnoreCollision(playerCollider, meleeCollider, true);
 
-        obj.transform.SetParent(holdPoint);
-        obj.transform.localPosition = Vector3.zero;
-        if (obj.CompareTag("Sword"))
-            obj.transform.localRotation = Quaternion.identity;
+        melee.transform.SetParent(holdPoint);
+        melee.transform.localPosition = Vector3.zero;
+        
+        melee.transform.localRotation = Quaternion.identity;
 
-        heldObject = obj;
+        heldObject = melee;
+        melee.SetActive(false);
+        holdingMelee.SetActive(true);
     }
 
-    private void DropObject()
+    private void DropMelee()
     {
         if (heldObject == null) return;
 
@@ -228,10 +223,51 @@ public class PlayerController : MonoBehaviour
         if (objCollider != null && playerCollider != null)
             Physics.IgnoreCollision(playerCollider, objCollider, false);
 
+        heldObject.SetActive(true);
+        holdingMelee.SetActive(false);
+
         heldObject.transform.parent = null;
         heldObject = null;
-        holdingWeapon = false;
+
+        animator.SetBool("isHoldingMelee", false);
     }
+
+    // private void PickupObject(GameObject obj)
+    // {
+    //     Rigidbody rb = obj.GetComponent<Rigidbody>();
+    //     if (rb != null) rb.isKinematic = true;
+
+    //     Collider objCollider = obj.GetComponent<Collider>();
+    //     if (objCollider != null && playerCollider != null)
+    //         Physics.IgnoreCollision(playerCollider, objCollider, true);
+
+    //     obj.transform.SetParent(holdPoint);
+    //     obj.transform.localPosition = Vector3.zero;
+    //     if (obj.CompareTag("Knife"))
+    //         obj.transform.localRotation = Quaternion.identity;
+
+    //     heldObject = obj;
+    //     obj.SetActive(false);
+    // }
+
+    // private void DropObject()
+    // {
+    //     if (heldObject == null) return;
+
+    //     Rigidbody rb = heldObject.GetComponent<Rigidbody>();
+    //     if (rb != null) rb.isKinematic = false;
+
+    //     Collider objCollider = heldObject.GetComponent<Collider>();
+    //     if (objCollider != null && playerCollider != null)
+    //         Physics.IgnoreCollision(playerCollider, objCollider, false);
+
+    //     heldObject.SetActive(true);
+    //     holdingKnife.SetActive(false);
+    //     heldObject.transform.parent = null;
+    //     heldObject = null;
+    //     holdingWeapon = false;
+    //     animator.SetBool("isHoldingWeapon", false);
+    // }
 
     private void InteractWithObject()
     {
@@ -257,15 +293,16 @@ public class PlayerController : MonoBehaviour
     #region Combat
     private void HandleCombat()
     {
-        if (inputManager.PlayerLightAttack() && readyToAttack)
+        if (inputManager.PlayerLightAttack() && readyToAttack && holdingWeapon)
             PerformLightAttack();
     }
 
     private void PerformLightAttack()
     {
         readyToAttack = false;
+        attacking = true;
         Debug.Log("Performing light attack");
-        animator.SetTrigger("isLightAttack");
+        animator.SetTrigger("lightAttack");
         StartCoroutine(AttackCooldown());
     }
 
