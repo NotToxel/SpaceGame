@@ -149,9 +149,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b51c3bd2d367cf4abc0c5e2a3061f97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pfItemWorld: {fileID: 8253497469337694696, guid: c8a964fdd1a6e524d8553715765395db, type: 3}
   swordSprite: {fileID: 21300000, guid: e6607a0146138324898ed749a14a297b, type: 3}
   wrenchSprite: {fileID: 21300000, guid: 78cc2177fd0633c40afcb54d7ec16e45, type: 3}
+  pfItemWorld: {fileID: 0}
+  swordPrefab: {fileID: 5358284645937625845, guid: c8a964fdd1a6e524d8553715765395db, type: 3}
+  wrenchPrefab: {fileID: 4789193436595985444, guid: cfc6d873daf9ceb4aa52ba3392ab3421, type: 3}
 --- !u!4 &5333413
 Transform:
   m_ObjectHideFlags: 0
