@@ -14,5 +14,7 @@ public class PlayerStartup : MonoBehaviour
     {
         inventory = new Inventory();
         hotbar.SetInventory(inventory);
+
+        ItemWorld.SpawnItemWorld(new Vector3(-7, 1, 1), new Item { itemType = Item.ItemType.Sword, amount = 1 });
     }
 }
