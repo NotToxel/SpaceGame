@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4228103476437081193}
   - component: {fileID: 4632237636145618902}
   m_Layer: 0
-  m_Name: pfWrench
+  m_Name: wrenchPrefab
   m_TagString: Pickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

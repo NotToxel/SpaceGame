@@ -9,12 +9,15 @@ public class PlayerStartup : MonoBehaviour
     // === Instantiate Objects === //
     private Inventory inventory;
 
-
     void Awake()
     {
         inventory = new Inventory();
         hotbar.SetInventory(inventory);
 
-        ItemWorld.SpawnItemWorld(new Vector3(-7, 1, 1), new Item { itemType = Item.ItemType.Sword, amount = 1 });
+        Debug.Log("Spawning!");
+        ItemWorld.SpawnItemWorld(new Vector3(-7, 1, 2), new Item { itemType = Item.ItemType.Sword, amount = 1 });
+        Debug.Log("Sword spawned!");
+        ItemWorld.SpawnItemWorld(new Vector3(-7, 1, 1), new Item { itemType = Item.ItemType.Wrench, amount = 1 });
+        Debug.Log("Wrench spawned!");
     }
 }

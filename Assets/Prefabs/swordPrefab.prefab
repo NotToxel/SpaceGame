@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6303455836109685000}
   - component: {fileID: 3160607020507769317}
   m_Layer: 0
-  m_Name: pfSword
+  m_Name: swordPrefab
   m_TagString: Sword
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

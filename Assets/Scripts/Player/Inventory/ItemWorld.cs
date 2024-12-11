@@ -5,22 +5,21 @@ using UnityEngine;
 public class ItemWorld : MonoBehaviour
 {
     public static ItemWorld SpawnItemWorld(Vector3 position, Item item) {
-        Transform transform = Instantiate(ItemAssets.Instance.pfItemWorld, position, Quaternion.identity);
+        GameObject prefab = Instantiate(item.GetPrefab(), position, Quaternion.identity);
 
-        ItemWorld itemWorld = transform.GetComponent<ItemWorld>();
-        itemWorld.SetItem(item);
+        ItemWorld itemWorld = prefab.GetComponent<ItemWorld>();
 
         return itemWorld;
     }   
     private Item item;
-    private SpriteRenderer spriteRenderer;
+    private GameObject prefabRenderer;
 
     private void Awake() {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        prefabRenderer = GetComponent<GameObject>();
     }
 
     public void SetItem(Item item) {
         this.item = item;
-        spriteRenderer.sprite = item.GetSprite();
+        prefabRenderer = item.GetPrefab();
     }
 }

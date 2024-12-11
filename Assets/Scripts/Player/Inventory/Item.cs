@@ -19,4 +19,12 @@ public class Item
         case ItemType.Wrench: return ItemAssets.Instance.wrenchSprite;
         }
     }
+
+    public GameObject GetPrefab() {
+        switch (itemType) {
+        default:
+        case ItemType.Sword: return ItemAssets.Instance.swordPrefab;
+        case ItemType.Wrench: return ItemAssets.Instance.wrenchPrefab;
+        }
+    }
 }
