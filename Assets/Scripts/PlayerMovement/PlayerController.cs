@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     private bool groundedPlayer; // Tracks if the player is grounded
     private bool isCrouching = false; // Tracks if the player is currently crouching
     private bool isRunning = false;
+    private bool readyToJump = true;
     private Vector3 playerVelocity; // Tracks the player's vertical velocity
     private Quaternion currentRotation;
 
@@ -114,13 +115,23 @@ public class PlayerController : MonoBehaviour
 
         // Jumping
         if (inputManager.PlayerJumpedThisFrame() && groundedPlayer)
+        {
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+            groundedPlayer = false;
+            animator.SetTrigger("isJumping");
+            StartCoroutine(InitialiseJump());
+        }
 
         // Crouching
         if (inputManager.PlayerCrouchedThisFrame() != 0.0 && !isCrouching)
             ToggleCrouch(true);
         else if (inputManager.PlayerCrouchedThisFrame() == 0.0 && isCrouching)
             ToggleCrouch(false);
+    }
+
+    private IEnumerator InitialiseJump(){
+        yield return new WaitForSeconds(0.1f);
+        groundedPlayer = true;
     }
 
     void AnimateRun(Vector3 direction)
@@ -301,7 +312,6 @@ public class PlayerController : MonoBehaviour
     {
         readyToAttack = false;
         attacking = true;
-        Debug.Log("Performing light attack");
         animator.SetTrigger("lightAttack");
         StartCoroutine(AttackCooldown());
     }
