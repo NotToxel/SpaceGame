@@ -116,6 +116,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Book"",
+                    ""type"": ""Button"",
+                    ""id"": ""f620c756-3098-4375-b8be-590bcfe61941"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -272,6 +281,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""871fb830-0af2-4416-aefe-ee4e6519f8ca"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Book"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -318,6 +338,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_LightAttack = m_Player.FindAction("LightAttack", throwIfNotFound: true);
         m_Player_HeavyAttack = m_Player.FindAction("HeavyAttack", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+        m_Player_Book = m_Player.FindAction("Book", throwIfNotFound: true);
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
         m_Menu_Escape = m_Menu.FindAction("Escape", throwIfNotFound: true);
@@ -392,6 +413,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_LightAttack;
     private readonly InputAction m_Player_HeavyAttack;
     private readonly InputAction m_Player_Interact;
+    private readonly InputAction m_Player_Book;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -406,6 +428,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @LightAttack => m_Wrapper.m_Player_LightAttack;
         public InputAction @HeavyAttack => m_Wrapper.m_Player_HeavyAttack;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
+        public InputAction @Book => m_Wrapper.m_Player_Book;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -445,6 +468,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @Book.started += instance.OnBook;
+            @Book.performed += instance.OnBook;
+            @Book.canceled += instance.OnBook;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -479,6 +505,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @Book.started -= instance.OnBook;
+            @Book.performed -= instance.OnBook;
+            @Book.canceled -= instance.OnBook;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -554,6 +583,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnLightAttack(InputAction.CallbackContext context);
         void OnHeavyAttack(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnBook(InputAction.CallbackContext context);
     }
     public interface IMenuActions
     {

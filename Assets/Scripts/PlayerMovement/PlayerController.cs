@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform holdPoint; // Position where held objects are placed
     [SerializeField] private float throwForce = 10f; // Force applied when throwing an object
     [SerializeField] private float puzzle1Range = 5f; // Interaction range for Puzzle1 objects
+    private bool isBookOpen = false;
 
     private GameObject heldObject; // Currently held objects
     private int currentColorIndex = 0;
@@ -68,15 +69,14 @@ public class PlayerController : MonoBehaviour
     private Collider playerCollider; // Collider for the player (used to disable collision with held objects)
     private Coroutine crouchCoroutine; // Coroutine for smooth crouching transitions
     public GameObject holdingMelee; // Stores Melee player is currently holding
+    public GameObject enemyBook;
 
     private void Start()
     {
         //Initialize references
         controller = GetComponent<CharacterController>();
         inputManager = InputManager.Instance; // Get the input manager instance
-        // cameraTransform = Camera.main.transform; // Get the main camera's transform
         playerCollider = GameObject.FindWithTag("Player").GetComponent<Collider>(); // Get the player's collider
-        // animator = GetComponent<Animator>(); // Get the player's animator
 
         currentSpeed = playerSpeed; // Set initial speed
         normalHeight = controller.height; // Store the default character height
@@ -185,6 +185,27 @@ public class PlayerController : MonoBehaviour
 
         if (inputManager.PlayerInteract())
             InteractWithObject();
+
+        if (inputManager.PlayerUsedBook())
+            InteractWithBook();
+    }
+
+    private void InteractWithBook()
+    {
+        if (isBookOpen)
+        {
+            enemyBook.SetActive(false);
+            isBookOpen = false;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else
+        {
+            enemyBook.SetActive(true);
+            isBookOpen = true;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
     }
 
     private void TryPickUpObject()
