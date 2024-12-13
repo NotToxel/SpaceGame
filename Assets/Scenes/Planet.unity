@@ -4240,110 +4240,72 @@ MonoBehaviour:
     Find
     light in the beautiful sea, I choose to be happy
 
-    You and I, you and I,
-    we''re like diamonds in the sky
+    You and I, you and I, we''re
+    like diamonds in the sky
+
+    You''re a shooting star I see, a vision of ecstasy
+
+    When
+    you hold me, I''m alive, we''re like diamonds in the sky
+
+    I knew that we''d
+    become one right away
+
+    Oh, right away
+
+    At first sight I felt the energy
+    of sun rays
+
+    I saw the life inside your eyes
+
+    So shine bright, tonight,
+    you and I
+
+    We''re beautiful like diamonds in the sky
+
+    Eye to eye, so
+    alive
+
+    We''re beautiful like diamonds in the sky
+
+    Shine bright like a
+    diamond (whoa)
+
+    Shine bright like a diamond (whoa)
+
+    Shining bright like
+    a diamond
+
+    We''re beautiful like diamonds in the sky
+
+    Shine bright like
+    a diamond (whoa)
+
+    Shine bright like a diamond (whoa)
+
+    Shining bright
+    like a diamond
+
+    We''re beautiful like diamonds in the sky
+
+    Palms rise
+    to the universe as we moonshine and molly
+
+    Feel the warmth, we''ll never
+    die, we''re like diamonds in the sky
 
     You''re a shooting star I see, a vision
     of ecstasy
 
     When you hold me, I''m alive, we''re like diamonds in the sky
 
-    I
-    knew that we''d become one right away
-
-    Oh, right away
-
-    At first sight
-    I felt the energy of sun rays
+    At
+    first sight I felt the energy of sun rays
 
     I saw the life inside your eyes
 
     So
     shine bright, tonight, you and I
-
-    We''re beautiful like diamonds in the
-    sky
-
-    Eye to eye, so alive
-
-    We''re beautiful like diamonds in the sky
-
-    Shine
-    bright like a diamond (whoa)
-
-    Shine bright like a diamond (whoa)
-
-    Shining
-    bright like a diamond
-
-    We''re beautiful like diamonds in the sky
-
-    Shine
-    bright like a diamond (whoa)
-
-    Shine bright like a diamond (whoa)
-
-    Shining
-    bright like a diamond
-
-    We''re beautiful like diamonds in the sky
-
-    Palms
-    rise to the universe as we moonshine and molly
-
-    Feel the warmth, we''ll
-    never die, we''re like diamonds in the sky
-
-    You''re a shooting star I see,
-    a vision of ecstasy
-
-    When you hold me, I''m alive, we''re like diamonds
-    in the sky
-
-    At first sight I felt the energy of sun rays
-
-    I saw the
-    life inside your eyes
-
-    So shine bright, tonight, you and I
-
-    We''re
-    beautiful like diamonds in the sky
-
-    Eye to eye, so alive
-
-    We''re beautiful
-    like diamonds in the sky
-
-    Shine bright like a diamond (whoa)
-
-    Shine
-    bright like a diamond (whoa)
-
-    Shining bright like a diamond
-
-    We''re
-    beautiful like diamonds in the sky
-
-    Shine bright like a diamond (whoa)
-
-    Shine
-    bright like a diamond (whoa)
-
-    Shining bright like a diamond
-
-    We''re
-    beautiful like diamonds in the sky
-
-    Shine bright like a diamond
-
-    Shine
-    bright like a diamond
-
-    Shine bright like a diamond
-
-    So shine bright,
-    tonight, you and I
 
     We''re beautiful like diamonds in the sky
 
@@ -4352,13 +4314,50 @@ MonoBehaviour:
 
     We''re beautiful like diamonds in the sky
 
-    Shine
-    bright like a diamond (whoa)
+    Shine bright
+    like a diamond (whoa)
 
     Shine bright like a diamond (whoa)
 
-    Shine
-    bright like a diamond, oh-oh, yeah
+    Shining bright
+    like a diamond
+
+    We''re beautiful like diamonds in the sky
+
+    Shine bright
+    like a diamond (whoa)
+
+    Shine bright like a diamond (whoa)
+
+    Shining bright
+    like a diamond
+
+    We''re beautiful like diamonds in the sky
+
+    Shine bright
+    like a diamond
+
+    Shine bright like a diamond
+
+    Shine bright like a diamond
+
+    So
+    shine bright, tonight, you and I
+
+    We''re beautiful like diamonds in the sky
+
+    Eye
+    to eye, so alive
+
+    We''re beautiful like diamonds in the sky
+
+    Shine bright
+    like a diamond (whoa)
+
+    Shine bright like a diamond (whoa)
+
+    Shine bright
+    like a diamond, oh-oh, yeah
 
     Shine bright like a diamond (whoa)
 
@@ -7819,6 +7818,10 @@ PrefabInstance:
     - target: {fileID: 180032, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
       propertyPath: m_Name
       value: Book
+      objectReference: {fileID: 0}
+    - target: {fileID: 180032, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11415212, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
       propertyPath: canvas
@@ -11402,6 +11405,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &630169037 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 180032, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
+  m_PrefabInstance: {fileID: 563070194}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &630664370
 GameObject:
   m_ObjectHideFlags: 0
@@ -11747,6 +11755,8 @@ MonoBehaviour:
   animationFinishTime: 0.9
   cameraTransform: {fileID: 1759458559}
   holdingMelee: {fileID: 7590802}
+  enemyBook: {fileID: 630169037}
+  bookScript: {fileID: 1797199347}
 --- !u!1001 &752158219
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21865,7 +21875,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 11415212, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
   m_PrefabInstance: {fileID: 563070194}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 630169037}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4446b7192d8bf914ebaf797b64fe8b86, type: 3}

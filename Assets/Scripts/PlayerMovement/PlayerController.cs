@@ -70,6 +70,7 @@ public class PlayerController : MonoBehaviour
     private Coroutine crouchCoroutine; // Coroutine for smooth crouching transitions
     public GameObject holdingMelee; // Stores Melee player is currently holding
     public GameObject enemyBook;
+    public Book bookScript;
 
     private void Start()
     {
@@ -201,6 +202,8 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            // enemyBook.currentPage = 0;
+            // bookScript.currentPage = 0;
             enemyBook.SetActive(true);
             isBookOpen = true;
             Cursor.visible = true;
