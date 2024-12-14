@@ -17,15 +17,10 @@ public class HealthBar : MonoBehaviour
     public float maxHP = 100f;
     public float health;
     public float naturalRegenRate = 5f;
-    private float lerpSpeed = 0.025f;
     private float combatTimer = 5f;
     private float combatCD = 5f;
     private bool isInCombat = false;
-    public float naturalRegenRate = 1f;
     private float lerpSpeed = 0.005f;
-    private float combatTimer = 5f;
-    private float combatCD = 5f;
-    private bool isInCombat = false;
     public float regenCooldown = 1f; // Regenerate health every 1 second
     private float regenTimer = 0f;   // Internal timer for regen
 
