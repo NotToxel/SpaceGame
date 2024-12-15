@@ -1,3 +1,9 @@
+// ==============================
+//
+//  Reference: https://www.youtube.com/watch?v=3JjBJfoWDCM
+//
+// ==============================
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,14 +13,14 @@ public class HealthBar : MonoBehaviour
 {
     public OxygenTrigger oxygenTrigger;
     public Slider healthSlider;
-    //public Slider easeHealthSlider;
+    public Slider easeHealthSlider;
     public float maxHP = 100f;
     public float health;
-    public float naturalRegenRate = 1f;
-    private float lerpSpeed = 0.025f;
+    public float naturalRegenRate = 5f;
     private float combatTimer = 5f;
     private float combatCD = 5f;
     private bool isInCombat = false;
+    private float lerpSpeed = 0.005f;
     public float regenCooldown = 1f; // Regenerate health every 1 second
     private float regenTimer = 0f;   // Internal timer for regen
 
@@ -30,10 +36,10 @@ public class HealthBar : MonoBehaviour
             healthSlider.value = health;
         }
 
-        /*// Update Ease Health Slider
+        // Update Ease Health Slider
         if(healthSlider.value != easeHealthSlider.value) {
             easeHealthSlider.value = Mathf.Lerp(easeHealthSlider.value, health, lerpSpeed);
-        }*/
+        }
 
         // Exit combat state if Player has not taken any damage in 10s
         if (isInCombat == true) {
@@ -50,6 +56,12 @@ public class HealthBar : MonoBehaviour
                 regenHP(naturalRegenRate);
                 regenTimer = regenCooldown; // Reset the regen timer
             }
+        }
+
+        // Testing Purposes
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            TakeDamage(10);
         }
     }
 

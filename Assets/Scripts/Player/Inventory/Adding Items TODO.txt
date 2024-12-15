@@ -1,0 +1,11 @@
+When adding an item (that is intended to be picked up) ensure:
+
+- In Item.cs add:
+    - The item name into the enum class
+    - GetSprite() case
+    - GetPrefab() case
+    - IsStackable() case
+
+- In ItemAssets.cs add:
+    - sprite field
+    - prefab field
