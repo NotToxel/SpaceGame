@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     private float currentSpeed; // Current movement speed (varies based on crouching, walking or running)
     private bool groundedPlayer; // Tracks if the player is grounded
     private bool isCrouching = false; // Tracks if the player is currently crouching
-    private bool isRunning = false;
+    public bool isRunning = false;
     private bool readyToJump = true;
     private Vector3 playerVelocity; // Tracks the player's vertical velocity
     private Quaternion currentRotation;
@@ -130,7 +130,8 @@ public class PlayerController : MonoBehaviour
             ToggleCrouch(false);
     }
 
-    private IEnumerator InitialiseJump(){
+    private IEnumerator InitialiseJump()
+    {
         yield return new WaitForSeconds(0.1f);
         groundedPlayer = true;
     }
