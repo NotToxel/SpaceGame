@@ -9,6 +9,43 @@ public class Hotbar : MonoBehaviour
     private Inventory inventory;
     [SerializeField] private Transform itemSlotContainer;
     [SerializeField] private Transform itemSlotTemplate;
+    public int hotbarSize;
+    private int selectedSlot = 0;
+    public Color selectedSlotColor = Color.blue;
+    public Color defaultSlotColor = Color.white;
+
+    void Update() {
+        HandleScrollInput();
+        HandleNumberKeyInput();
+        RefreshInventoryItems();
+    }
+
+    #region Item Selection
+    void HandleScrollInput()
+    {
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        if (scroll > 0f) // Scroll up
+        {
+            selectedSlot = (selectedSlot + 1) % hotbarSize;
+        }
+        else if (scroll < 0f) // Scroll down
+        {
+            selectedSlot = (selectedSlot - 1 + hotbarSize) % hotbarSize;
+        }
+    }
+
+    void HandleNumberKeyInput()
+    {
+        for (int i = 0; i < hotbarSize; i++)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1 + i))
+            {
+                selectedSlot = i;
+                break;
+            }
+        }
+    }
+    #endregion
 
     public void SetInventory(Inventory inventory) {
         this.inventory = inventory;
@@ -31,9 +68,10 @@ public class Hotbar : MonoBehaviour
         List<Item> itemList = inventory.GetItemList();
         int x = 0;
         int y = 0;
+        hotbarSize = 0;
         float itemSlotCellSize = 100f;
-        foreach (Item item in itemList) {
-            if (x < 9) { // The hotbar has 9 slots
+        foreach (Item item in itemList) { // Set item indexes 0-8 as hotbar slots
+            if (x < 9) { // The hotbar has max. 9 slots
                 // Make a new instance of the item slot template
                 RectTransform itemSlotRectTransform = Instantiate(itemSlotTemplate, itemSlotContainer).GetComponent<RectTransform>();
                 itemSlotRectTransform.gameObject.SetActive(true);
@@ -53,9 +91,23 @@ public class Hotbar : MonoBehaviour
                     text.SetText("");
                 }
 
+                // Set the border color
+                Image border = itemSlotRectTransform.Find("border").GetComponent<Image>();
+                if (x == selectedSlot) {
+                    border.color = selectedSlotColor;
+                }
+                else {
+                    border.color = defaultSlotColor;
+                }
+
+                hotbarSize++;
                 x++;
             } 
             else { Debug.Log("Hotbar is full!"); break; }
         }
+    }
+
+    public bool isHoldingWeapon() {
+        return inventory.GetItem(selectedSlot).IsWeapon();
     }
 }

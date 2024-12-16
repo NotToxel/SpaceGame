@@ -60,6 +60,11 @@ public class PlayerController : MonoBehaviour
     private Collider playerCollider; // Collider for the player (used to disable collision with held objects)
     private Coroutine crouchCoroutine; // Coroutine for smooth crouching transitions
 
+
+    // --- Hotabr Instance ---
+    [Header("Hotbar")]
+    [SerializeField] private Hotbar hotbar;
+
     private void Start()
     {
         //Initialize references
@@ -216,7 +221,7 @@ public class PlayerController : MonoBehaviour
     #region Combat
     private void HandleCombat()
     {
-        if (inputManager.PlayerLightAttack() && readyToAttack)
+        if (inputManager.PlayerLightAttack() && readyToAttack && hotbar.isHoldingWeapon()) // IMPLEMENT: check selected hotbar slot is a weapon or hands
             PerformLightAttack();
     }
 

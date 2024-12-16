@@ -19380,6 +19380,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemSlotContainer: {fileID: 2017769808}
   itemSlotTemplate: {fileID: 1709121705}
+  hotbarSize: 0
 --- !u!1 &1549624853
 GameObject:
   m_ObjectHideFlags: 3
@@ -20245,7 +20246,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1709121705
 RectTransform:
   m_ObjectHideFlags: 0

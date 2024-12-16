@@ -39,4 +39,12 @@ public class Item
         case ItemType.Wrench: return false;
         }
     }
+
+    public bool IsWeapon() {
+        switch (itemType) {
+        default:
+        case ItemType.Sword: return true;
+        case ItemType.Wrench: return false;
+        }
+    }
 }
