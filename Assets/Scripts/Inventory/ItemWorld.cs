@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ItemWorld : MonoBehaviour
 {
-    public static ItemWorld SpawnItemWorld(Vector3 position, Item item) {
-        GameObject prefab = Instantiate(item.GetPrefab(), position, Quaternion.identity);
+    public static ItemWorld SpawnItemWorld(Vector3 position, Quaternion rotation, Item item) {
+        GameObject prefab = Instantiate(item.GetPrefab(), position, rotation);
 
         ItemWorld itemWorld = prefab.GetComponent<ItemWorld>();
         //Debug.Log(itemWorld);

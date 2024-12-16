@@ -15,6 +15,7 @@ public class Inventory
     }
 
     public void AddItem(Item item) {
+        Debug.Log(item.itemType);
         if (item.IsStackable()){
             bool itemAlreadyInInventory = false;
             foreach (Item inventoryItem in itemList) {
