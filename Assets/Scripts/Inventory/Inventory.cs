@@ -11,11 +11,11 @@ public class Inventory
         itemList = new List<Item>();
         
         AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
-        Debug.Log(itemList.Count);
+        //Debug.Log(itemList.Count);
     }
 
     public void AddItem(Item item) {
-        Debug.Log(item.itemType);
+        //Debug.Log(item.itemType);
         if (item.IsStackable()){
             bool itemAlreadyInInventory = false;
             foreach (Item inventoryItem in itemList) {
