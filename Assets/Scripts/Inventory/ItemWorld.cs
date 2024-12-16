@@ -22,7 +22,7 @@ public class ItemWorld : MonoBehaviour
 
     public void SetItem(Item item) {
         this.item = item;
-        //prefabRenderer = item.GetPrefab();
+        prefabRenderer = item.GetPrefab();
     }
 
     public Item GetItem() {

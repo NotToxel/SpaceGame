@@ -9,7 +9,7 @@ public class PlayerStartup : MonoBehaviour
     // === Instantiate Objects === //
     private Inventory inventory;
 
-    void Awake()
+    void Start()
     {
         inventory = new Inventory();
         hotbar.SetInventory(inventory);
@@ -21,10 +21,10 @@ public class PlayerStartup : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider collider) {
-    ItemWorld itemWorld = collider.GetComponent<ItemWorld>();
-    if (itemWorld != null) {
-        inventory.AddItem(itemWorld.GetItem());
-        Destroy(itemWorld.gameObject);
+        ItemWorld itemWorld = collider.GetComponent<ItemWorld>();
+        if (itemWorld != null) {
+            inventory.AddItem(itemWorld.GetItem());
+            Destroy(itemWorld.gameObject);
+        }
     }
-}
 }

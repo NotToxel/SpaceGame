@@ -10,8 +10,8 @@ public class Inventory
     public Inventory() {
         itemList = new List<Item>();
         
-        //AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
-        //Debug.Log(itemList.Count);
+        AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
+        Debug.Log(itemList.Count);
     }
 
     public void AddItem(Item item) {

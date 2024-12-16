@@ -7,12 +7,10 @@ public class ItemAssets : MonoBehaviour
     public static ItemAssets Instance { get; private set; } // Singleton
 
     private void Awake() {
-         if (Instance == null) {
-            Instance = this; // Assigns the current instance to the static property
-        } else {
-            Destroy(gameObject); // Ensures there’s only one instance
-        }
+        //Debug.Log("Item Assets initialising");
+        Instance = this;
     }
+    
 
     // === Sprites === //
     // Add more sprites here

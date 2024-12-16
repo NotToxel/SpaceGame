@@ -23,6 +23,8 @@ public class Item
     }
 
     public GameObject GetPrefab() {
+        //Debug.Log("ItemType: " + itemType);
+        //Debug.Log("ItemAssets.Instance: " + (ItemAssets.Instance != null));
         switch (itemType) {
         default:
         case ItemType.Sword: return ItemAssets.Instance.swordPrefab;
@@ -33,10 +35,8 @@ public class Item
     public bool IsStackable() {
         switch (itemType) {
         default:
-        case ItemType.Sword:
-            return true;
-        case ItemType.Wrench:
-            return false;
+        case ItemType.Sword: return true;
+        case ItemType.Wrench: return false;
         }
     }
 }
