@@ -71,4 +71,12 @@ public class InputManager : MonoBehaviour
     public bool PlayerHeavyAttack(){
         return playerControls.Player.HeavyAttack.triggered;
     }
+
+    public bool PlayerInteract(){
+        return playerControls.Player.Interact.triggered;
+    }
+
+    public bool PlayerUsedBook(){
+        return playerControls.Player.Book.triggered;
+    }
 }
