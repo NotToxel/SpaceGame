@@ -17,49 +17,57 @@ public class Hotbar : MonoBehaviour
 
     
     void Update() {
-        HandleScrollInput();
-        HandleNumberKeyInput();
-        DropItemKeyInput();
+        //HandleScrollInput();
+        //HandleNumberKeyInput();
+        //DropItemKeyInput();
         //ItemPickup();
     }
 
     #region Item Selection
-    void HandleScrollInput()
+    public void HandleScrollInput(float scrollValue)
     {
-        float scroll = Input.GetAxis("Mouse ScrollWheel");
-        if (scroll > 0f) // Scroll up
+        if (scrollValue > 0.0f) // Scroll up
         {
             selectedSlot = (selectedSlot + 1) % hotbarSize;
         }
-        else if (scroll < 0f) // Scroll down
+        else if (scrollValue < 0.0f) // Scroll down
         {
             selectedSlot = (selectedSlot - 1 + hotbarSize) % hotbarSize;
         }
+        RefreshInventoryItems();
     }
 
-    void HandleNumberKeyInput()
+    public void HandleNumberKeyInput(int keyPressed)
     {
+        int targetSlot = keyPressed-1;
         for (int i = 0; i < hotbarSize; i++)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1 + i))
+            if (i == targetSlot)
             {
                 selectedSlot = i;
                 break;
             }
         }
+        RefreshInventoryItems();
     }
 
-    void DropItemKeyInput() {
-        if (Input.GetKeyDown(KeyCode.Q)) {
-            List<Item> itemList = inventory.GetItemList();
-            Item item = itemList[selectedSlot];
-            inventory.RemoveItem(item);
-            ItemWorld.DropItem(player.GetComponent<Transform>(), item);
-        }
+    public void PickupItem(Collider objCollider) {
+        ItemWorld itemWorld = objCollider.GetComponent<ItemWorld>();
+        inventory.AddItem(itemWorld.GetItem());
     }
 
-    //void ItemPickup() {
-    //}
+    public void DropItem() {
+        Debug.Log("Dropping item from slot: " + (selectedSlot+1));
+        List<Item> itemList = inventory.GetItemList();
+        Item item = itemList[selectedSlot];
+        inventory.RemoveItem(item);
+        ItemWorld.DropItem(player.GetComponent<Transform>(), item);
+    }
+
+    public GameObject GetSelectedItemPrefab() {
+        List<Item> itemList = inventory.GetItemList();
+        return itemList[selectedSlot].GetPrefab();
+    }
     #endregion
 
     public void SetInventory(Inventory inventory) {

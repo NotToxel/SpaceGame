@@ -85,7 +85,6 @@ public class PlayerController : MonoBehaviour
         ItemWorld.SpawnItemWorld(new Vector3(-7, 1, 1), Quaternion.identity, new Item { itemType = Item.ItemType.Wrench, amount = 1 });
         ItemWorld.SpawnItemWorld(new Vector3(-7, 1, 3), Quaternion.identity, new Item { itemType = Item.ItemType.Sword, amount = 1 });
         ItemWorld.SpawnItemWorld(new Vector3(-7, 1, 4), Quaternion.identity, new Item { itemType = Item.ItemType.Wrench, amount = 1 });
-
     }
 
     void Update()
@@ -165,6 +164,9 @@ public class PlayerController : MonoBehaviour
 
         if (inputManager.PlayerInteract())
             InteractWithObject();
+        scrollSelectHotbar(inputManager.HotbarScrollSelect());
+        numberSelectHotbar(inputManager.HotbarNumberSelect());
+        //Debug.Log(inputManager.HotbarScrollSelect());
     }
 
     private void TryPickUpObject()
@@ -190,19 +192,17 @@ public class PlayerController : MonoBehaviour
         if (obj.CompareTag("Sword"))
             obj.transform.localRotation = Quaternion.identity;
 
-        heldObject = obj;
+        heldObject = hotbar.GetSelectedItemPrefab();
 
         // Add the item to inventory
-        ItemWorld itemWorld = objCollider.GetComponent<ItemWorld>();
-        inventory.AddItem(itemWorld.GetItem());
-        //Destroy(itemWorld.gameObject);
+        hotbar.PickupItem(objCollider);
     }
 
     private void DropObject()
     {
-        if (heldObject == null) return;
+        //if (heldObject == null) return;
 
-        Rigidbody rb = heldObject.GetComponent<Rigidbody>();
+        /*Rigidbody rb = heldObject.GetComponent<Rigidbody>();
         if (rb != null) rb.isKinematic = false;
 
         Collider objCollider = heldObject.GetComponent<Collider>();
@@ -210,7 +210,10 @@ public class PlayerController : MonoBehaviour
             Physics.IgnoreCollision(playerCollider, objCollider, false);
 
         heldObject.transform.parent = null;
-        heldObject = null;
+        heldObject = null;*/
+
+        // Remove the item from inventory
+        hotbar.DropItem();
     }
 
     private void InteractWithObject()
@@ -231,12 +234,27 @@ public class PlayerController : MonoBehaviour
             renderer.material.color = colors[currentColorIndex];
         }
     }
+
+    private void numberSelectHotbar(int keyPressed) {
+        hotbar.HandleNumberKeyInput(keyPressed);
+        UpdateHeldItem();
+    }
+
+    private void scrollSelectHotbar(float scrollValue) {
+        hotbar.HandleScrollInput(scrollValue);
+        UpdateHeldItem();
+    }
+
+    private void UpdateHeldItem() {
+        heldObject = hotbar.GetSelectedItemPrefab();
+    }
     #endregion
 
 
     #region Combat
     private void HandleCombat()
-    {
+    {   
+        //Debug.Log(hotbar.isHoldingWeapon());
         if (inputManager.PlayerLightAttack() && readyToAttack && hotbar.isHoldingWeapon())
             PerformLightAttack();
     }
