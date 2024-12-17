@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Pickup
+  - Enemy
+  - Sword
+  - Item
   layers:
   - Default
   - TransparentFX
