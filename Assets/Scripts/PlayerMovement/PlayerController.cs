@@ -61,9 +61,10 @@ public class PlayerController : MonoBehaviour
     private Coroutine crouchCoroutine; // Coroutine for smooth crouching transitions
 
 
-    // --- Hotabr Instance ---
+    // --- Inventory Instances ---
     [Header("Hotbar")]
     [SerializeField] private Hotbar hotbar;
+    private Inventory inventory;
 
     private void Start()
     {
@@ -75,6 +76,16 @@ public class PlayerController : MonoBehaviour
 
         currentSpeed = playerSpeed; // Set initial speed
         normalHeight = controller.height; // Store the default character height
+
+        inventory = new Inventory(); // New instance of Inventory
+        hotbar.SetInventory(inventory); // Setup the hotbar
+
+        // --- Testing --- //
+        ItemWorld.SpawnItemWorld(new Vector3(-7, 1, 2), Quaternion.identity, new Item { itemType = Item.ItemType.Sword, amount = 1 });
+        ItemWorld.SpawnItemWorld(new Vector3(-7, 1, 1), Quaternion.identity, new Item { itemType = Item.ItemType.Wrench, amount = 1 });
+        ItemWorld.SpawnItemWorld(new Vector3(-7, 1, 3), Quaternion.identity, new Item { itemType = Item.ItemType.Sword, amount = 1 });
+        ItemWorld.SpawnItemWorld(new Vector3(-7, 1, 4), Quaternion.identity, new Item { itemType = Item.ItemType.Wrench, amount = 1 });
+
     }
 
     void Update()
@@ -180,6 +191,12 @@ public class PlayerController : MonoBehaviour
             obj.transform.localRotation = Quaternion.identity;
 
         heldObject = obj;
+
+        // Add the item to inventory
+        ItemWorld itemWorld = objCollider.GetComponent<ItemWorld>();
+        inventory.AddItem(itemWorld.GetItem());
+        //Destroy(itemWorld.gameObject);
+
     }
 
     private void DropObject()
@@ -221,7 +238,7 @@ public class PlayerController : MonoBehaviour
     #region Combat
     private void HandleCombat()
     {
-        if (inputManager.PlayerLightAttack() && readyToAttack && hotbar.isHoldingWeapon()) // IMPLEMENT: check selected hotbar slot is a weapon or hands
+        if (inputManager.PlayerLightAttack() && readyToAttack && hotbar.isHoldingWeapon())
             PerformLightAttack();
     }
 

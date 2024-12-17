@@ -11383,6 +11383,7 @@ MonoBehaviour:
   attackLayer:
     serializedVersion: 2
     m_Bits: 0
+  hotbar: {fileID: 1473314448}
 --- !u!114 &709243146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11395,7 +11396,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23db0d2532381aa4e9b69233acdce24d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hotbar: {fileID: 1473314448}
 --- !u!1 &797809482
 GameObject:
   m_ObjectHideFlags: 1
@@ -14519,9 +14519,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3160607020507769317, guid: c8a964fdd1a6e524d8553715765395db, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5358284645937625845, guid: c8a964fdd1a6e524d8553715765395db, type: 3}
       propertyPath: m_Name
       value: sword
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303455836109685000, guid: c8a964fdd1a6e524d8553715765395db, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8253497469337694696, guid: c8a964fdd1a6e524d8553715765395db, type: 3}
       propertyPath: m_LocalPosition.x
@@ -19378,9 +19386,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b54863acf20d69748acc636d4534a65e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 709243141}
   itemSlotContainer: {fileID: 2017769808}
   itemSlotTemplate: {fileID: 1709121705}
   hotbarSize: 0
+  selectedSlotColor: {r: 0, g: 0, b: 1, a: 1}
+  defaultSlotColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1549624853
 GameObject:
   m_ObjectHideFlags: 3
@@ -20246,7 +20257,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1709121705
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23636,6 +23647,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4228103476437081193, guid: cfc6d873daf9ceb4aa52ba3392ab3421, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4632237636145618902, guid: cfc6d873daf9ceb4aa52ba3392ab3421, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4789193436595985444, guid: cfc6d873daf9ceb4aa52ba3392ab3421, type: 3}
       propertyPath: m_Name
       value: wrench
