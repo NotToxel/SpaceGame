@@ -105,14 +105,17 @@ public class PlayerController : MonoBehaviour
         if (groundedPlayer && playerVelocity.y < 0)
             playerVelocity.y = 0f;
 
+
+        if (isRunning == false && holdingWeapon) { animator.SetBool("isHoldingMelee", true); }
+        if (isRunning == true){animator.SetBool("isHoldingMelee", false); }
+        
+
         // Movement input
         Vector2 movementInput = inputManager.GetPlayerMovement();
         Vector3 move = new Vector3(movementInput.x, 0f, movementInput.y);
         move = cameraTransform.forward * move.z + cameraTransform.right * move.x;
-        controller.Move(move * Time.deltaTime * currentSpeed);
-
-        // Turn(move);
         AnimateRun(move);
+        controller.Move(move * Time.deltaTime * currentSpeed);
 
         // Jumping
         if (inputManager.PlayerJumpedThisFrame() && groundedPlayer)
@@ -205,6 +208,7 @@ public class PlayerController : MonoBehaviour
         {
             // enemyBook.currentPage = 0;
             // bookScript.currentPage = 0;
+            // enemyBook.currentPage = 0;
             enemyBook.SetActive(true);
             isBookOpen = true;
             Cursor.visible = true;
@@ -223,7 +227,6 @@ public class PlayerController : MonoBehaviour
             if (hit.collider.CompareTag("Knife")) 
             {
                 PickUpMelee(hit.collider.gameObject);
-                holdingWeapon = true;
                 animator.SetBool("isHoldingMelee", true);
             }
         }
@@ -243,6 +246,7 @@ public class PlayerController : MonoBehaviour
         
         melee.transform.localRotation = Quaternion.identity;
 
+        holdingWeapon = true;
         heldObject = melee;
         melee.SetActive(false);
         holdingMelee.SetActive(true);
@@ -265,6 +269,7 @@ public class PlayerController : MonoBehaviour
         heldObject.transform.parent = null;
         heldObject = null;
 
+        holdingWeapon = false;
         animator.SetBool("isHoldingMelee", false);
     }
 

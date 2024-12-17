@@ -20,10 +20,12 @@ public class Book : MonoBehaviour {
     RectTransform BookPanel;
     public Sprite background;
     public Sprite[] bookPages;
+    public Sprite[] discoveredPages;
     public bool interactable=true;
     public bool enableShadowEffect=true;
     //represent the index of the sprite shown in the right page
     public int currentPage = 0;
+    public int enemyDiscovered = 0;
     public int TotalPageCount
     {
         get { return bookPages.Length; }
@@ -144,7 +146,25 @@ public class Book : MonoBehaviour {
         {
             UpdateBook();
         }
+        UpdateDiscoveries();
     }
+
+    public void UpdateDiscoveries() 
+    {
+        if (enemyDiscovered == 1){
+            bookPages[1] = discoveredPages[1];
+        }
+        if (enemyDiscovered == 2){
+            bookPages[2] = discoveredPages[2];
+        }
+        if (enemyDiscovered == 3){
+            bookPages[3] = discoveredPages[3];
+        }
+        if (enemyDiscovered == 4){
+            bookPages[4] = discoveredPages[4];
+        }
+    }
+
     public void UpdateBook()
     {
         f = Vector3.Lerp(f, transformPoint(Input.mousePosition), Time.deltaTime * 10);
