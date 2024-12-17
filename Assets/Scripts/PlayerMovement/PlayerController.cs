@@ -196,7 +196,6 @@ public class PlayerController : MonoBehaviour
         ItemWorld itemWorld = objCollider.GetComponent<ItemWorld>();
         inventory.AddItem(itemWorld.GetItem());
         //Destroy(itemWorld.gameObject);
-
     }
 
     private void DropObject()
