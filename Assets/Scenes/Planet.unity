@@ -15712,9 +15712,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3323b3edc49380f47bd029ccc7355426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizontalSpeed: 10
-  verticalSpeed: 10
-  clampAngle: 80
 --- !u!1 &976374640
 GameObject:
   m_ObjectHideFlags: 0
@@ -20086,9 +20083,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4540229000190281644, guid: 8d048e3cc489c1548a16b0d8b72cac21, type: 3}
       propertyPath: m_WarningMessage
-      value: "\nBinding warning: Some generic clip(s) animate transforms that are
-        already bound by a Humanoid avatar. These transforms can only be changed
-        by Humanoid clips.\n\tTransform 'Elbow_R'\n\tFrom animation clip 'KnifeLeft'"
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
