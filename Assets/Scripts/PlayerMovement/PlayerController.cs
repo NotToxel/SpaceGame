@@ -118,7 +118,7 @@ public class PlayerController : MonoBehaviour
         controller.Move(move * Time.deltaTime * currentSpeed);
 
         // Jumping
-        if (inputManager.PlayerJumpedThisFrame() && groundedPlayer)
+        if (inputManager.PlayerJumpedThisFrame() && groundedPlayer && !isCrouching)
         {
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
             groundedPlayer = false;
