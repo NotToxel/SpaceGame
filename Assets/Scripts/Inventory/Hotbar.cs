@@ -15,17 +15,17 @@ public class Hotbar : MonoBehaviour
     public Color selectedSlotColor = Color.blue;
     public Color defaultSlotColor = Color.white;
 
-    
-    void Update() {
-        //HandleScrollInput();
-        //HandleNumberKeyInput();
-        //DropItemKeyInput();
-        //ItemPickup();
-    }
-
     #region Item Selection
     public void HandleScrollInput(float scrollValue)
     {
+        //Debug.Log("Scroll Value: " + scrollValue);
+        if (scrollValue == 0) { return; }
+
+        if (selectedSlot==-1) { 
+            selectedSlot = 0;
+            return;
+        }
+
         if (scrollValue > 0.0f) // Scroll up
         {
             selectedSlot = (selectedSlot + 1) % hotbarSize;
@@ -39,13 +39,23 @@ public class Hotbar : MonoBehaviour
 
     public void HandleNumberKeyInput(int keyPressed)
     {
+        if (keyPressed == -1) { return; }
         int targetSlot = keyPressed-1;
-        for (int i = 0; i < hotbarSize; i++)
-        {
-            if (i == targetSlot)
+        Debug.Log("Target Slot: " + targetSlot);
+
+        if (targetSlot == selectedSlot) { 
+            selectedSlot = -1;
+            Debug.Log("No slot selected");
+        }
+        else {
+            for (int i = 0; i < hotbarSize; i++)
             {
-                selectedSlot = i;
-                break;
+                if (i == targetSlot)
+                {
+                    Debug.Log("Slot " + i + " selected");
+                    selectedSlot = i;
+                    break;
+                }
             }
         }
         RefreshInventoryItems();
@@ -57,7 +67,8 @@ public class Hotbar : MonoBehaviour
     }
 
     public void DropItem() {
-        Debug.Log("Dropping item from slot: " + (selectedSlot+1));
+        if (selectedSlot==-1) { return; }
+        //Debug.Log("Dropping item from slot: " + (selectedSlot+1));
         List<Item> itemList = inventory.GetItemList();
         Item item = itemList[selectedSlot];
         inventory.RemoveItem(item);
@@ -65,6 +76,7 @@ public class Hotbar : MonoBehaviour
     }
 
     public GameObject GetSelectedItemPrefab() {
+        if (selectedSlot==-1) { return null; }
         List<Item> itemList = inventory.GetItemList();
         return itemList[selectedSlot].GetPrefab();
     }
@@ -117,6 +129,7 @@ public class Hotbar : MonoBehaviour
                 // Set the border color
                 Image border = itemSlotRectTransform.Find("border").GetComponent<Image>();
                 if (x == selectedSlot) {
+                    Debug.Log("Slot" + x + " selected");
                     border.color = selectedSlotColor;
                 }
                 else {

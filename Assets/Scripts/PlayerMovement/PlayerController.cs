@@ -93,6 +93,7 @@ public class PlayerController : MonoBehaviour
         HandleInteraction();
         HandleCombat();
         ApplyGravity();
+        HandleUI();
     }
 
     #region Movement
@@ -164,8 +165,6 @@ public class PlayerController : MonoBehaviour
 
         if (inputManager.PlayerInteract())
             InteractWithObject();
-        scrollSelectHotbar(inputManager.HotbarScrollSelect());
-        numberSelectHotbar(inputManager.HotbarNumberSelect());
         //Debug.Log(inputManager.HotbarScrollSelect());
     }
 
@@ -180,40 +179,16 @@ public class PlayerController : MonoBehaviour
 
     private void PickupObject(GameObject obj)
     {
-        Rigidbody rb = obj.GetComponent<Rigidbody>();
-        if (rb != null) rb.isKinematic = true;
-
-        Collider objCollider = obj.GetComponent<Collider>();
-        if (objCollider != null && playerCollider != null)
-            Physics.IgnoreCollision(playerCollider, objCollider, true);
-
-        obj.transform.SetParent(holdPoint);
-        obj.transform.localPosition = Vector3.zero;
-        if (obj.CompareTag("Sword"))
-            obj.transform.localRotation = Quaternion.identity;
-
-        heldObject = hotbar.GetSelectedItemPrefab();
-
         // Add the item to inventory
         hotbar.PickupItem(objCollider);
+        UpdateHeldItem();
     }
 
     private void DropObject()
     {
-        //if (heldObject == null) return;
-
-        /*Rigidbody rb = heldObject.GetComponent<Rigidbody>();
-        if (rb != null) rb.isKinematic = false;
-
-        Collider objCollider = heldObject.GetComponent<Collider>();
-        if (objCollider != null && playerCollider != null)
-            Physics.IgnoreCollision(playerCollider, objCollider, false);
-
-        heldObject.transform.parent = null;
-        heldObject = null;*/
-
         // Remove the item from inventory
         hotbar.DropItem();
+        UpdateHeldItem();
     }
 
     private void InteractWithObject()
@@ -235,18 +210,26 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void numberSelectHotbar(int keyPressed) {
-        hotbar.HandleNumberKeyInput(keyPressed);
-        UpdateHeldItem();
-    }
-
-    private void scrollSelectHotbar(float scrollValue) {
-        hotbar.HandleScrollInput(scrollValue);
-        UpdateHeldItem();
-    }
-
     private void UpdateHeldItem() {
-        heldObject = hotbar.GetSelectedItemPrefab();
+        if (heldObject != null) {
+            Destroy(heldObject);
+        }
+
+        GameObject prefab = hotbar.GetSelectedItemPrefab();
+        if (prefab == null) { return; }
+
+        heldObject = Instantiate(prefab);
+        Rigidbody rb = heldObject.GetComponent<Rigidbody>();
+        if (rb != null) rb.isKinematic = true;
+
+        Collider objCollider = heldObject.GetComponent<Collider>();
+        if (objCollider != null && playerCollider != null)
+            Physics.IgnoreCollision(playerCollider, objCollider, true);
+
+        heldObject.transform.SetParent(holdPoint);
+        heldObject.transform.localPosition = Vector3.zero;
+        if (heldObject.CompareTag("Sword"))
+            heldObject.transform.localRotation = Quaternion.identity;
     }
     #endregion
 
@@ -280,5 +263,24 @@ public class PlayerController : MonoBehaviour
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
     }
+    #endregion
+
+
+    #region UI
+    private void HandleUI() {
+        scrollSelectHotbar(inputManager.HotbarScrollSelect());
+        numberSelectHotbar(inputManager.HotbarNumberSelect());
+    }
+
+    private void numberSelectHotbar(int keyPressed) {
+        hotbar.HandleNumberKeyInput(keyPressed);
+        UpdateHeldItem();
+    }
+
+    private void scrollSelectHotbar(float scrollValue) {
+        hotbar.HandleScrollInput(scrollValue);
+        UpdateHeldItem();
+    }
+
     #endregion
 }
