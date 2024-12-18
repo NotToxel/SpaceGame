@@ -19,7 +19,7 @@ public class Hotbar : MonoBehaviour
     public void HandleScrollInput(float scrollValue)
     {
         //Debug.Log("Scroll Value: " + scrollValue);
-        if (scrollValue == 0) { return; }
+        if (scrollValue == 0) { return; } // Return if no change in scrollValue
 
         if (selectedSlot==-1) { 
             selectedSlot = 0;
@@ -39,7 +39,7 @@ public class Hotbar : MonoBehaviour
 
     public void HandleNumberKeyInput(int keyPressed)
     {
-        if (keyPressed == -1) { return; }
+        if (keyPressed == -1) { return; } // return if no key is pressed
         int targetSlot = keyPressed-1;
         Debug.Log("Target Slot: " + targetSlot);
 

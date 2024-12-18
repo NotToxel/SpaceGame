@@ -180,7 +180,7 @@ public class PlayerController : MonoBehaviour
     private void PickupObject(GameObject obj)
     {
         // Add the item to inventory
-        hotbar.PickupItem(objCollider);
+        hotbar.PickupItem(obj.GetComponent<Collider>());
         UpdateHeldItem();
     }
 
