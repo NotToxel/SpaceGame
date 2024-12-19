@@ -1,3 +1,6 @@
+// Inspired by Rehope Games on YouTube
+// https://www.youtube.com/watch?v=G-JUp8AMEx0&t=293s
+
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
