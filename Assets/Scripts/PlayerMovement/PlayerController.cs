@@ -240,7 +240,7 @@ public class PlayerController : MonoBehaviour
     private void HandleCombat()
     {   
         //Debug.Log(hotbar.isHoldingWeapon());
-        if (inputManager.PlayerLightAttack() && readyToAttack && hotbar.isHoldingWeapon())
+        if (inputManager.PlayerLightAttack() && readyToAttack && hotbar.isHoldingWeapon() && !inventoryIsOpen)
             PerformLightAttack();
     }
 

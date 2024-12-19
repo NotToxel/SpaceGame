@@ -7,12 +7,15 @@ public class Inventory
 {
     public event EventHandler OnItemListChanged;
     public static Inventory instance;
-    private static List<Item> itemList = new List<Item>(36);
+    private static int hotbarSize = 9; 
+    private static int inventoryUISize = 27;
+    private static List<Item> itemList = new List<Item>(hotbarSize+inventoryUISize);
 
     public static Inventory Instance {
         get {
             if (instance == null) {
                 instance = new Inventory();
+                Debug.Log("New inventory made containing " + (hotbarSize+inventoryUISize) + " slots");
             }
             return instance;
         }
@@ -89,4 +92,7 @@ public class Inventory
         return itemList[index];
     }
 
+    public int GetItemCount() {
+        return itemList.Count;
+    }
 }

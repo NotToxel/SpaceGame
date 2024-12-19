@@ -3,21 +3,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class Hotbar : MonoBehaviour
 {
     private Inventory inventory = Inventory.Instance;
+    private UIManager uiManager;
     [SerializeField] private GameObject player;
     [SerializeField] private Transform itemSlotContainer;
     [SerializeField] private Transform itemSlotTemplate;
+    [SerializeField] private InventoryUI inventoryUI;
     public static int hotbarSize = 9;
     private int selectedSlot = 0;
     public Color selectedSlotColor = Color.blue;
     public Color defaultSlotColor = Color.white;
+    public bool inventoryIsOpen;
+
+    void Start() {
+        uiManager = FindObjectOfType<UIManager>();
+    }
+
+    void Update() {
+        inventoryIsOpen = inventoryUI.IsOpen();
+        //Debug.Log(inventoryIsOpen);
+    }
 
     #region Item Selection
     public void HandleScrollInput(float scrollValue)
-    {
+    {  
+        if (inventoryIsOpen) { return; } // Disable when inventory is open
+
         //Debug.Log("Scroll Value: " + scrollValue);
         if (scrollValue == 0) { return; } // Return if no change in scrollValue
 
@@ -39,6 +54,8 @@ public class Hotbar : MonoBehaviour
 
     public void HandleNumberKeyInput(int keyPressed)
     {
+        if (inventoryIsOpen) { return; } // Disable when inventory is open
+
         if (keyPressed == -1) { return; } // return if no key is pressed
         int targetSlot = keyPressed-1;
         //Debug.Log("Key Pressed: " + keyPressed);
@@ -76,12 +93,13 @@ public class Hotbar : MonoBehaviour
         ItemWorld.DropItem(player.GetComponent<Transform>(), item);
 
         // Remove from hotbar
-        Transform child = itemSlotContainer.GetChild(selectedSlot);
+        /*Transform child = itemSlotContainer.GetChild(selectedSlot);
 
         if (child == itemSlotTemplate) { return; }
 
         Image image = child.Find("image").GetComponent<Image>();
-        image.enabled = false;
+        image.enabled = false;*/
+        RefreshHotbar();
     }
 
     public GameObject GetSelectedItemPrefab() {
@@ -114,7 +132,7 @@ public class Hotbar : MonoBehaviour
         }
     }
 
-    private void RefreshHotbar() {
+    public void RefreshHotbar() {
         // Clear existing slots
         foreach (Transform child in itemSlotContainer) {
             if (child != itemSlotTemplate) { 
@@ -128,6 +146,7 @@ public class Hotbar : MonoBehaviour
         hotbarSize = 0;
         float itemSlotCellSize = 100f;
         foreach (Item item in inventory.GetItemList()) { // Set item indexes 0-8 as hotbar slots
+            int currentSlotIndex = x;
             if (x < 9) { // The hotbar has max. 9 slots
                 // Make a new instance of the item slot template
                 RectTransform itemSlotRectTransform = Instantiate(itemSlotTemplate, itemSlotContainer).GetComponent<RectTransform>();
@@ -150,57 +169,53 @@ public class Hotbar : MonoBehaviour
 
                 // Set the border color
                 Image border = itemSlotRectTransform.Find("border").GetComponent<Image>();
-                if (x == selectedSlot) {
-                    //Debug.Log("Slot" + x + " selected");
-                    border.color = selectedSlotColor;
-                }
+                //Debug.Log(inventoryUI.IsOpen());
+                if (inventoryUI.IsOpen()) { border.color = defaultSlotColor; }
                 else {
-                    border.color = defaultSlotColor;
+                    if (x == selectedSlot) {
+                        //Debug.Log("Slot" + x + " selected");
+                        border.color = selectedSlotColor;
+                    }
+                    else {
+                        border.color = defaultSlotColor;
+                    }
+                }
+
+                // Add button listeners
+                Button button = itemSlotRectTransform.Find("border").GetComponent<Button>();
+                if (button != null)
+                {
+                    // Listen for left click
+                    button.onClick.AddListener(() => uiManager.SlotClicked(currentSlotIndex));
+                    
+                    // Listen for right click
+                    EventTrigger eventTrigger = button.gameObject.AddComponent<EventTrigger>();
+                    EventTrigger.Entry rightClickEntry = new EventTrigger.Entry
+                    {
+                        eventID = EventTriggerType.PointerClick
+                    };
+
+                    // Check if the right mouse button was clicked
+                    rightClickEntry.callback.AddListener((data) =>
+                    {
+                        PointerEventData pointerData = (PointerEventData)data;
+                        if (pointerData.button == PointerEventData.InputButton.Right)
+                        {
+                            uiManager.DropItem(currentSlotIndex);
+                        }
+                    });
+
+                    eventTrigger.triggers.Add(rightClickEntry);
+                }
+                else
+                {
+                    Debug.LogError("Button component not found in itemSlotTemplate.");
                 }
 
                 hotbarSize++;
                 x++;
             } 
         }
-
-        /*// Iterate through a fixed number of hotbar slots
-        for (int x = 0; x < 9; x++) { // Hotbar has a max of 9 slots
-            Item item = x < itemList.Count ? itemList[x] : null; // Check if an item exists at this index
-
-            // Create a new instance of the item slot template
-            RectTransform itemSlotRectTransform = Instantiate(itemSlotTemplate, itemSlotContainer).GetComponent<RectTransform>();
-            itemSlotRectTransform.gameObject.SetActive(true);
-            itemSlotRectTransform.anchoredPosition = new Vector2(x * itemSlotCellSize, 0); // Position only on the x-axis for the hotbar
-
-            if (item != null) {
-                // Set the image to the item's sprite
-                Image image = itemSlotRectTransform.Find("image").GetComponent<Image>();
-                Sprite itemSprite = item.GetSprite();
-                image.sprite = itemSprite;
-
-                // Set the amount text
-                TextMeshProUGUI text = itemSlotRectTransform.Find("amount").GetComponent<TextMeshProUGUI>();
-                text.SetText(item.amount > 1 ? item.amount.ToString() : "");
-
-                // Set the border color
-                Image border = itemSlotRectTransform.Find("border").GetComponent<Image>();
-                border.color = (x == selectedSlot) ? selectedSlotColor : defaultSlotColor;
-            } else {
-                // If there's no item, clear the slot
-                Image image = itemSlotRectTransform.Find("image").GetComponent<Image>();
-                image.sprite = null;
-
-                TextMeshProUGUI text = itemSlotRectTransform.Find("amount").GetComponent<TextMeshProUGUI>();
-                text.SetText("");
-
-                Image border = itemSlotRectTransform.Find("border").GetComponent<Image>();
-                border.color = defaultSlotColor;
-            }
-        }
-
-        // Update the hotbar size
-        hotbarSize = Mathf.Min(itemList.Count, 9);
-    }*/
     }
 
 
