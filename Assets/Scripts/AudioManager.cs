@@ -14,8 +14,8 @@ public class AudioManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        musicSource.clip = background;
-        musicSource.Play();
+        // musicSource.clip = background;
+        // musicSource.Play();
     }
 
     public void PlaySFX(AudioClip clip) 
