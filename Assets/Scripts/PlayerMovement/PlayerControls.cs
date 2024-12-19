@@ -206,6 +206,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Inventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""c5fb4a20-b364-4878-8f86-e64354661672"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -472,6 +481,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""ScrollSelectHotbarSlot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7c2e9723-89f2-47a2-bf19-2e61b9b5fa3d"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -528,6 +548,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_SelectHotbarSlot7 = m_Player.FindAction("SelectHotbarSlot7", throwIfNotFound: true);
         m_Player_SelectHotbarSlot8 = m_Player.FindAction("SelectHotbarSlot8", throwIfNotFound: true);
         m_Player_SelectHotbarSlot9 = m_Player.FindAction("SelectHotbarSlot9", throwIfNotFound: true);
+        m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
         m_Menu_Escape = m_Menu.FindAction("Escape", throwIfNotFound: true);
@@ -612,6 +633,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_SelectHotbarSlot7;
     private readonly InputAction m_Player_SelectHotbarSlot8;
     private readonly InputAction m_Player_SelectHotbarSlot9;
+    private readonly InputAction m_Player_Inventory;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -636,6 +658,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @SelectHotbarSlot7 => m_Wrapper.m_Player_SelectHotbarSlot7;
         public InputAction @SelectHotbarSlot8 => m_Wrapper.m_Player_SelectHotbarSlot8;
         public InputAction @SelectHotbarSlot9 => m_Wrapper.m_Player_SelectHotbarSlot9;
+        public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -705,6 +728,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @SelectHotbarSlot9.started += instance.OnSelectHotbarSlot9;
             @SelectHotbarSlot9.performed += instance.OnSelectHotbarSlot9;
             @SelectHotbarSlot9.canceled += instance.OnSelectHotbarSlot9;
+            @Inventory.started += instance.OnInventory;
+            @Inventory.performed += instance.OnInventory;
+            @Inventory.canceled += instance.OnInventory;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -769,6 +795,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @SelectHotbarSlot9.started -= instance.OnSelectHotbarSlot9;
             @SelectHotbarSlot9.performed -= instance.OnSelectHotbarSlot9;
             @SelectHotbarSlot9.canceled -= instance.OnSelectHotbarSlot9;
+            @Inventory.started -= instance.OnInventory;
+            @Inventory.performed -= instance.OnInventory;
+            @Inventory.canceled -= instance.OnInventory;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -854,6 +883,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnSelectHotbarSlot7(InputAction.CallbackContext context);
         void OnSelectHotbarSlot8(InputAction.CallbackContext context);
         void OnSelectHotbarSlot9(InputAction.CallbackContext context);
+        void OnInventory(InputAction.CallbackContext context);
     }
     public interface IMenuActions
     {

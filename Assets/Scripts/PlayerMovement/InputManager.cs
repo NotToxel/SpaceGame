@@ -10,6 +10,7 @@ public class InputManager : MonoBehaviour
 {
     private static InputManager _instance;
     public bool CrouchIsPressed = false;
+    public bool InventoryIsOpen = false;
 
     public static InputManager Instance{
         get{
@@ -32,7 +33,6 @@ public class InputManager : MonoBehaviour
     }
 
     private void OnEnable(){
-
         playerControls.Enable();
     }
 
@@ -91,5 +91,9 @@ public class InputManager : MonoBehaviour
         if (playerControls.Player.SelectHotbarSlot8.triggered) { return 8; }
         if (playerControls.Player.SelectHotbarSlot9.triggered) { return 9; }
         else { return -1; }
+    }
+
+    public bool InventoryToggle() {
+        return playerControls.Player.Inventory.triggered;
     }
 }

@@ -6,10 +6,30 @@ using UnityEngine;
 public class Inventory
 {
     public event EventHandler OnItemListChanged;
-    private List<Item> itemList = new List<Item>(9);
-    public Inventory() {
+    public static Inventory instance;
+    private static List<Item> itemList = new List<Item>(36);
+
+    public static Inventory Instance {
+        get {
+            if (instance == null) {
+                instance = new Inventory();
+            }
+            return instance;
+        }
+    }
+
+    private Inventory() {
         itemList = new List<Item>();
         
+        AddItem(new Item { itemType = Item.ItemType.Sword, amount = 1 });
+        AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
+        AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
+        AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
+        AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
+        AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
+        AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
+        AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
+        AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
         AddItem(new Item { itemType = Item.ItemType.Sword, amount = 1 });
         AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
         AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });

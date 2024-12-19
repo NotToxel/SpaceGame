@@ -64,7 +64,9 @@ public class PlayerController : MonoBehaviour
     // --- Inventory Instances ---
     [Header("Hotbar")]
     [SerializeField] private Hotbar hotbar;
+    [SerializeField] private InventoryUI inventoryUI;
     private Inventory inventory;
+    private bool inventoryIsOpen = false;
 
     private void Start()
     {
@@ -77,7 +79,7 @@ public class PlayerController : MonoBehaviour
         currentSpeed = playerSpeed; // Set initial speed
         normalHeight = controller.height; // Store the default character height
 
-        inventory = new Inventory(); // New instance of Inventory
+        inventory = Inventory.Instance; // New instance of Inventory
         hotbar.SetInventory(inventory); // Setup the hotbar
 
         // --- Testing --- //
@@ -270,6 +272,8 @@ public class PlayerController : MonoBehaviour
     private void HandleUI() {
         scrollSelectHotbar(inputManager.HotbarScrollSelect());
         numberSelectHotbar(inputManager.HotbarNumberSelect());
+        if (inputManager.InventoryToggle())
+            InventoryToggleInterface();
     }
 
     private void numberSelectHotbar(int keyPressed) {
@@ -282,5 +286,9 @@ public class PlayerController : MonoBehaviour
         UpdateHeldItem();
     }
 
+    private void InventoryToggleInterface() {
+        inventoryUI.ToggleInventory(inventoryIsOpen);
+        inventoryIsOpen = !inventoryIsOpen;
+    }
     #endregion
 }
