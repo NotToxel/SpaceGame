@@ -46,18 +46,20 @@ public class QuestBookButton : MonoBehaviour
                     int randomNum = (Random.Range(0, noQuestsText.Length));
                     questTextBox.text = noQuestsText[randomNum];
                 }
-                else
-                {
-                    StringBuilder stringBuilder = new();
-                    foreach (string quest in MainManager.mainManager.questNames)
-                    {
-                        stringBuilder.AppendLine(quest);
-                    }
-                    questTextBox.text = stringBuilder.ToString();
-                }
-
-                questTextBox.rectTransform.sizeDelta = new Vector2(questTextBox.rectTransform.sizeDelta.x, questTextBox.preferredHeight);
             }
+
+            else
+            {
+                StringBuilder stringBuilder = new();
+                foreach (string quest in MainManager.mainManager.questNames)
+                {
+                    stringBuilder.AppendLine(quest);
+                }
+                questTextBox.text = stringBuilder.ToString();
+            }
+
+            questTextBox.rectTransform.sizeDelta = new Vector2(questTextBox.rectTransform.sizeDelta.x, questTextBox.preferredHeight);
+
         }
     }
 }
