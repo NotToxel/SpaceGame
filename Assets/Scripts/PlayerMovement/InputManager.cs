@@ -95,9 +95,12 @@ public class InputManager : MonoBehaviour
 
     public bool InventoryToggle() {
         return playerControls.Player.Inventory.triggered;
+<<<<<<< HEAD
     }
     
     public bool PlayerUsedBook(){
         return playerControls.Player.Book.triggered;
+=======
+>>>>>>> parent of c0b2ed2 (Merge branch 'main' into bagrid3)
     }
 }
