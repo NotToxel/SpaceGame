@@ -237,12 +237,7 @@ public class PlayerController : MonoBehaviour
 
 
     #region Combat
-<<<<<<< HEAD
     private void HandleCombat() {
-=======
-    private void HandleCombat()
-    {   
->>>>>>> parent of c0b2ed2 (Merge branch 'main' into bagrid3)
         //Debug.Log(hotbar.isHoldingWeapon());
         if (inputManager.PlayerLightAttack() && readyToAttack && hotbar.isHoldingWeapon() && !inventoryIsOpen)
             PerformLightAttack();
