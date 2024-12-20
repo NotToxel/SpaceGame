@@ -72,6 +72,14 @@ public class PlayerController : MonoBehaviour
     public GameObject enemyBook;
     public Book bookScript;
 
+
+    // --- Inventory Instances ---
+    [Header("Hotbar")]
+    [SerializeField] private Hotbar hotbar;
+    [SerializeField] private InventoryUI inventoryUI;
+    private Inventory inventory;
+    private bool inventoryIsOpen = false;
+
     private void Start()
     {
         //Initialize references
@@ -81,6 +89,15 @@ public class PlayerController : MonoBehaviour
 
         currentSpeed = playerSpeed; // Set initial speed
         normalHeight = controller.height; // Store the default character height
+
+        inventory = Inventory.Instance; // New instance of Inventory
+        hotbar.SetInventory(inventory); // Setup the hotbar
+
+        // --- Testing --- //
+        ItemWorld.SpawnItemWorld(new Vector3(-7, 1, 2), Quaternion.identity, new Item { itemType = Item.ItemType.Sword, amount = 1 });
+        ItemWorld.SpawnItemWorld(new Vector3(-7, 1, 1), Quaternion.identity, new Item { itemType = Item.ItemType.Wrench, amount = 1 });
+        ItemWorld.SpawnItemWorld(new Vector3(-7, 1, 3), Quaternion.identity, new Item { itemType = Item.ItemType.Sword, amount = 1 });
+        ItemWorld.SpawnItemWorld(new Vector3(-7, 1, 4), Quaternion.identity, new Item { itemType = Item.ItemType.Wrench, amount = 1 });
     }
 
     void Update()
@@ -95,6 +112,7 @@ public class PlayerController : MonoBehaviour
         }
 
         ApplyGravity();
+        HandleUI();
     }
 
     #region Movement
@@ -190,6 +208,7 @@ public class PlayerController : MonoBehaviour
 
         if (inputManager.PlayerInteract())
             InteractWithObject();
+        //Debug.Log(inputManager.HotbarScrollSelect());
 
         if (inputManager.PlayerUsedBook())
             InteractWithBook();
@@ -234,6 +253,9 @@ public class PlayerController : MonoBehaviour
 
     private void PickUpMelee(GameObject melee)
     {
+        // Add the item to inventory
+        hotbar.PickupItem(obj.GetComponent<Collider>());
+        UpdateHeldItem();
         Rigidbody rb = melee.GetComponent<Rigidbody>();
         if (rb != null) rb.isKinematic = true;
 
@@ -254,6 +276,9 @@ public class PlayerController : MonoBehaviour
 
     private void DropMelee()
     {
+        // Remove the item from inventory
+        hotbar.DropItem();
+        UpdateHeldItem();
         if (heldObject == null) return;
 
         Rigidbody rb = heldObject.GetComponent<Rigidbody>();
@@ -328,13 +353,37 @@ public class PlayerController : MonoBehaviour
             renderer.material.color = colors[currentColorIndex];
         }
     }
+
+    private void UpdateHeldItem() {
+        if (heldObject != null) {
+            Destroy(heldObject);
+        }
+
+        GameObject prefab = hotbar.GetSelectedItemPrefab();
+        if (prefab == null) { return; }
+
+        heldObject = Instantiate(prefab);
+        Rigidbody rb = heldObject.GetComponent<Rigidbody>();
+        if (rb != null) rb.isKinematic = true;
+
+        Collider objCollider = heldObject.GetComponent<Collider>();
+        if (objCollider != null && playerCollider != null)
+            Physics.IgnoreCollision(playerCollider, objCollider, true);
+
+        heldObject.transform.SetParent(holdPoint);
+        heldObject.transform.localPosition = Vector3.zero;
+        if (heldObject.CompareTag("Sword"))
+            heldObject.transform.localRotation = Quaternion.identity;
+    }
     #endregion
 
 
     #region Combat
     private void HandleCombat()
-    {
-        if (inputManager.PlayerLightAttack() && readyToAttack && holdingWeapon)
+        //Debug.Log(hotbar.isHoldingWeapon());
+        if (inputManager.PlayerLightAttack() && readyToAttack && hotbar.isHoldingWeapon() && !inventoryIsOpen)
+
+
             PerformLightAttack();
     }
 
@@ -359,6 +408,31 @@ public class PlayerController : MonoBehaviour
     {
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
+    }
+    #endregion
+
+
+    #region UI
+    private void HandleUI() {
+        scrollSelectHotbar(inputManager.HotbarScrollSelect());
+        numberSelectHotbar(inputManager.HotbarNumberSelect());
+        if (inputManager.InventoryToggle())
+            InventoryToggleInterface();
+    }
+
+    private void numberSelectHotbar(int keyPressed) {
+        hotbar.HandleNumberKeyInput(keyPressed);
+        UpdateHeldItem();
+    }
+
+    private void scrollSelectHotbar(float scrollValue) {
+        hotbar.HandleScrollInput(scrollValue);
+        UpdateHeldItem();
+    }
+
+    private void InventoryToggleInterface() {
+        inventoryUI.ToggleInventory(inventoryIsOpen);
+        inventoryIsOpen = !inventoryIsOpen;
     }
     #endregion
 }

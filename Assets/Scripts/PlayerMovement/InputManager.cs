@@ -10,6 +10,7 @@ public class InputManager : MonoBehaviour
 {
     private static InputManager _instance;
     public bool CrouchIsPressed = false;
+    public bool InventoryIsOpen = false;
 
     public static InputManager Instance{
         get{
@@ -32,7 +33,6 @@ public class InputManager : MonoBehaviour
     }
 
     private void OnEnable(){
-
         playerControls.Enable();
     }
 
@@ -76,6 +76,25 @@ public class InputManager : MonoBehaviour
         return playerControls.Player.Interact.triggered;
     }
 
+    public float HotbarScrollSelect() {
+        return playerControls.Player.ScrollSelectHotbarSlot.ReadValue<float>();
+    }
+
+    public int HotbarNumberSelect() {
+        if (playerControls.Player.SelectHotbarSlot1.triggered) { return 1; }
+        if (playerControls.Player.SelectHotbarSlot2.triggered) { return 2; }
+        if (playerControls.Player.SelectHotbarSlot3.triggered) { return 3; }
+        if (playerControls.Player.SelectHotbarSlot4.triggered) { return 4; }
+        if (playerControls.Player.SelectHotbarSlot5.triggered) { return 5; }
+        if (playerControls.Player.SelectHotbarSlot6.triggered) { return 6; }
+        if (playerControls.Player.SelectHotbarSlot7.triggered) { return 7; }
+        if (playerControls.Player.SelectHotbarSlot8.triggered) { return 8; }
+        if (playerControls.Player.SelectHotbarSlot9.triggered) { return 9; }
+        else { return -1; }
+    }
+
+    public bool InventoryToggle() {
+        return playerControls.Player.Inventory.triggered;
     public bool PlayerUsedBook(){
         return playerControls.Player.Book.triggered;
     }
