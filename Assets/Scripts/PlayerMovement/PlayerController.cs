@@ -172,11 +172,15 @@ public class PlayerController : MonoBehaviour
 
     private void TryPickUpObject()
     {
+        //Debug.Log("Attempting to pickup item. Item ccount: " + inventory.GetItemCount());
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, pickupRange))
         {
-            if (hit.collider.CompareTag("Pickup") || hit.collider.CompareTag("Sword"))
+            //Debug.Log("Item Detected");
+            if (hit.collider.CompareTag("Item"))
                 PickupObject(hit.collider.gameObject);
         }
+
+        //if (inventory.GetItemCount()+1<inventory.GetMaxSize()) { Debug.Log("Inventory is too full!"); }
     }
 
     private void PickupObject(GameObject obj)

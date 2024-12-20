@@ -4241,7 +4241,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item:
     itemType: 0
-    amount: 3
+    amount: 1
 --- !u!1 &397251770
 GameObject:
   m_ObjectHideFlags: 0
@@ -14997,6 +14997,26 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b3e6f5a1ec430649a1d1097e7c2090c, type: 3}
+--- !u!1 &961513467 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4789193436595985444, guid: cfc6d873daf9ceb4aa52ba3392ab3421, type: 3}
+  m_PrefabInstance: {fileID: 1978307950}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &961513474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961513467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2552696648173834d9c33d9b533e7f96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item:
+    itemType: 1
+    amount: 1
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -19683,6 +19703,8 @@ MonoBehaviour:
   inventorySlotTemplate: {fileID: 1193716020}
   hotbarSlotTemplate: {fileID: 1709121705}
   player: {fileID: 709243141}
+  selectedSlotColor: {r: 0, g: 0, b: 1, a: 1}
+  defaultSlotColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &1313578932
 Transform:
   m_ObjectHideFlags: 0
@@ -19862,8 +19884,6 @@ MonoBehaviour:
   itemSlotContainer: {fileID: 2017769808}
   itemSlotTemplate: {fileID: 1709121705}
   inventoryUI: {fileID: 877640607}
-  selectedSlotColor: {r: 0, g: 0, b: 1, a: 1}
-  defaultSlotColor: {r: 1, g: 1, b: 1, a: 1}
   inventoryIsOpen: 0
 --- !u!1 &1549624853
 GameObject:
@@ -24322,10 +24342,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -131738675765428071, guid: cfc6d873daf9ceb4aa52ba3392ab3421, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4789193436595985444, guid: cfc6d873daf9ceb4aa52ba3392ab3421, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 961513474}
   m_SourcePrefab: {fileID: 100100000, guid: cfc6d873daf9ceb4aa52ba3392ab3421, type: 3}
 --- !u!1 &2017769807
 GameObject:
