@@ -95,5 +95,7 @@ public class InputManager : MonoBehaviour
 
     public bool InventoryToggle() {
         return playerControls.Player.Inventory.triggered;
+    public bool PlayerUsedBook(){
+        return playerControls.Player.Book.triggered;
     }
 }
