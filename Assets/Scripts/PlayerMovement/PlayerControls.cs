@@ -211,9 +211,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": ""Inventory"",
                     ""type"": ""Button"",
                     ""id"": ""c5fb4a20-b364-4878-8f86-e64354661672"",
-                    ""name"": ""Book"",
-                    ""type"": ""Button"",
-                    ""id"": ""f620c756-3098-4375-b8be-590bcfe61941"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -493,12 +490,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Inventory"",
-                    ""id"": ""871fb830-0af2-4416-aefe-ee4e6519f8ca"",
-                    ""path"": ""<Keyboard>/b"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Book"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -558,7 +549,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_SelectHotbarSlot8 = m_Player.FindAction("SelectHotbarSlot8", throwIfNotFound: true);
         m_Player_SelectHotbarSlot9 = m_Player.FindAction("SelectHotbarSlot9", throwIfNotFound: true);
         m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
-        m_Player_Book = m_Player.FindAction("Book", throwIfNotFound: true);
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
         m_Menu_Escape = m_Menu.FindAction("Escape", throwIfNotFound: true);
@@ -644,7 +634,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_SelectHotbarSlot8;
     private readonly InputAction m_Player_SelectHotbarSlot9;
     private readonly InputAction m_Player_Inventory;
-    private readonly InputAction m_Player_Book;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -670,7 +659,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @SelectHotbarSlot8 => m_Wrapper.m_Player_SelectHotbarSlot8;
         public InputAction @SelectHotbarSlot9 => m_Wrapper.m_Player_SelectHotbarSlot9;
         public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
-        public InputAction @Book => m_Wrapper.m_Player_Book;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -743,9 +731,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Inventory.started += instance.OnInventory;
             @Inventory.performed += instance.OnInventory;
             @Inventory.canceled += instance.OnInventory;
-            @Book.started += instance.OnBook;
-            @Book.performed += instance.OnBook;
-            @Book.canceled += instance.OnBook;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -813,9 +798,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Inventory.started -= instance.OnInventory;
             @Inventory.performed -= instance.OnInventory;
             @Inventory.canceled -= instance.OnInventory;
-            @Book.started -= instance.OnBook;
-            @Book.performed -= instance.OnBook;
-            @Book.canceled -= instance.OnBook;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -902,7 +884,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnSelectHotbarSlot8(InputAction.CallbackContext context);
         void OnSelectHotbarSlot9(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
-        void OnBook(InputAction.CallbackContext context);
     }
     public interface IMenuActions
     {

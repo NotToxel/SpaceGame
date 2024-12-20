@@ -379,7 +379,7 @@ public class PlayerController : MonoBehaviour
 
 
     #region Combat
-    private void HandleCombat()
+    private void HandleCombat() {
         //Debug.Log(hotbar.isHoldingWeapon());
         if (inputManager.PlayerLightAttack() && readyToAttack && hotbar.isHoldingWeapon() && !inventoryIsOpen)
 
