@@ -1,16 +1,17 @@
 fileFormatVersion: 2
-guid: f0793754e897f6a4ab2fe240d162e4a6
+guid: 2574c7c0e77329049aef67131b60f093
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
   fontSize: 16
-  forceTextureCase: -2
+  forceTextureCase: -1
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Comic Neue
-  fallbackFontReferences: []
+  - Roboto
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 51b224fbfc86cbc439332a19613da539, type: 3}
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1

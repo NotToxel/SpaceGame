@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform holdPoint; // Position where held objects are placed
     [SerializeField] private float throwForce = 10f; // Force applied when throwing an object
     [SerializeField] private float puzzle1Range = 5f; // Interaction range for Puzzle1 objects
-    private bool isBookOpen = false;
+    private bool isTabletOpen = false;
 
     private GameObject heldObject; // Currently held objects
     private int currentColorIndex = 0;
@@ -69,8 +69,9 @@ public class PlayerController : MonoBehaviour
     private Collider playerCollider; // Collider for the player (used to disable collision with held objects)
     private Coroutine crouchCoroutine; // Coroutine for smooth crouching transitions
     public GameObject holdingMelee; // Stores Melee player is currently holding
-    public GameObject enemyBook;
-    public Book bookScript;
+    public GameObject tablet;
+    // public Tablet tabletScript;
+    public QuestBookButton questBookButton;
 
     private void Start()
     {
@@ -191,26 +192,24 @@ public class PlayerController : MonoBehaviour
         if (inputManager.PlayerInteract())
             InteractWithObject();
 
-        if (inputManager.PlayerUsedBook())
-            InteractWithBook();
+        if (inputManager.PlayerOpenedTablet())
+            InteractWithTablet();
     }
 
-    private void InteractWithBook()
+    private void InteractWithTablet()
     {
-        if (isBookOpen)
+        if (isTabletOpen)
         {
-            enemyBook.SetActive(false);
-            isBookOpen = false;
+            questBookButton.OpenQuestBook();
+            tablet.SetActive(false);
+            isTabletOpen = false;
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
         }
         else
         {
-            // enemyBook.currentPage = 0;
-            // bookScript.currentPage = 0;
-            // enemyBook.currentPage = 0;
-            enemyBook.SetActive(true);
-            isBookOpen = true;
+            tablet.SetActive(true);
+            isTabletOpen = true;
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
         }

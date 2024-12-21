@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f0793754e897f6a4ab2fe240d162e4a6
+guid: 13c3fafb7791504499f8e19f98e63bad
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Comic Neue
+  - Playfair Display
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

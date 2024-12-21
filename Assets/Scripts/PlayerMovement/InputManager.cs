@@ -27,8 +27,8 @@ public class InputManager : MonoBehaviour
             _instance = this;
         }
         playerControls = new PlayerControls();
-        // Cursor.visible = false;
-        // Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void OnEnable(){
@@ -76,7 +76,7 @@ public class InputManager : MonoBehaviour
         return playerControls.Player.Interact.triggered;
     }
 
-    public bool PlayerUsedBook(){
-        return playerControls.Player.Book.triggered;
+    public bool PlayerOpenedTablet(){
+        return playerControls.Player.Tablet.triggered;
     }
 }

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f0793754e897f6a4ab2fe240d162e4a6
+guid: 20c8ac7e23925b747b882b5d8b60c2ee
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Comic Neue
+  - Caveat
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

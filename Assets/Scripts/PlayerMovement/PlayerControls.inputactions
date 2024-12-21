@@ -96,7 +96,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Book",
+                    "name": "Tablet",
                     "type": "Button",
                     "id": "f620c756-3098-4375-b8be-590bcfe61941",
                     "expectedControlType": "Button",
@@ -267,7 +267,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Book",
+                    "action": "Tablet",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

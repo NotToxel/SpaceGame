@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f0793754e897f6a4ab2fe240d162e4a6
+guid: ea720cbd339574b4ab5b10b24a0a6283
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Comic Neue
+  - Oswald
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
