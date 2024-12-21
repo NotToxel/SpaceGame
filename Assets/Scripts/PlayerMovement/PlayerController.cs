@@ -221,17 +221,23 @@ public class PlayerController : MonoBehaviour
             Destroy(heldObject);
         }
 
+        // Get prefab
         GameObject prefab = hotbar.GetSelectedItemPrefab();
         if (prefab == null) { return; }
 
         heldObject = Instantiate(prefab);
+
+        // Rigidbody Settings
         Rigidbody rb = heldObject.GetComponent<Rigidbody>();
         if (rb != null) rb.isKinematic = true;
 
+        // Collider Settings
         Collider objCollider = heldObject.GetComponent<Collider>();
         if (objCollider != null && playerCollider != null)
             Physics.IgnoreCollision(playerCollider, objCollider, true);
 
+        // Set to holdPoint
+        // Needs Changing to be implemented into new animations etc
         heldObject.transform.SetParent(holdPoint);
         heldObject.transform.localPosition = Vector3.zero;
         if (heldObject.CompareTag("Sword"))
