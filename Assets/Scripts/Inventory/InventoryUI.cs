@@ -27,6 +27,9 @@ public class InventoryUI : MonoBehaviour
     void Awake() {
         InventoryPanel.SetActive(false);
         invIsOpen = false;
+    }
+
+    void Start() {
         uiManager = FindObjectOfType<UIManager>();
     }
 
@@ -59,10 +62,6 @@ public class InventoryUI : MonoBehaviour
             TextMeshProUGUI text = itemSlotRectTransform.Find("amount").GetComponent<TextMeshProUGUI>();
             if (item.amount > 1) { text.SetText(item.amount.ToString()); }
             else { text.SetText(""); }
-
-            // Set border colors
-            Image border = itemSlotRectTransform.Find("border").GetComponent<Image>();
-            border.color = uiManager.SetBorderColor(border, currentSlotIndex);
 
             // Add button listeners
             Button button = itemSlotRectTransform.Find("border").GetComponent<Button>();

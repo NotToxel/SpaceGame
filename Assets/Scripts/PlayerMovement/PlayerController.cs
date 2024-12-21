@@ -24,7 +24,10 @@ public class PlayerController : MonoBehaviour
     private float currentSpeed; // Current movement speed (varies based on crouching, walking or running)
     private bool groundedPlayer; // Tracks if the player is grounded
     private bool isCrouching = false; // Tracks if the player is currently crouching
+    public bool isRunning = false;
+    private bool readyToJump = true;
     private Vector3 playerVelocity; // Tracks the player's vertical velocity
+    private Quaternion currentRotation;
 
 
     // --- Interaction Settings ---
@@ -33,6 +36,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform holdPoint; // Position where held objects are placed
     [SerializeField] private float throwForce = 10f; // Force applied when throwing an object
     [SerializeField] private float puzzle1Range = 5f; // Interaction range for Puzzle1 objects
+    private bool isBookOpen = false;
 
     private GameObject heldObject; // Currently held objects
     private int currentColorIndex = 0;
@@ -43,22 +47,30 @@ public class PlayerController : MonoBehaviour
     [Header("Combat")]
     [SerializeField] private float attackDistance = 3f;
     [SerializeField] private float attackDelay = 0.4f;
-    [SerializeField] private float attackSpeed = 1f;
+    [SerializeField] private float attackSpeed = 0.1f;
     [SerializeField] private int attackDamage = 1;
     [SerializeField] private LayerMask attackLayer;
 
     private bool attacking = false;
     private bool readyToAttack = true;
+    private bool holdingWeapon = false;
     private int attackCount;
 
+    // --- Animation Settings ---
+    [Header("Animation")]
+    public Animator animator;
+    [SerializeField] private float animationFinishTime = 0.9f;
 
     // --- Components and References ---
     private CharacterController controller; // CharacterController component for movement
     private InputManager inputManager; // Input manager to handle player input
-    private Transform cameraTransform; // Reference to the main camera's transform
+    public Transform cameraTransform; // Reference to the main camera's transform
     private HealthBar healthBar; // Reference to the player's health bar
     private Collider playerCollider; // Collider for the player (used to disable collision with held objects)
     private Coroutine crouchCoroutine; // Coroutine for smooth crouching transitions
+    public GameObject holdingMelee; // Stores Melee player is currently holding
+    public GameObject enemyBook;
+    public Book bookScript;
 
 
     // --- Inventory Instances ---
@@ -73,7 +85,6 @@ public class PlayerController : MonoBehaviour
         //Initialize references
         controller = GetComponent<CharacterController>();
         inputManager = InputManager.Instance; // Get the input manager instance
-        cameraTransform = Camera.main.transform; // Get the main camera's transform
         playerCollider = GameObject.FindWithTag("Player").GetComponent<Collider>(); // Get the player's collider
 
         currentSpeed = playerSpeed; // Set initial speed
@@ -94,6 +105,12 @@ public class PlayerController : MonoBehaviour
         HandleMovement();
         HandleInteraction();
         HandleCombat();
+
+        if (attacking && animator.GetCurrentAnimatorStateInfo(1).normalizedTime >= animationFinishTime)
+        {
+            attacking = false;
+        }
+
         ApplyGravity();
         HandleUI();
     }
@@ -106,15 +123,26 @@ public class PlayerController : MonoBehaviour
         if (groundedPlayer && playerVelocity.y < 0)
             playerVelocity.y = 0f;
 
+
+        if (isRunning == false && holdingWeapon) { animator.SetBool("isHoldingMelee", true); }
+        if (isRunning == true){animator.SetBool("isHoldingMelee", false); }
+        
+
         // Movement input
         Vector2 movementInput = inputManager.GetPlayerMovement();
         Vector3 move = new Vector3(movementInput.x, 0f, movementInput.y);
         move = cameraTransform.forward * move.z + cameraTransform.right * move.x;
+        AnimateRun(move);
         controller.Move(move * Time.deltaTime * currentSpeed);
 
         // Jumping
         if (inputManager.PlayerJumpedThisFrame() && groundedPlayer)
+        {
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+            groundedPlayer = false;
+            animator.SetTrigger("isJumping");
+            StartCoroutine(InitialiseJump());
+        }
 
         // Crouching
         if (inputManager.PlayerCrouchedThisFrame() != 0.0 && !isCrouching)
@@ -122,6 +150,19 @@ public class PlayerController : MonoBehaviour
         else if (inputManager.PlayerCrouchedThisFrame() == 0.0 && isCrouching)
             ToggleCrouch(false);
     }
+
+    private IEnumerator InitialiseJump()
+    {
+        yield return new WaitForSeconds(0.1f);
+        groundedPlayer = true;
+    }
+
+    void AnimateRun(Vector3 direction)
+    {
+        isRunning = (direction.x > 0.1f || direction.x < -0.1f) || (direction.z > 0.1f || direction.z < -0.1f) ? true : false;
+        animator.SetBool("isRunning", isRunning);
+    }
+
 
     private void ToggleCrouch(bool crouch)
     {
@@ -163,32 +204,108 @@ public class PlayerController : MonoBehaviour
             TryPickUpObject();
 
         if (inputManager.PlayerDroppedItem())
-            DropObject();
+            DropObject(); // Implement tryDropItem which identifies what kind of item player is holding.
 
         if (inputManager.PlayerInteract())
             InteractWithObject();
         //Debug.Log(inputManager.HotbarScrollSelect());
+
+        //if (inputManager.PlayerUsedBook())
+            //InteractWithBook();
+    }
+
+    private void InteractWithBook()
+    {
+        if (isBookOpen)
+        {
+            enemyBook.SetActive(false);
+            isBookOpen = false;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else
+        {
+            // enemyBook.currentPage = 0;
+            // bookScript.currentPage = 0;
+            // enemyBook.currentPage = 0;
+            enemyBook.SetActive(true);
+            isBookOpen = true;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
     }
 
     private void TryPickUpObject()
     {
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, pickupRange))
         {
-            if (hit.collider.CompareTag("Pickup") || hit.collider.CompareTag("Sword"))
-                PickupObject(hit.collider.gameObject);
+            if (hit.collider.CompareTag("Item")){
+                 PickupObject(hit.collider.gameObject); 
+            }
+
+            //if (hit.collider.CompareTag("Knife")) 
+            //{
+            //    PickUpMelee(hit.collider.gameObject);
+            //    animator.SetBool("isHoldingMelee", true);
+            //}
         }
     }
 
-    private void PickupObject(GameObject obj)
+    /*private void PickUpMelee(GameObject melee)
     {
         // Add the item to inventory
+        hotbar.PickupItem(obj.GetComponent<Collider>());
+        UpdateHeldItem();
+        Rigidbody rb = melee.GetComponent<Rigidbody>();
+        if (rb != null) rb.isKinematic = true;
+
+        Collider meleeCollider = melee.GetComponent<Collider>();
+        if (meleeCollider != null && playerCollider != null)
+            Physics.IgnoreCollision(playerCollider, meleeCollider, true);
+
+        melee.transform.SetParent(holdPoint);
+        melee.transform.localPosition = Vector3.zero;
+        
+        melee.transform.localRotation = Quaternion.identity;
+
+        holdingWeapon = true;
+        heldObject = melee;
+        melee.SetActive(false);
+        holdingMelee.SetActive(true);
+    }
+
+    private void DropMelee()
+    {
+        // Remove the item from inventory
+        hotbar.DropItem();
+        UpdateHeldItem();
+        if (heldObject == null) return;
+
+        Rigidbody rb = heldObject.GetComponent<Rigidbody>();
+        if (rb != null) rb.isKinematic = false;
+
+        Collider objCollider = heldObject.GetComponent<Collider>();
+        if (objCollider != null && playerCollider != null)
+            Physics.IgnoreCollision(playerCollider, objCollider, false);
+
+        heldObject.SetActive(true);
+        holdingMelee.SetActive(false);
+
+        heldObject.transform.parent = null;
+        heldObject = null;
+
+        holdingWeapon = false;
+        animator.SetBool("isHoldingMelee", false);
+    }*/
+
+    private void PickupObject(GameObject obj)
+    {
         hotbar.PickupItem(obj.GetComponent<Collider>());
         UpdateHeldItem();
     }
 
     private void DropObject()
     {
-        // Remove the item from inventory
         hotbar.DropItem();
         UpdateHeldItem();
     }
@@ -237,7 +354,7 @@ public class PlayerController : MonoBehaviour
 
 
     #region Combat
-    private void HandleCombat() {
+    private void HandleCombat(){
         //Debug.Log(hotbar.isHoldingWeapon());
         if (inputManager.PlayerLightAttack() && readyToAttack && hotbar.isHoldingWeapon() && !inventoryIsOpen)
             PerformLightAttack();
@@ -246,7 +363,8 @@ public class PlayerController : MonoBehaviour
     private void PerformLightAttack()
     {
         readyToAttack = false;
-        Debug.Log("Performing light attack");
+        attacking = true;
+        animator.SetTrigger("lightAttack");
         StartCoroutine(AttackCooldown());
     }
 

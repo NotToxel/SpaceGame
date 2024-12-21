@@ -189,6 +189,10 @@
                     "name": "Inventory",
                     "type": "Button",
                     "id": "c5fb4a20-b364-4878-8f86-e64354661672",
+
+                    "name": "Book",
+                    "type": "Button",
+                    "id": "f620c756-3098-4375-b8be-590bcfe61941",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
