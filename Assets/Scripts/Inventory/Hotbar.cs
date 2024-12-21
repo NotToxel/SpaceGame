@@ -15,9 +15,11 @@ public class Hotbar : MonoBehaviour
     [SerializeField] private InventoryUI inventoryUI;
     public static int hotbarSize = 9;
     private int selectedSlot = 0;
+    public Color selectedSlotColor = Color.blue;
+    public Color defaultSlotColor = Color.white;
     public bool inventoryIsOpen;
 
-    void Awake() {
+    void Start() {
         uiManager = FindObjectOfType<UIManager>();
     }
 
@@ -125,8 +127,8 @@ public class Hotbar : MonoBehaviour
             if (child == itemSlotTemplate) { continue; }
 
             Image border = child.Find("border").GetComponent<Image>();
-            if (i == selectedSlot+1) {  border.color = uiManager.selectedSlotColor; }
-            else { border.color = uiManager.defaultSlotColor; }
+            if (i == selectedSlot+1) {  border.color = selectedSlotColor; }
+            else { border.color = defaultSlotColor; }
         }
     }
 
@@ -168,16 +170,14 @@ public class Hotbar : MonoBehaviour
                 // Set the border color
                 Image border = itemSlotRectTransform.Find("border").GetComponent<Image>();
                 //Debug.Log(inventoryUI.IsOpen());
-                if (inventoryUI.IsOpen()) {
-                    border.color = uiManager.SetBorderColor(border, x);
-                }
+                if (inventoryUI.IsOpen()) { border.color = defaultSlotColor; }
                 else {
                     if (x == selectedSlot) {
                         //Debug.Log("Slot" + x + " selected");
-                        border.color = uiManager.selectedSlotColor;
+                        border.color = selectedSlotColor;
                     }
                     else {
-                        border.color = uiManager.defaultSlotColor;
+                        border.color = defaultSlotColor;
                     }
                 }
 
