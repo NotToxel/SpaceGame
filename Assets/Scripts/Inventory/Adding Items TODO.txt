@@ -16,5 +16,6 @@ When adding an item (that is intended to be picked up) ensure:
         - If you do this ensure it spawns in a Start method, as it ensures everything is loaded i.e. ItemAssets
     - Set the amount field to whatever 
 
-- Tag: Item
-    - Ensure the Tag of the item is "Item" (Object and Prefab)
+- Prefab
+    - Needs "Item" tag
+    - Needs ITemWorld script

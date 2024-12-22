@@ -24,6 +24,7 @@ public class Hotbar : MonoBehaviour
     void Update() {
         inventoryIsOpen = inventoryUI.IsOpen();
         //Debug.Log(inventoryIsOpen);
+        //Debug.Log(selectedSlot);
     }
 
     #region Item Selection
@@ -79,6 +80,7 @@ public class Hotbar : MonoBehaviour
 
     public void PickupItem(Collider objCollider) {
         ItemWorld itemWorld = objCollider.GetComponent<ItemWorld>();
+        //Debug.Log("Picking up " + itemWorld.GetItem());
         inventory.AddItem(itemWorld.GetItem());
     }
 
@@ -90,13 +92,8 @@ public class Hotbar : MonoBehaviour
         inventory.RemoveItem(item);
         ItemWorld.DropItem(player.GetComponent<Transform>(), item);
 
-        // Remove from hotbar
-        /*Transform child = itemSlotContainer.GetChild(selectedSlot);
+        if (selectedSlot>=inventory.GetItemCount()-1) { selectedSlot = -1; } // deselect slot when out of range
 
-        if (child == itemSlotTemplate) { return; }
-
-        Image image = child.Find("image").GetComponent<Image>();
-        image.enabled = false;*/
         RefreshHotbar();
     }
 

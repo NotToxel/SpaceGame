@@ -83,7 +83,7 @@ public class PlayerController : MonoBehaviour
         hotbar.SetInventory(inventory); // Setup the hotbar
 
         // --- Testing --- //
-        ItemWorld.SpawnItemWorld(new Vector3(-7, 1, 2), Quaternion.identity, new Item { itemType = Item.ItemType.Sword, amount = 1 });
+        ItemWorld.SpawnItemWorld(new Vector3(-7, 1, 2), Quaternion.identity, new Item { itemType = Item.ItemType.Knife, amount = 1 });
         ItemWorld.SpawnItemWorld(new Vector3(-7, 1, 1), Quaternion.identity, new Item { itemType = Item.ItemType.Wrench, amount = 1 });
         ItemWorld.SpawnItemWorld(new Vector3(-7, 1, 3), Quaternion.identity, new Item { itemType = Item.ItemType.Sword, amount = 1 });
         ItemWorld.SpawnItemWorld(new Vector3(-7, 1, 4), Quaternion.identity, new Item { itemType = Item.ItemType.Wrench, amount = 1 });
@@ -188,6 +188,7 @@ public class PlayerController : MonoBehaviour
         // Add the item to inventory
         hotbar.PickupItem(obj.GetComponent<Collider>());
         UpdateHeldItem();
+        Destroy(obj);
     }
 
     private void DropObject()

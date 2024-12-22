@@ -4124,6 +4124,7 @@ MonoBehaviour:
   wrenchSprite: {fileID: 21300000, guid: 78cc2177fd0633c40afcb54d7ec16e45, type: 3}
   swordPrefab: {fileID: 5358284645937625845, guid: c8a964fdd1a6e524d8553715765395db, type: 3}
   wrenchPrefab: {fileID: 4789193436595985444, guid: cfc6d873daf9ceb4aa52ba3392ab3421, type: 3}
+  knifePrefab: {fileID: 6440599648175510709, guid: c1ab9abedc9d80f4a9109fe99b4ea8d4, type: 3}
 --- !u!4 &322419638
 Transform:
   m_ObjectHideFlags: 0
@@ -15510,12 +15511,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6440599648175510709, guid: c1ab9abedc9d80f4a9109fe99b4ea8d4, type: 3}
       propertyPath: m_TagString
-      value: Sword
+      value: Item
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -4316104943024903952, guid: c1ab9abedc9d80f4a9109fe99b4ea8d4, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6440599648175510709, guid: c1ab9abedc9d80f4a9109fe99b4ea8d4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1313952537}
   m_SourcePrefab: {fileID: 100100000, guid: c1ab9abedc9d80f4a9109fe99b4ea8d4, type: 3}
 --- !u!1 &1034950001
 GameObject:
@@ -19720,6 +19725,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1313952532 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6440599648175510709, guid: c1ab9abedc9d80f4a9109fe99b4ea8d4, type: 3}
+  m_PrefabInstance: {fileID: 1015207166}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1313952537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1313952532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2552696648173834d9c33d9b533e7f96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item:
+    itemType: 2
+    amount: 1
 --- !u!1 &1462976183
 GameObject:
   m_ObjectHideFlags: 0
@@ -26339,11 +26364,11 @@ SceneRoots:
   - {fileID: 7112858215499469107}
   - {fileID: 1978307950}
   - {fileID: 822707052}
+  - {fileID: 1015207166}
   - {fileID: 6963414827779540550}
   - {fileID: 619934281}
   - {fileID: 3592658726460158052}
   - {fileID: 1174901349}
   - {fileID: 207704855}
   - {fileID: 1266665807}
-  - {fileID: 1015207166}
   - {fileID: 1313578932}

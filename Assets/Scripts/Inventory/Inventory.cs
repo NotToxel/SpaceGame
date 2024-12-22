@@ -27,6 +27,7 @@ public class Inventory
         
         AddItem(new Item { itemType = Item.ItemType.Sword, amount = 1 });
         AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
+        /*AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
         AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
         AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
         AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
@@ -40,8 +41,7 @@ public class Inventory
         AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
         AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
         AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
-        AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
-        AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
+        AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });*/
         //Debug.Log(itemList.Count);
     }
 
@@ -49,6 +49,11 @@ public class Inventory
         //Debug.Log(item.itemType);
         if (GetItemCount()+1 > maxSize) {
             Debug.Log("Inventory is too full");
+            return;
+        }
+        if (item == null)
+        {
+            Debug.LogError("Item is null and cannot be checked for stackability.");
             return;
         }
         if (item.IsStackable()){
