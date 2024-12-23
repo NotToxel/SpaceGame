@@ -27,7 +27,6 @@ public class Inventory
         
         AddItem(new Item { itemType = Item.ItemType.Sword, amount = 1 });
         AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
-        /*AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
         AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
         AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
         AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
@@ -41,7 +40,8 @@ public class Inventory
         AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
         AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
         AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
-        AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });*/
+        AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
+        AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
         //Debug.Log(itemList.Count);
     }
 

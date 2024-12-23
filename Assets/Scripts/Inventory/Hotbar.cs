@@ -87,10 +87,11 @@ public class Hotbar : MonoBehaviour
     public void DropItem() {
         if (selectedSlot==-1) { return; }
         //Debug.Log("Dropping item from slot: " + (selectedSlot+1));
-        List<Item> itemList = inventory.GetItemList();
-        Item item = itemList[selectedSlot];
-        inventory.RemoveItem(item);
-        ItemWorld.DropItem(player.GetComponent<Transform>(), item);
+        //List<Item> itemList = inventory.GetItemList();
+        //Item item = itemList[selectedSlot];
+        //inventory.RemoveItem(item);
+        //ItemWorld.DropItem(player.GetComponent<Transform>(), item);
+        uiManager.DropItem(selectedSlot);
 
         if (selectedSlot>=inventory.GetItemCount()-1) { selectedSlot = -1; } // deselect slot when out of range
 

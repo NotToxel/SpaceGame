@@ -14,9 +14,10 @@ public class ItemWorld : MonoBehaviour
         return itemWorld;
     }   
 
-    public static ItemWorld DropItem(Transform playerTransform, Item item) {
+    public static ItemWorld DropItem(Transform playerTransform, Transform cameraDirection, Item item) {
+        // Implement offset via camera direction here, probably by passing it thorugh as a param
         Vector3 playerPosition = playerTransform.position;
-        Vector3 offset = playerTransform.forward * 1.0f;
+        Vector3 offset = cameraDirection.forward * 1.0f;
         Vector3 dropPosition = playerPosition + offset;
         
         // Can Implement random rotation

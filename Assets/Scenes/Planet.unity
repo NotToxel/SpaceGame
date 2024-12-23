@@ -11418,7 +11418,7 @@ MonoBehaviour:
   crouchHeight: 0
   crouchingSpeed: 2
   pickupRange: 2.5
-  holdPoint: {fileID: 339375859}
+  holdPoint: {fileID: 0}
   throwForce: 10
   puzzle1Range: 5
   attackDistance: 3
@@ -19708,6 +19708,7 @@ MonoBehaviour:
   inventorySlotTemplate: {fileID: 1193716020}
   hotbarSlotTemplate: {fileID: 1709121705}
   player: {fileID: 709243141}
+  camera: {fileID: 963194225}
   selectedSlotColor: {r: 0, g: 0, b: 1, a: 1}
   defaultSlotColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &1313578932

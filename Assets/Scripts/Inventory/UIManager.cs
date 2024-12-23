@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private RectTransform inventorySlotTemplate;
     [SerializeField] private RectTransform hotbarSlotTemplate;
     [SerializeField] private GameObject player;
+    [SerializeField] private GameObject camera;
 
     private int firstSelectedSlot = -1;
     public Color selectedSlotColor = Color.blue;
@@ -56,7 +57,7 @@ public class UIManager : MonoBehaviour
         List<Item> itemList = inventory.GetItemList();
         Item item = itemList[targetSlot];
         inventory.RemoveItem(item);
-        ItemWorld.DropItem(player.GetComponent<Transform>(), item);
+        ItemWorld.DropItem(player.GetComponent<Transform>(), camera.GetComponent<Transform>(), item);
 
         hotbar.RefreshHotbar();
         inventoryUI.RefreshInventory();
