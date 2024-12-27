@@ -11880,7 +11880,7 @@ MonoBehaviour:
     m_Bits: 0
   animator: {fileID: 1255106655}
   animationFinishTime: 0.9
-  cameraTransform: {fileID: 0}
+  cameraTransform: {fileID: 636589580}
   holdingMelee: {fileID: 0}
   enemyBook: {fileID: 0}
   bookScript: {fileID: 0}
