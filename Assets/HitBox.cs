@@ -7,7 +7,7 @@ public class Hitbox : MonoBehaviour
 
     public Health health;
 
-    public void OnRaycastHit(PlayerController attack)
+    public void OnHit(PlayerController attack)
     {
         //health.TakeDamage(attack.attackDamage);
 
