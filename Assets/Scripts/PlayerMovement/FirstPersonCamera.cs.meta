@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scripts/PlayerMovement/FirstPersonCamera.cs.meta
 guid: a09d98317f0af474e866c4f3ff07bc55
+========
+guid: 076d551e6364907469df511c440d0ae5
+>>>>>>>> 3595b1d (Added Rocket Stages with Upgrades):Assets/Scripts/RocketUpgrade.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
