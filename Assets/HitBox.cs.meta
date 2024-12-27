@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/HitBox.cs.meta
 guid: 00ed6689e2fcbe34ba7f27794335d676
+========
+guid: 3383bf2a325fb1348ae197cc35ae9114
+>>>>>>>> main:Assets/Scripts/EnemyBook/BookContents.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
