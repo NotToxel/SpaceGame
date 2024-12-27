@@ -64,6 +64,11 @@ public class Pause_Menu : MonoBehaviour
         pauseUI.SetActive(true);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+        FirstPersonCamera firstPersonCamera = FindObjectOfType<FirstPersonCamera>();
+        if (firstPersonCamera != null)
+        {
+            firstPersonCamera.mouseSensitivity = 0.0f;
+        }
     }
 
     // close the pause menu and resume gameworlds time
@@ -75,8 +80,13 @@ public class Pause_Menu : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         isPaused = false;
+        FirstPersonCamera firstPersonCamera = FindObjectOfType<FirstPersonCamera>();
+        if (firstPersonCamera != null)
+        {
+            firstPersonCamera.mouseSensitivity = 2f;
+        }
     }
-    
+
     // Load the main menu scene
     public void MainScreen()
 	{
