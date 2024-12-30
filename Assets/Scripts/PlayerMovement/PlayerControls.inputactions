@@ -189,10 +189,15 @@
                     "name": "Inventory",
                     "type": "Button",
                     "id": "c5fb4a20-b364-4878-8f86-e64354661672",
-
-                    "name": "Book",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Tablet",
                     "type": "Button",
-                    "id": "f620c756-3098-4375-b8be-590bcfe61941",
+                    "id": "7cd668f5-4e7e-4b13-bde3-97dece06db7f",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -472,6 +477,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Inventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e9a67d29-653f-43d5-a0df-7d7fffcaa959",
+                    "path": "<Keyboard>/t",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Tablet",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

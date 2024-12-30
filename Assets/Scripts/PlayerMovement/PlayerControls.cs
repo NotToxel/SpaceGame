@@ -215,6 +215,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Tablet"",
+                    ""type"": ""Button"",
+                    ""id"": ""7cd668f5-4e7e-4b13-bde3-97dece06db7f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -492,6 +501,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Inventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e9a67d29-653f-43d5-a0df-7d7fffcaa959"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Tablet"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -549,6 +569,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_SelectHotbarSlot8 = m_Player.FindAction("SelectHotbarSlot8", throwIfNotFound: true);
         m_Player_SelectHotbarSlot9 = m_Player.FindAction("SelectHotbarSlot9", throwIfNotFound: true);
         m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
+        m_Player_Tablet = m_Player.FindAction("Tablet", throwIfNotFound: true);
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
         m_Menu_Escape = m_Menu.FindAction("Escape", throwIfNotFound: true);
@@ -634,6 +655,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_SelectHotbarSlot8;
     private readonly InputAction m_Player_SelectHotbarSlot9;
     private readonly InputAction m_Player_Inventory;
+    private readonly InputAction m_Player_Tablet;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -659,6 +681,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @SelectHotbarSlot8 => m_Wrapper.m_Player_SelectHotbarSlot8;
         public InputAction @SelectHotbarSlot9 => m_Wrapper.m_Player_SelectHotbarSlot9;
         public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
+        public InputAction @Tablet => m_Wrapper.m_Player_Tablet;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -731,6 +754,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Inventory.started += instance.OnInventory;
             @Inventory.performed += instance.OnInventory;
             @Inventory.canceled += instance.OnInventory;
+            @Tablet.started += instance.OnTablet;
+            @Tablet.performed += instance.OnTablet;
+            @Tablet.canceled += instance.OnTablet;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -798,6 +824,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Inventory.started -= instance.OnInventory;
             @Inventory.performed -= instance.OnInventory;
             @Inventory.canceled -= instance.OnInventory;
+            @Tablet.started -= instance.OnTablet;
+            @Tablet.performed -= instance.OnTablet;
+            @Tablet.canceled -= instance.OnTablet;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -884,6 +913,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnSelectHotbarSlot8(InputAction.CallbackContext context);
         void OnSelectHotbarSlot9(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
+        void OnTablet(InputAction.CallbackContext context);
     }
     public interface IMenuActions
     {
