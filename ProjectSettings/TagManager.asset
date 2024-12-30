@@ -9,6 +9,7 @@ TagManager:
   - Puzzle1
   - HoldingKnife
   - Knife
+  - Audio
   layers:
   - Default
   - TransparentFX
