@@ -67,7 +67,7 @@ public class Pause_Menu : MonoBehaviour
         FirstPersonCamera firstPersonCamera = FindObjectOfType<FirstPersonCamera>();
         if (firstPersonCamera != null)
         {
-            firstPersonCamera.mouseSensitivity = 0.0f;
+            firstPersonCamera.currentMouseSensitivity = 0.0f;
         }
     }
 
@@ -83,7 +83,7 @@ public class Pause_Menu : MonoBehaviour
         FirstPersonCamera firstPersonCamera = FindObjectOfType<FirstPersonCamera>();
         if (firstPersonCamera != null)
         {
-            firstPersonCamera.mouseSensitivity = 2f;
+            firstPersonCamera.currentMouseSensitivity = firstPersonCamera.mouseSensitivity;
         }
     }
 

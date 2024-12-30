@@ -10,16 +10,22 @@ public class FirstPersonCamera : MonoBehaviour
     // --- Player Camera Settings ---
     [Header("First Player Camera")]
     [SerializeField] private float clampAngle = 80f;
-    [SerializeField] public float mouseSensitivity = 2f;
+    public float mouseSensitivity = 2f;
+    public float currentMouseSensitivity;
     float camVerticalRotation = 0f;
     public Transform player;
+
+    void Start() 
+    {
+        currentMouseSensitivity = mouseSensitivity;
+    }
 
     // Update is called once per frame
     void Update()
     {
         // Collect mouse inputs
-        float inputX = Input.GetAxis("Mouse X") * mouseSensitivity;
-        float inputY = Input.GetAxis("Mouse Y") * mouseSensitivity;
+        float inputX = Input.GetAxis("Mouse X") * currentMouseSensitivity;
+        float inputY = Input.GetAxis("Mouse Y") * currentMouseSensitivity;
 
         // Rotate camera around local x axis
         camVerticalRotation -= inputY;
