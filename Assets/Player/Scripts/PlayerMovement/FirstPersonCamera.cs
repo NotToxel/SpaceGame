@@ -4,25 +4,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FirstPersonCamera : MonoBehaviour
 {
     // --- Player Camera Settings ---
     [Header("First Player Camera")]
     [SerializeField] private float clampAngle = 80f;
-    public float mouseSensitivity = 2f;
+    public float mouseSensitivity = 100f;
     public float currentMouseSensitivity;
     float camVerticalRotation = 0f;
     public Transform player;
 
+    // --- Sensitivity Slider Settings ---
+    [Header("Sensitivity Slider")]
+    [SerializeField] private Slider sensitivitySlider;
+
     void Start() 
     {
-        currentMouseSensitivity = mouseSensitivity;
+        if (PlayerPrefs.HasKey("currentSensitivity"))
+        {
+            LoadSensitivity();
+        }
+        else
+        {
+            AdjustSpeed();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        currentMouseSensitivity = mouseSensitivity;
+
         // Collect mouse inputs
         float inputX = Input.GetAxis("Mouse X") * currentMouseSensitivity;
         float inputY = Input.GetAxis("Mouse Y") * currentMouseSensitivity;
@@ -35,5 +49,17 @@ public class FirstPersonCamera : MonoBehaviour
         // Rotate player and camera around its y axis
         player.Rotate(Vector3.up * inputX);
 
+    }
+
+    public void AdjustSpeed()
+    {
+        mouseSensitivity = sensitivitySlider.value;
+        PlayerPrefs.SetFloat("currentSensitivity", mouseSensitivity);   
+    }
+
+    public void LoadSensitivity() 
+    {
+        sensitivitySlider.value = PlayerPrefs.GetFloat("currentSensitivity");
+        AdjustSpeed();
     }
 }
