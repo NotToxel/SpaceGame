@@ -81,6 +81,10 @@ public class PlayerController : MonoBehaviour
     private Inventory inventory;
     private bool inventoryIsOpen = false;
 
+    // --- Audio ---
+    [Header("Audio")]
+    public AudioManager audioManager;
+
     private void Start()
     {
         //Initialize references
@@ -225,6 +229,7 @@ public class PlayerController : MonoBehaviour
                 firstPersonCamera.currentMouseSensitivity = firstPersonCamera.mouseSensitivity;
             }
 
+            audioManager.PlaySFX(audioManager.closeTablet);
             tablet.SetActive(false);
             isTabletOpen = false;
             Cursor.visible = false;
@@ -237,6 +242,7 @@ public class PlayerController : MonoBehaviour
                 firstPersonCamera.currentMouseSensitivity = 0.0f;
             }
 
+            audioManager.PlaySFX(audioManager.openTablet);
             questTabletButton.OpenQuestTablet();
             tablet.SetActive(true);
             isTabletOpen = true;
