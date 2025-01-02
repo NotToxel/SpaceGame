@@ -18,15 +18,15 @@ public class TeleportOnTrigger : MonoBehaviour
             // Teleport the player to the teleportDestination
             other.transform.position = teleportDestination.position;
 
-            // Optionally, reset velocity if the player has a Rigidbody
-            Rigidbody rb = other.GetComponent<Rigidbody>();
-            if (rb != null)
-            {
-                rb.velocity = Vector3.zero;
-                rb.angularVelocity = Vector3.zero;
-            }
+        // Optionally, reset velocity if the player has a Rigidbody
+        Rigidbody rb = other.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
 
-            Debug.Log("Player teleported to: " + teleportDestination.position);
+        Debug.Log("Player teleported to: " + teleportDestination.position);
         }
     }
 }
