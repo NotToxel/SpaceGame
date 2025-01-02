@@ -372,7 +372,7 @@ public class PlayerController : MonoBehaviour
     #region Combat
     private void HandleCombat(){
         //Debug.Log(hotbar.isHoldingWeapon());
-        if (inputManager.PlayerLightAttack() && readyToAttack && hotbar.isHoldingWeapon() && !inventoryIsOpen)
+        if (inputManager.PlayerLightAttack() && readyToAttack && (hotbar.isHoldingWeapon() || hotbar.isBareFist()) && !inventoryIsOpen)
             PerformLightAttack();
     }
 
@@ -382,6 +382,7 @@ public class PlayerController : MonoBehaviour
         attacking = true;
         animator.SetTrigger("lightAttack");
         StartCoroutine(AttackCooldown());
+        //Debug.Log("Performing Light Attack");
     }
 
     private IEnumerator AttackCooldown()
