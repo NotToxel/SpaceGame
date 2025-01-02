@@ -15,7 +15,8 @@ public class OxygenTankTrigger : MonoBehaviour
     private void OnTriggerEnter(Collider other){
         if(other.CompareTag("Player")){ //Checks if player has collided with tank
             oxygenTrigger.getOxygen(oxygenTank); //Increases player's oxygen
-            Destroy(gameObject); //Destroys oxygen tank once player has used it
+            // Destroy(gameObject); //Destroys oxygen tank once player has used it
+            transform.position = new Vector3(3.4f, 1f, 3.85f);
         }
     }
 }
