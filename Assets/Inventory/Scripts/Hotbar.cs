@@ -15,17 +15,16 @@ public class Hotbar : MonoBehaviour
     [SerializeField] private InventoryUI inventoryUI;
     public static int hotbarSize = 9;
     private int selectedSlot = 0;
-    public Color selectedSlotColor = Color.blue;
-    public Color defaultSlotColor = Color.white;
     public bool inventoryIsOpen;
 
-    void Start() {
+    void Awake() {
         uiManager = FindObjectOfType<UIManager>();
     }
 
     void Update() {
         inventoryIsOpen = inventoryUI.IsOpen();
         //Debug.Log(inventoryIsOpen);
+        //Debug.Log(selectedSlot);
     }
 
     #region Item Selection
@@ -81,24 +80,21 @@ public class Hotbar : MonoBehaviour
 
     public void PickupItem(Collider objCollider) {
         ItemWorld itemWorld = objCollider.GetComponent<ItemWorld>();
+        //Debug.Log("Picking up " + itemWorld.GetItem());
         inventory.AddItem(itemWorld.GetItem());
     }
 
     public void DropItem() {
         if (selectedSlot==-1) { return; }
         //Debug.Log("Dropping item from slot: " + (selectedSlot+1));
-        List<Item> itemList = inventory.GetItemList();
-        Item item = itemList[selectedSlot];
-        inventory.RemoveItem(item);
-        ItemWorld.DropItem(player.GetComponent<Transform>(), item);
+        //List<Item> itemList = inventory.GetItemList();
+        //Item item = itemList[selectedSlot];
+        //inventory.RemoveItem(item);
+        //ItemWorld.DropItem(player.GetComponent<Transform>(), item);
+        uiManager.DropItem(selectedSlot);
 
-        // Remove from hotbar
-        /*Transform child = itemSlotContainer.GetChild(selectedSlot);
+        if (selectedSlot>=inventory.GetItemCount()-1) { selectedSlot = -1; } // deselect slot when out of range
 
-        if (child == itemSlotTemplate) { return; }
-
-        Image image = child.Find("image").GetComponent<Image>();
-        image.enabled = false;*/
         RefreshHotbar();
     }
 
@@ -127,8 +123,8 @@ public class Hotbar : MonoBehaviour
             if (child == itemSlotTemplate) { continue; }
 
             Image border = child.Find("border").GetComponent<Image>();
-            if (i == selectedSlot+1) {  border.color = selectedSlotColor; }
-            else { border.color = defaultSlotColor; }
+            if (i == selectedSlot+1) {  border.color = uiManager.selectedSlotColor; }
+            else { border.color = uiManager.defaultSlotColor; }
         }
     }
 
@@ -170,14 +166,16 @@ public class Hotbar : MonoBehaviour
                 // Set the border color
                 Image border = itemSlotRectTransform.Find("border").GetComponent<Image>();
                 //Debug.Log(inventoryUI.IsOpen());
-                if (inventoryUI.IsOpen()) { border.color = defaultSlotColor; }
+                if (inventoryUI.IsOpen()) {
+                    border.color = uiManager.SetBorderColor(border, x);
+                }
                 else {
                     if (x == selectedSlot) {
                         //Debug.Log("Slot" + x + " selected");
-                        border.color = selectedSlotColor;
+                        border.color = uiManager.selectedSlotColor;
                     }
                     else {
-                        border.color = defaultSlotColor;
+                        border.color = uiManager.defaultSlotColor;
                     }
                 }
 

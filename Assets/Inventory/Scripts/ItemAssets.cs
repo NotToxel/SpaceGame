@@ -23,4 +23,5 @@ public class ItemAssets : MonoBehaviour
     // Add more prefabs here
     public GameObject swordPrefab;
     public GameObject wrenchPrefab;
+    public GameObject knifePrefab;
 }
