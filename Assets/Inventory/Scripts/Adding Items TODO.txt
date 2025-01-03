@@ -15,3 +15,7 @@ When adding an item (that is intended to be picked up) ensure:
     - Alternativly you can spawn it in with the coordinates and rotation via script i.e. Player.
         - If you do this ensure it spawns in a Start method, as it ensures everything is loaded i.e. ItemAssets
     - Set the amount field to whatever 
+
+- Prefab
+    - Needs "Item" tag
+    - Needs ITemWorld script

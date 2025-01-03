@@ -8,7 +8,8 @@ public class Item
 {
     public enum ItemType {
         Sword,
-        Wrench
+        Wrench,
+        Knife
     }
 
     public ItemType itemType;
@@ -19,6 +20,7 @@ public class Item
         default:
         case ItemType.Sword: return ItemAssets.Instance.swordSprite;
         case ItemType.Wrench: return ItemAssets.Instance.wrenchSprite;
+        case ItemType.Knife: return ItemAssets.Instance.swordSprite;
         }
     }
 
@@ -26,25 +28,33 @@ public class Item
         //Debug.Log("ItemType: " + itemType);
         //Debug.Log("ItemAssets.Instance: " + (ItemAssets.Instance != null));
         switch (itemType) {
-        default:
-        case ItemType.Sword: return ItemAssets.Instance.swordPrefab;
-        case ItemType.Wrench: return ItemAssets.Instance.wrenchPrefab;
+            default:
+                case ItemType.Sword: return ItemAssets.Instance.swordPrefab;
+                case ItemType.Wrench: return ItemAssets.Instance.wrenchPrefab;
+                case ItemType.Knife: return ItemAssets.Instance.knifePrefab;
         }
     }
 
+
+    // --- Item Behaviours --- //
+    // Only true cases needed
     public bool IsStackable() {
         switch (itemType) {
-        default:
-        case ItemType.Sword: return true;
-        case ItemType.Wrench: return false;
+            case ItemType.Sword:
+            case ItemType.Knife:
+                return true;
         }
+        return false;
     }
 
     public bool IsWeapon() {
         switch (itemType) {
-        default:
-        case ItemType.Sword: return true;
-        case ItemType.Wrench: return false;
+            case ItemType.Sword:
+            case ItemType.Knife:
+                return true;
         }
+        return false;
     }
+
+    //public bool IsConsumable() {}
 }
