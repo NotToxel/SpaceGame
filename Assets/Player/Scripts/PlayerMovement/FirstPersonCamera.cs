@@ -15,6 +15,7 @@ public class FirstPersonCamera : MonoBehaviour
     public float currentMouseSensitivity;
     float camVerticalRotation = 0f;
     public Transform player;
+    private bool camEnabled;
 
     // --- Sensitivity Slider Settings ---
     [Header("Sensitivity Slider")]
@@ -22,6 +23,7 @@ public class FirstPersonCamera : MonoBehaviour
 
     void Start() 
     {
+        camEnabled = true;
         if (PlayerPrefs.HasKey("currentSensitivity"))
         {
             LoadSensitivity();
@@ -35,20 +37,21 @@ public class FirstPersonCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentMouseSensitivity = mouseSensitivity;
+        if (camEnabled) {
+            currentMouseSensitivity = mouseSensitivity;
 
-        // Collect mouse inputs
-        float inputX = Input.GetAxis("Mouse X") * currentMouseSensitivity;
-        float inputY = Input.GetAxis("Mouse Y") * currentMouseSensitivity;
+            // Collect mouse inputs
+            float inputX = Input.GetAxis("Mouse X") * currentMouseSensitivity;
+            float inputY = Input.GetAxis("Mouse Y") * currentMouseSensitivity;
 
-        // Rotate camera around local x axis
-        camVerticalRotation -= inputY;
-        camVerticalRotation = Mathf.Clamp(camVerticalRotation, -clampAngle, clampAngle);
-        transform.localEulerAngles = Vector3.right * camVerticalRotation;
+            // Rotate camera around local x axis
+            camVerticalRotation -= inputY;
+            camVerticalRotation = Mathf.Clamp(camVerticalRotation, -clampAngle, clampAngle);
+            transform.localEulerAngles = Vector3.right * camVerticalRotation;
 
-        // Rotate player and camera around its y axis
-        player.Rotate(Vector3.up * inputX);
-
+            // Rotate player and camera around its y axis
+            player.Rotate(Vector3.up * inputX);
+        }
     }
 
     public void AdjustSpeed()
@@ -61,5 +64,9 @@ public class FirstPersonCamera : MonoBehaviour
     {
         sensitivitySlider.value = PlayerPrefs.GetFloat("currentSensitivity");
         AdjustSpeed();
+    }
+
+    public void toggleCam() {
+        camEnabled = !camEnabled;
     }
 }

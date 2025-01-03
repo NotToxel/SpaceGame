@@ -14,7 +14,7 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private Transform itemSlotContainer;
     [SerializeField] private Transform itemSlotTemplate;
     [SerializeField] private Hotbar hotbar;
-    [SerializeField] private CinemachineFreeLook camera;
+    [SerializeField] private GameObject camera;
     private Inventory inventory = Inventory.Instance;
     private UIManager uiManager;
     private static int width = 9; // 9 slots wide
@@ -117,9 +117,10 @@ public class InventoryUI : MonoBehaviour
 
             // Disable or enable Cinemachine camera input
             if (camera != null) {
-                camera.m_XAxis.m_InputAxisName = isOpen ? "Mouse X" : "";
-                camera.m_YAxis.m_InputAxisName = isOpen ? "Mouse Y" : "";
+                FirstPersonCamera cameraScript = FindObjectOfType<FirstPersonCamera>();
+                if (cameraScript != null) { cameraScript.toggleCam(); }
             }
+            else { Debug.Log("camera is null"); }
         }
         hotbar.RefreshHotbar();
         RefreshInventory();
