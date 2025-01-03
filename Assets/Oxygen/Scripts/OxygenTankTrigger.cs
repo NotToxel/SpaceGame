@@ -10,13 +10,22 @@ using UnityEngine;
 
 public class OxygenTankTrigger : MonoBehaviour
 {
+    // [SerializeField] private float timeForRespawn = 0.1f;
     public float oxygenTank = 10f;
+    public GameObject oxygen;
     public OxygenTrigger oxygenTrigger;
     private void OnTriggerEnter(Collider other){
         if(other.CompareTag("Player")){ //Checks if player has collided with tank
             oxygenTrigger.getOxygen(oxygenTank); //Increases player's oxygen
-            // Destroy(gameObject); //Destroys oxygen tank once player has used it
-            transform.position = new Vector3(3.4f, 1f, 3.85f);
+            oxygen.SetActive(false);
+            Respawn();
         }
+    }
+
+    private IEnumerator Respawn () 
+    {
+        yield return new WaitForSeconds(0.5f);
+        oxygen.SetActive(true);
+        Debug.Log("should be true");
     }
 }
