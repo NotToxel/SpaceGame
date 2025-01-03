@@ -17,7 +17,7 @@ public class TeleportOnTrigger : MonoBehaviour
         {
             // Teleport the player to the teleportDestination
             other.transform.position = teleportDestination.position;
-
+            other.transform.rotation = teleportDestination.rotation;
         // Optionally, reset velocity if the player has a Rigidbody
         Rigidbody rb = other.GetComponent<Rigidbody>();
         if (rb != null)
