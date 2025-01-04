@@ -4,11 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Pickup
   - Enemy
   - Puzzle1
   - HoldingKnife
-  - Knife
   - Audio
   layers:
   - Default

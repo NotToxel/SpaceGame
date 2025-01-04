@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     [Header("UI References")]
     [SerializeField] private InventoryUI inventoryUI;
     [SerializeField] private Hotbar hotbar;
+    [SerializeField] private ArmorPanel armorPanel;
     [SerializeField] private Transform inventorySlotContainer;
     [SerializeField] private Transform hotbarSlotContainer;
     [SerializeField] private RectTransform inventorySlotTemplate;
@@ -34,21 +35,28 @@ public class UIManager : MonoBehaviour
             SwapSlots(firstSelectedSlot, slotIndex);
             firstSelectedSlot = -1;
         }
-        hotbar.RefreshHotbar();
-        inventoryUI.RefreshInventory();
+        RefreshUI();
     }
 
     private void SwapSlots(int indexA, int indexB) {
-        if (indexA == indexB) { return; }
+        if (indexA == indexB) { return; } // Can't swap same slot
+        if (indexA>=inventory.GetMaxSize() && indexB>=inventory.GetMaxSize()) { return; } // Can't swap armor in different slots (they will not be same type)
+
         List<Item> itemList = inventory.GetItemList();
+
+        // Try to swap equipped armor
+        if (indexA>=inventory.GetMaxSize() ^ indexB>=inventory.GetMaxSize()) { 
+            Debug.Log("Trying armor swap");
+            SwapArmor(indexA, indexB);
+            return;
+        }
         
-        // Swapping Algorithm
+        // Swap Normally
         Item temp = itemList[indexA];
         itemList[indexA] = itemList[indexB];
         itemList[indexB] = temp;
 
-        hotbar.RefreshHotbar();
-        inventoryUI.RefreshInventory();
+        RefreshUI();
     }
 
     public void DropItem(int targetSlot) {
@@ -59,8 +67,7 @@ public class UIManager : MonoBehaviour
         inventory.RemoveItem(item);
         ItemWorld.DropItem(player.GetComponent<Transform>(), camera.GetComponent<Transform>(), item);
 
-        hotbar.RefreshHotbar();
-        inventoryUI.RefreshInventory();
+        RefreshUI();
     }
 
     public int SelectedSlot() {
@@ -74,5 +81,48 @@ public class UIManager : MonoBehaviour
         else {
             return defaultSlotColor;
         }
+    }
+
+    public void RefreshUI() {
+        hotbar.RefreshHotbar();
+        inventoryUI.RefreshInventory();
+        armorPanel.RefreshArmorPanel();
+    }
+
+    public void SwapArmor(int indexA, int indexB) {
+        List<Item> itemList = inventory.GetItemList();
+        Item equippedArmor;
+        Item storedArmor;
+        int armorSlot;
+        int inventorySlot;
+        bool AisArmorSlot = false;
+        if (indexA >= inventory.GetMaxSize()) { 
+            equippedArmor = armorPanel.GetEquippedArmor(indexA);
+            storedArmor = itemList[indexB];
+            armorSlot = indexA;
+            inventorySlot = indexB;
+            AisArmorSlot = true;
+        }
+        else { 
+            equippedArmor = armorPanel.GetEquippedArmor(indexB);
+            storedArmor = itemList[indexA];
+            armorSlot = indexB;
+            inventorySlot = indexA;
+        }
+
+        // New Equip case
+        if (equippedArmor == null) { 
+            // storedArmor -> equippedArmor, remove storedArmor
+            armorPanel.Equip(storedArmor, armorSlot);
+            inventory.RemoveItem(itemList[inventorySlot]);
+            Debug.Log("Removing slot " + inventorySlot);
+            return;
+        }
+
+        // Not same armor piece case
+        if (equippedArmor.itemType != storedArmor.itemType) { Debug.Log("Not the same armor piece"); return; }
+
+        // Swap Case
+        itemList[inventorySlot] = armorPanel.SwapArmor(storedArmor, armorSlot);
     }
 }

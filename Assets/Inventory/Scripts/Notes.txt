@@ -19,3 +19,10 @@ When adding an item (that is intended to be picked up) ensure:
 - Prefab
     - Needs "Item" tag
     - Needs ITemWorld script
+
+
+
+Indexing System:
+- 0-8 : Hotbar
+- 9-<InventoryCapacity> : Inventory
+- +4 : Armour Slots

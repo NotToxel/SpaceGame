@@ -18,6 +18,10 @@ public class ItemAssets : MonoBehaviour
     // Uses: Displaying items in the UI
     public Sprite swordSprite;
     public Sprite wrenchSprite;
+    public Sprite helmetSprite;
+    public Sprite chestSprite;
+    public Sprite legsSprite;
+    public Sprite bootsSprite;
 
     // === Prefabs === //
     // Add more prefabs here

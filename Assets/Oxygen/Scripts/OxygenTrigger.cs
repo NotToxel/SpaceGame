@@ -7,13 +7,16 @@ If the player enters the ship again, they will have an unlimited supply of oxyge
 and so their oxygen levels should increase gradually.
 *********/
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class OxygenTrigger : MonoBehaviour
 {
+    [SerializeField] GameObject amount;
     public HealthBar healthBar;
     public Slider oxygenSlider;
     public float maxO = 100f;
@@ -52,18 +55,26 @@ public class OxygenTrigger : MonoBehaviour
         while(oxygenPresent == false && oxygenLvl > 0) {
             yield return new WaitForSeconds(oxygenTickRate);
             OxygenDepletion(1); // Currently: 1 oxygen per second
+            UpdateAmount();
         }
 
         // When player enters ship, their oxygen increases by 1f per second
         while(oxygenPresent == true && oxygenLvl != maxO){
             yield return new WaitForSeconds(breatheTickRate);
             Breathe(1);
+            UpdateAmount();
         }
 
         while(oxygenPresent == false && oxygenLvl == 0){
             yield return new WaitForSeconds(healthTickRate);
             healthBar.TakeDamage(damageNoAir);
         }
+    }
+
+    void UpdateAmount() {
+        TextMeshProUGUI text = amount.GetComponent<TextMeshProUGUI>();
+        int oxygenPercentage = (int)Math.Round((oxygenLvl / maxO) * 100);
+        text.SetText(oxygenPercentage + "%");
     }
 
     void OxygenDepletion(float amount) {

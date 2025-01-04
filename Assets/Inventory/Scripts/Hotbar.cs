@@ -151,8 +151,8 @@ public class Hotbar : MonoBehaviour
 
                 // Find and set the image to the item's sprite
                 Image image = itemSlotRectTransform.Find("image").GetComponent<Image>();
-                Sprite itemSprite = item.GetSprite();
-                image.sprite = itemSprite;
+                //Sprite itemSprite = item.GetSprite();
+                image.sprite = item.GetSprite();
 
                 // Set the amount text
                 TextMeshProUGUI text = itemSlotRectTransform.Find("amount").GetComponent<TextMeshProUGUI>();
