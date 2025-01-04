@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/AiLocomotion.cs.meta
 guid: bb9b7f2535b4fe34aba26a316954cbc7
+========
+guid: 3383bf2a325fb1348ae197cc35ae9114
+>>>>>>>> main:Assets/Scripts/EnemyBook/BookContents.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

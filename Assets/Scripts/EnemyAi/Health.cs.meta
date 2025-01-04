@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Health.cs.meta
 guid: c5a0a41e5c065f6458a96f93e4407373
+========
+guid: b54863acf20d69748acc636d4534a65e
+>>>>>>>> main:Assets/Scripts/Inventory/Hotbar.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
