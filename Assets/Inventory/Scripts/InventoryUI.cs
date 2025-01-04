@@ -122,8 +122,7 @@ public class InventoryUI : MonoBehaviour
             }
             else { Debug.Log("camera is null"); }
         }
-        hotbar.RefreshHotbar();
-        RefreshInventory();
+        uiManager.RefreshUI();
     }
 
     public bool IsOpen() { return invIsOpen; }

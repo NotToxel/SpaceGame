@@ -8,7 +8,7 @@ public class Inventory
     public event EventHandler OnItemListChanged;
     public static Inventory instance;
     private static int hotbarSize = 9; 
-    private static int inventoryUISize = 27;
+    private static int inventoryUISize = 36;
     public static int maxSize = hotbarSize + inventoryUISize;
     private static List<Item> itemList = new List<Item>(maxSize);
     private int stackLimit = 100;
@@ -43,6 +43,10 @@ public class Inventory
         AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
         AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
         AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
+        AddItem(new Item { itemType = Item.ItemType.Helmet, amount = 1 });
+        AddItem(new Item { itemType = Item.ItemType.Chest, amount = 1 });
+        AddItem(new Item { itemType = Item.ItemType.Legs, amount = 1 });
+        AddItem(new Item { itemType = Item.ItemType.Boots, amount = 1 });
         Debug.Log(itemList.Count);
     }
 
