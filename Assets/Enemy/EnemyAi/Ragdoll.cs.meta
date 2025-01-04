@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Ragdoll.cs.meta
+guid: 471aba373e492b8438a088113f8b8fd0
+========
+guid: b54863acf20d69748acc636d4534a65e
+>>>>>>>> main:Assets/Scripts/Inventory/Hotbar.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
