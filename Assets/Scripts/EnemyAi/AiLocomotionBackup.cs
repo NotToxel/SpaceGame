@@ -1,4 +1,4 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -10,10 +10,11 @@ public class AiLocomotion : MonoBehaviour
     public Transform playerTransform;
     public float maxTime = 1.0f;
     public float maxDistance = 1.0f;
+    float timer = 0.0f;
 
     NavMeshAgent agent;
     Animator animator;
-    float timer = 0.0f;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -38,3 +39,5 @@ public class AiLocomotion : MonoBehaviour
         animator.SetFloat("Speed", agent.velocity.magnitude);
     }
 }
+
+*/
