@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 5e1652dcbaa54354794460f9cb5bc1f1
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 299607
+  packageName: CompassHUD
+  packageVersion: 1.1
+  assetPath: Assets/Imported Assets/RiverExplorer/Compass/Demo/Images/GrandCanyonSkybox.mat
+  uploadId: 704247
