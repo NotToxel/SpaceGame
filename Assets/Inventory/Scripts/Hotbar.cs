@@ -218,8 +218,13 @@ public class Hotbar : MonoBehaviour
 
 
     public bool isHoldingWeapon() {
+        if (selectedSlot == -1) { return false; }
         return inventory.GetItem(selectedSlot).IsWeapon();
     }
 
     public int getHotbarSize() { return hotbarSize; }
+    public bool isBareFist() {
+        if (selectedSlot == -1) { return true; }
+        else { return false; }
+    }
 }

@@ -11,6 +11,7 @@ public class Inventory
     private static int inventoryUISize = 27;
     public static int maxSize = hotbarSize + inventoryUISize;
     private static List<Item> itemList = new List<Item>(maxSize);
+    private int stackLimit = 100;
 
     public static Inventory Instance {
         get {
@@ -42,31 +43,41 @@ public class Inventory
         AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
         AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
         AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
-        //Debug.Log(itemList.Count);
+        Debug.Log(itemList.Count);
     }
 
     public void AddItem(Item item) {
         //Debug.Log(item.itemType);
-        if (GetItemCount()+1 > maxSize) {
-            Debug.Log("Inventory is too full");
-            return;
-        }
         if (item == null)
         {
             Debug.LogError("Item is null and cannot be checked for stackability.");
             return;
         }
-        if (item.IsStackable()){
+
+        if (item.IsStackable()) { // Stackable case
             bool itemAlreadyInInventory = false;
             foreach (Item inventoryItem in itemList) {
-                if (inventoryItem.itemType == item.itemType) {
-                    inventoryItem.amount += item.amount;
-                    itemAlreadyInInventory = true;
+                if (inventoryItem.itemType==item.itemType) {
+                    int itemAmountTotal = inventoryItem.amount + item.amount;
+                    if (itemAmountTotal > stackLimit) {
+                        int residue = stackLimit - inventoryItem.amount;
+                        inventoryItem.amount = 100;
+                        item.amount = residue;
+                        itemList.Add(item);
+                    }
+                    else {
+                        inventoryItem.amount += item.amount;
+                        itemAlreadyInInventory = true;
+                    }
                 }
             }
             if (!itemAlreadyInInventory) {
                 itemList.Add(item);
             }
+        }
+        else if (GetItemCount()+1 > maxSize) { // Full Inventory Ccase
+            Debug.Log("Inventory is too full");
+            return;
         }
         else {
             itemList.Add(item);
