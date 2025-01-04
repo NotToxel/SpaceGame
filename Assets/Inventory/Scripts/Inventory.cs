@@ -17,7 +17,7 @@ public class Inventory
         get {
             if (instance == null) {
                 instance = new Inventory();
-                Debug.Log("New inventory made containing " + (maxSize) + " slots");
+                //Debug.Log("New inventory made containing " + (maxSize) + " slots");
             }
             return instance;
         }
@@ -47,7 +47,7 @@ public class Inventory
         AddItem(new Item { itemType = Item.ItemType.Chest, amount = 1 });
         AddItem(new Item { itemType = Item.ItemType.Legs, amount = 1 });
         AddItem(new Item { itemType = Item.ItemType.Boots, amount = 1 });
-        Debug.Log(itemList.Count);
+        //Debug.Log(itemList.Count);
     }
 
     public void AddItem(Item item) {

@@ -52,6 +52,7 @@ public class OxygenTrigger : MonoBehaviour
     }
 
     IEnumerator OxygenDepletionRoutine() {
+        Debug.Log("Routine Started!");
         // Oxygen ticks down while player is in an area lacking oxygen (i.e. out of ship)
         while(oxygenPresent == false && oxygenLvl > 0) {
             yield return new WaitForSeconds(oxygenTickRate);

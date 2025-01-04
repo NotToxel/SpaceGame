@@ -38,10 +38,10 @@ public class ArmorPanel : MonoBehaviour
         //chestIndex = inventory.GetMaxSize()+1;
         //legsIndex = inventory.GetMaxSize()+2;
         //bootsIndex = inventory.GetMaxSize()+3;
-        Debug.Log(helmetIndex);
-        Debug.Log(chestIndex);
-        Debug.Log(legsIndex);
-        Debug.Log(bootsIndex);
+        //Debug.Log(helmetIndex);
+        //Debug.Log(chestIndex);
+        //Debug.Log(legsIndex);
+        //Debug.Log(bootsIndex);
     }
 
     public void RefreshArmorPanel() {
