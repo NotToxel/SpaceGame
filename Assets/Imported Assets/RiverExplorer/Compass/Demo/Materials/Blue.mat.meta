@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 875e9ce5ed6c1ac40a172eebecfc4e0a
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 299607
+  packageName: CompassHUD
+  packageVersion: 1.1
+  assetPath: Assets/Imported Assets/RiverExplorer/Compass/Demo/Materials/Blue.mat
+  uploadId: 704247

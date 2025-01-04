@@ -11,10 +11,10 @@ using UnityEngine;
 public class OxygenTankTrigger : MonoBehaviour
 {
     public float oxygenTank = 10f;
-    public OxygenTrigger oxygenTrigger;
+    public OxygenManager oxygenManager;
     private void OnTriggerEnter(Collider other){
         if(other.CompareTag("Player")){ //Checks if player has collided with tank
-            oxygenTrigger.getOxygen(oxygenTank); //Increases player's oxygen
+            oxygenManager.AddOxygen(oxygenTank); //Increases player's oxygen
             // Destroy(gameObject); //Destroys oxygen tank once player has used it
             transform.position = new Vector3(3.4f, 1f, 3.85f);
         }
