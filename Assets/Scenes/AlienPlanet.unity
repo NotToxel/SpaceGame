@@ -7174,6 +7174,8 @@ MonoBehaviour:
   armorSlotTemplate: {fileID: 1137260420}
   hotbar: {fileID: 615445609}
   inventoryUI: {fileID: 2059255788}
+  player: {fileID: 546936769}
+  camera: {fileID: 3065299}
 --- !u!114 &145599228
 MonoBehaviour:
   m_ObjectHideFlags: 0

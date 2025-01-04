@@ -11,6 +11,8 @@ public class ArmorPanel : MonoBehaviour
     [SerializeField] private Transform armorSlotTemplate;
     [SerializeField] private Hotbar hotbar;
     [SerializeField] private InventoryUI inventoryUI;
+    [SerializeField] private GameObject player;
+    [SerializeField] private GameObject camera;
     private Inventory inventory = Inventory.Instance;
     private UIManager uiManager;
 
@@ -162,7 +164,14 @@ public class ArmorPanel : MonoBehaviour
     }
 
     public void Unequip(int index) {
-    //    ItemWorld.DropItem(player.GetComponent<Transform>(), camera.GetComponent<Transform>(), item);
+        if (GetEquippedArmor(index) == null) { return; }
+        switch (index)
+        {
+            case helmetIndex: ItemWorld.DropItem(player.GetComponent<Transform>(), camera.GetComponent<Transform>(), currentHelmet); return;
+            case chestIndex: ItemWorld.DropItem(player.GetComponent<Transform>(), camera.GetComponent<Transform>(), currentChest); return;
+            case legsIndex: ItemWorld.DropItem(player.GetComponent<Transform>(), camera.GetComponent<Transform>(), currentLegs); return;
+            case bootsIndex: ItemWorld.DropItem(player.GetComponent<Transform>(), camera.GetComponent<Transform>(), currentBoots); return;
+        }
         Debug.Log("Dropped armor");
     }
 }
