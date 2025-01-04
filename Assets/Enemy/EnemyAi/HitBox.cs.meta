@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/HitBox.cs.meta
+guid: a106f2ba3a90e3843ab0cd776873b723
+========
+guid: 3383bf2a325fb1348ae197cc35ae9114
+>>>>>>>> main:Assets/Scripts/EnemyBook/BookContents.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

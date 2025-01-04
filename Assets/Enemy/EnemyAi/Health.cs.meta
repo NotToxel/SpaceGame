@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Health.cs.meta
+guid: 20df69eb00ce123409739a5177db8c85
+========
+guid: b54863acf20d69748acc636d4534a65e
+>>>>>>>> main:Assets/Scripts/Inventory/Hotbar.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
