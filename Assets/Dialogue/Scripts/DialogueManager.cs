@@ -9,6 +9,9 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI dialogueText;
     private Queue<string> sentences;
+    public FirstPersonCamera firstPersonCamera;
+
+    public GameObject inputManager;
 
     public Animator animator;
 
@@ -16,6 +19,8 @@ public class DialogueManager : MonoBehaviour
     void Start()
     {
         sentences = new Queue<string>();
+        // firstPersonCamera.currentMouseSensitivity = 0f;
+        inputManager.SetActive(false);
     }
 
     public void StartDialogue (Dialogue dialogue) 
@@ -50,5 +55,7 @@ public class DialogueManager : MonoBehaviour
     void EndDialogue() 
     {
         animator.SetBool("isOpen", false);
+        firstPersonCamera.currentMouseSensitivity = firstPersonCamera.mouseSensitivity;
+        inputManager.SetActive(true);
     }
 }
