@@ -3543,7 +3543,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teleportDestination: {fileID: 909124105}
   playerTag: Player
---- !u!114 &68613238
+--- !u!114 &68613243
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3555,17 +3555,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64bc101a9d4976342917b9b38a74e073, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amount: {fileID: 1006633009}
-  healthBar: {fileID: 188707007}
-  oxygenSlider: {fileID: 1610854388}
-  maxO: 100
-  oxygenLvl: 0
-  healthLvl: 0
-  oxygenTickRate: 5
-  breatheTickRate: 1
-  healthTickRate: 1
-  damageNoAir: 1
-  oxygenPresent: 1
+  isOxygenArea: 0
 --- !u!1001 &69038326
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3939,7 +3929,7 @@ PrefabInstance:
       addedObject: {fileID: 1186090619}
     - targetCorrespondingSourceObject: {fileID: 2565628773888205427, guid: 8758551d911a7224095cfb5556190a5e, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1186090624}
+      addedObject: {fileID: 1186090625}
     - targetCorrespondingSourceObject: {fileID: 7203030419718975750, guid: 8758551d911a7224095cfb5556190a5e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 865133725}
@@ -17012,17 +17002,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64bc101a9d4976342917b9b38a74e073, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amount: {fileID: 0}
-  healthBar: {fileID: 188707007}
-  oxygenSlider: {fileID: 1610854388}
-  maxO: 100
-  oxygenLvl: 0
-  healthLvl: 0
-  oxygenTickRate: 5
-  breatheTickRate: 1
-  healthTickRate: 1
-  damageNoAir: 1
-  oxygenPresent: 1
+  isOxygenArea: 1
 --- !u!114 &398123097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37476,17 +37456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64bc101a9d4976342917b9b38a74e073, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amount: {fileID: 0}
-  healthBar: {fileID: 188707007}
-  oxygenSlider: {fileID: 1610854388}
-  maxO: 100
-  oxygenLvl: 0
-  healthLvl: 0
-  oxygenTickRate: 5
-  breatheTickRate: 1
-  healthTickRate: 1
-  damageNoAir: 1
-  oxygenPresent: 1
+  isOxygenArea: 1
 --- !u!114 &865133724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39757,6 +39727,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1483371248}
     m_Modifications:
+    - target: {fileID: 677532560924929967, guid: f2664c5163a0cc14598bf6c31836382f, type: 3}
+      propertyPath: amount
+      value: 
+      objectReference: {fileID: 1006633009}
+    - target: {fileID: 677532560924929967, guid: f2664c5163a0cc14598bf6c31836382f, type: 3}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 188707007}
     - target: {fileID: 1795043608948270496, guid: f2664c5163a0cc14598bf6c31836382f, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -39849,13 +39827,17 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 677532560924929967, guid: f2664c5163a0cc14598bf6c31836382f, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1795043608948270496, guid: f2664c5163a0cc14598bf6c31836382f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1006633010}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6933307358438840583, guid: f2664c5163a0cc14598bf6c31836382f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1610854389}
   m_SourcePrefab: {fileID: 100100000, guid: f2664c5163a0cc14598bf6c31836382f, type: 3}
 --- !u!4 &917394975 stripped
 Transform:
@@ -46716,7 +46698,7 @@ PrefabInstance:
       addedObject: {fileID: 68613233}
     - targetCorrespondingSourceObject: {fileID: 6568595743485830752, guid: 6b6d4f0502db2aa48a5b10e9598adb07, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 68613238}
+      addedObject: {fileID: 68613243}
     - targetCorrespondingSourceObject: {fileID: 8438349304203371191, guid: 6b6d4f0502db2aa48a5b10e9598adb07, type: 3}
       insertIndex: -1
       addedObject: {fileID: 702322028}
@@ -50482,17 +50464,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64bc101a9d4976342917b9b38a74e073, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amount: {fileID: 0}
-  healthBar: {fileID: 188707007}
-  oxygenSlider: {fileID: 1610854388}
-  maxO: 100
-  oxygenLvl: 0
-  healthLvl: 0
-  oxygenTickRate: 5
-  breatheTickRate: 1
-  healthTickRate: 1
-  damageNoAir: 1
-  oxygenPresent: 1
+  isOxygenArea: 1
 --- !u!114 &1133779209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51240,6 +51212,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4216261169967368, guid: 2a3d0937e42cd1141abe41a3a1279e62, type: 3}
   m_PrefabInstance: {fileID: 1139997938}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1140717951 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6933307358438840583, guid: f2664c5163a0cc14598bf6c31836382f, type: 3}
+  m_PrefabInstance: {fileID: 915349242}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1140803965
 PrefabInstance:
@@ -53899,7 +53876,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.2
   m_Center: {x: 0, y: -0.00000000372529, z: 0.5}
---- !u!114 &1186090624
+--- !u!114 &1186090625
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -53911,17 +53888,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64bc101a9d4976342917b9b38a74e073, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amount: {fileID: 1006633009}
-  healthBar: {fileID: 188707007}
-  oxygenSlider: {fileID: 1610854388}
-  maxO: 100
-  oxygenLvl: 0
-  healthLvl: 0
-  oxygenTickRate: 5
-  breatheTickRate: 1
-  healthTickRate: 1
-  damageNoAir: 1
-  oxygenPresent: 1
+  isOxygenArea: 1
 --- !u!1001 &1186930775
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -73877,12 +73844,33 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8887936217860650475, guid: f2664c5163a0cc14598bf6c31836382f, type: 3}
   m_PrefabInstance: {fileID: 915349242}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1140717951}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1610854389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1140717951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c64be53816dc3142b66bdc9b266f8d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amount: {fileID: 1006633009}
+  healthBar: {fileID: 188707007}
+  oxygenSlider: {fileID: 1610854388}
+  maxOxygen: 100
+  oxygenLevel: 0
+  oxygenTickRate: 5
+  breatheTickRate: 1
+  healthTickRate: 1
+  damageNoAir: 1
 --- !u!4 &1613008040 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4244432617035288, guid: 20f64b4081161ef43b320aa975519fdc, type: 3}
@@ -76666,17 +76654,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64bc101a9d4976342917b9b38a74e073, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amount: {fileID: 0}
-  healthBar: {fileID: 188707007}
-  oxygenSlider: {fileID: 1836788834}
-  maxO: 100
-  oxygenLvl: 0
-  healthLvl: 0
-  oxygenTickRate: 5
-  breatheTickRate: 1
-  healthTickRate: 1
-  damageNoAir: 1
-  oxygenPresent: 1
+  isOxygenArea: 1
 --- !u!114 &1682476499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84185,17 +84163,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d9eca3491a41fb46841887134a85e1b, type: 3}
---- !u!114 &1836788834 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2655787649945847050, guid: 7d9eca3491a41fb46841887134a85e1b, type: 3}
-  m_PrefabInstance: {fileID: 1836788833}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1837238327
 PrefabInstance:
   m_ObjectHideFlags: 0
