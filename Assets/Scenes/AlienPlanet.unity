@@ -3555,9 +3555,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64bc101a9d4976342917b9b38a74e073, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amount: {fileID: 0}
-  healthBar: {fileID: 0}
-  oxygenSlider: {fileID: 0}
+  amount: {fileID: 1006633009}
+  healthBar: {fileID: 188707007}
+  oxygenSlider: {fileID: 1610854388}
   maxO: 100
   oxygenLvl: 0
   healthLvl: 0
@@ -43224,7 +43224,7 @@ GameObject:
   - component: {fileID: 1006633012}
   - component: {fileID: 1006633011}
   m_Layer: 5
-  m_Name: amount
+  m_Name: Oxygenamount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53911,7 +53911,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64bc101a9d4976342917b9b38a74e073, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amount: {fileID: 0}
+  amount: {fileID: 1006633009}
   healthBar: {fileID: 188707007}
   oxygenSlider: {fileID: 1610854388}
   maxO: 100
