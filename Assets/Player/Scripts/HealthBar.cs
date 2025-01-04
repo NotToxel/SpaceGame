@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class HealthBar : MonoBehaviour
 {
-    public OxygenTrigger oxygenTrigger;
+    [SerializeField] GameObject amount;
+    //public OxygenTrigger oxygenTrigger;
     public Slider healthSlider;
     public Slider easeHealthSlider;
     public float maxHP = 100f;
@@ -51,6 +53,13 @@ public class HealthBar : MonoBehaviour
                 regenTimer = regenCooldown; // Reset the regen timer
             }
         }
+
+        UpdateAmount();
+    }
+
+    private void UpdateAmount() {
+        TextMeshProUGUI text = amount.GetComponent<TextMeshProUGUI>();
+        text.SetText(health + "/" + maxHP);
     }
 
     public void regenHP(float rate) {

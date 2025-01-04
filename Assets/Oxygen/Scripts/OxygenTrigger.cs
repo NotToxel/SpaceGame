@@ -37,6 +37,7 @@ public class OxygenTrigger : MonoBehaviour
             healthBar = FindFirstObjectByType<HealthBar>();
         }
         
+        UpdateAmount();
     }
 
     //Checks if player has collided with object (player has left ship)
