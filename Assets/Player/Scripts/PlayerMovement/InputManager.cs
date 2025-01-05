@@ -12,19 +12,24 @@ public class InputManager : MonoBehaviour
     public bool CrouchIsPressed = false;
     public bool InventoryIsOpen = false;
 
-    public static InputManager Instance{
-        get{
+    public static InputManager Instance
+    {
+        get
+        {
             return _instance;
         }
     }
 
     private PlayerControls playerControls;
 
-    private void Awake(){
-        if(_instance != null && _instance != this){
+    private void Awake()
+    {
+        if(_instance != null && _instance != this)
+        {
             Destroy(this.gameObject);
         }
-        else{
+        else
+        {
             _instance = this;
         }
         playerControls = new PlayerControls();
@@ -32,55 +37,68 @@ public class InputManager : MonoBehaviour
         // Cursor.lockState = CursorLockMode.Locked;
     }
 
-    private void OnEnable(){
+    private void OnEnable()
+    {
         playerControls.Enable();
     }
 
-    private void OnDisable(){
+    private void OnDisable()
+    {
         playerControls.Disable();
     }
 
-    public Vector2 GetPlayerMovement(){
+    public Vector2 GetPlayerMovement()
+    {
         return playerControls.Player.Movement.ReadValue<Vector2>();
     }
 
-    public Vector2 GetMouseDelta(){
+    public Vector2 GetMouseDelta()
+    {
         return playerControls.Player.Look.ReadValue<Vector2>();
     }
 
-    public bool PlayerJumpedThisFrame(){
+    public bool PlayerJumpedThisFrame()
+    {
         return playerControls.Player.Jump.triggered;
     }
 
-    public float PlayerCrouchedThisFrame(){
+    public float PlayerCrouchedThisFrame()
+    {
         return playerControls.Player.Crouch.ReadValue<float>();
     }
     
-    public bool PlayerPickedItemUp(){
+    public bool PlayerPickedItemUp()
+    {
         return playerControls.Player.PickUpObject.triggered;
     }
 
-    public bool PlayerDroppedItem(){
+    public bool PlayerDroppedItem()
+    {
         return playerControls.Player.DropObject.triggered;
     }
 
-    public bool PlayerLightAttack(){
+    public bool PlayerLightAttack()
+    {
         return playerControls.Player.LightAttack.triggered;
     }
     
-    public bool PlayerHeavyAttack(){
+    public bool PlayerHeavyAttack()
+    {
         return playerControls.Player.HeavyAttack.triggered;
     }
 
-    public bool PlayerInteract(){
+    public bool PlayerInteract()
+    {
         return playerControls.Player.Interact.triggered;
     }
 
-    public float HotbarScrollSelect() {
+    public float HotbarScrollSelect() 
+    {
         return playerControls.Player.ScrollSelectHotbarSlot.ReadValue<float>();
     }
 
-    public int HotbarNumberSelect() {
+    public int HotbarNumberSelect() 
+    {
         if (playerControls.Player.SelectHotbarSlot1.triggered) { return 1; }
         if (playerControls.Player.SelectHotbarSlot2.triggered) { return 2; }
         if (playerControls.Player.SelectHotbarSlot3.triggered) { return 3; }
@@ -93,15 +111,23 @@ public class InputManager : MonoBehaviour
         else { return -1; }
     }
 
-    public bool InventoryToggle() {
+    public bool InventoryToggle() 
+    {
         return playerControls.Player.Inventory.triggered;
     }
     
-    public bool PlayerUsedTablet(){
+    public bool PlayerUsedTablet()
+    {
        return playerControls.Player.Tablet.triggered;
     }
 
-    public bool PlayerContinuesDialogue(){
+    public bool PlayerContinuesDialogue()
+    {
         return playerControls.Player.NextSentence.triggered;
+    }
+
+    public float PlayerIsSprinting()
+    {
+        return playerControls.Player.Sprint.ReadValue<float>();
     }
 }
