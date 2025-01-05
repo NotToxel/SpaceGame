@@ -85678,6 +85678,10 @@ PrefabInstance:
       propertyPath: amount
       value: 
       objectReference: {fileID: 1134721817}
+    - target: {fileID: 2967054720560188422, guid: 7d9eca3491a41fb46841887134a85e1b, type: 3}
+      propertyPath: armorPanel
+      value: 
+      objectReference: {fileID: 145599227}
     - target: {fileID: 4321823506683761491, guid: 7d9eca3491a41fb46841887134a85e1b, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

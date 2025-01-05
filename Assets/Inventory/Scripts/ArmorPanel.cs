@@ -211,4 +211,13 @@ public class ArmorPanel : MonoBehaviour
         }
         Debug.Log("Dropped armor");
     }
+
+    public float bonusHP() {
+        float totalBonusHP = 0f;
+        if (currentHelmet != null) { totalBonusHP += 25f; }
+        if (currentChest != null) { totalBonusHP += 25f; }
+        if (currentLegs != null) { totalBonusHP += 25f; }
+        if (currentBoots != null) { totalBonusHP += 25f; }
+        return totalBonusHP;
+    }
 }
