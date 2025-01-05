@@ -119,7 +119,7 @@ public class InventoryUI : MonoBehaviour
             if (camera != null) {
                 FirstPersonCamera cameraScript = FindObjectOfType<FirstPersonCamera>();
                 if (cameraScript != null) { 
-                    if (inventoryIsOpen) { cameraScript.DisableCam(); }
+                    if (invIsOpen) { cameraScript.DisableCam(); }
                     else { cameraScript.EnableCam(); }
                 }
             }
