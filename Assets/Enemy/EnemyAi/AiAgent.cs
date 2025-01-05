@@ -24,7 +24,10 @@ public class AiAgent : MonoBehaviour
         mesh = GetComponentInChildren<SkinnedMeshRenderer>();
         ui = GetComponentInChildren<UIHealthBar>();
         navMeshAgent = GetComponent<NavMeshAgent>();
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        if (playerTransform == null)
+        {
+            playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
+        }
         stateMachine = new AiStateMachine(this);
         stateMachine.RegisterState(new AiChasePlayerState());
         stateMachine.RegisterState(new AiDeathState());
