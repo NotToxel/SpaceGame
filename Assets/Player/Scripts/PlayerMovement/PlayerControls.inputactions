@@ -202,6 +202,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "NextSentence",
+                    "type": "Button",
+                    "id": "df7af8a0-c590-4d85-97f8-9d378f2c832f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -488,6 +497,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Tablet",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ce090b07-bd85-491d-914b-abe2fa5df027",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NextSentence",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
