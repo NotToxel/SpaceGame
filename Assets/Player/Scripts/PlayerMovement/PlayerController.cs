@@ -72,6 +72,7 @@ public class PlayerController : MonoBehaviour
     public GameObject holdingMelee; // Stores Melee player is currently holding
     public GameObject tablet;
     public QuestTabletButton questTabletButton;
+    public DialogueManager dialogueManager;
     // public Book bookScript;
 
 
@@ -218,6 +219,15 @@ public class PlayerController : MonoBehaviour
 
         if (inputManager.PlayerUsedTablet())
             InteractWithTablet();
+        
+        if (inputManager.PlayerContinuesDialogue())
+            NextSentence();
+    }
+
+    private void NextSentence()
+    {
+        Debug.Log("Displaying next");
+        dialogueManager.DisplayNextSentence();
     }
 
     private void InteractWithTablet()

@@ -5745,6 +5745,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2071180527}
     - target: {fileID: 2525918314901436802, guid: 87c1253a3ee093e439a7e9dd1b58bd07, type: 3}
+      propertyPath: dialogueManager
+      value: 
+      objectReference: {fileID: 203923530}
+    - target: {fileID: 2525918314901436802, guid: 87c1253a3ee093e439a7e9dd1b58bd07, type: 3}
       propertyPath: questTabletButton
       value: 
       objectReference: {fileID: 1522988625}
