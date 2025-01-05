@@ -25,11 +25,16 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue (Dialogue dialogue) 
     {
+        // Disable camera controls
         if (camera != null) {
             FirstPersonCamera cameraScript = FindObjectOfType<FirstPersonCamera>();
             if (cameraScript != null) { cameraScript.DisableCam(); }
         }
         else { Debug.Log("camera is null"); }
+
+        // Enable cursor controls
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
 
         animator.SetBool("isOpen", true);
         Debug.Log("Should be showing");
@@ -60,11 +65,17 @@ public class DialogueManager : MonoBehaviour
 
     void EndDialogue() 
     {
+        // Enable camera controls
         if (camera != null) {
             FirstPersonCamera cameraScript = FindObjectOfType<FirstPersonCamera>();
             if (cameraScript != null) { cameraScript.EnableCam(); }
         }
         else { Debug.Log("camera is null"); }
+
+        // Disable cursor controls
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
         
         animator.SetBool("isOpen", false);
         //firstPersonCamera.currentMouseSensitivity = firstPersonCamera.mouseSensitivity;
