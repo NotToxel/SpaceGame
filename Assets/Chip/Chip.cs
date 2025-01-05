@@ -6,6 +6,7 @@ public class Chip : MonoBehaviour
 {
     [SerializeField] GameObject ChipAtShip;
     [SerializeField] GameObject ChipInWild;
+    private Inventory inventory = Inventory.Instance;
 
     private bool ChipIsInShip;
 
@@ -19,7 +20,17 @@ public class Chip : MonoBehaviour
     }
 
     public void Interact() {
-        if (ChipIsInShip) { Debug.Log("Interacting with Chip inside ship");/*Dialogue, Search for rocks, remove them, +HP*/ }
+        List<Item> itemList = inventory.GetItemList();
+        if (ChipIsInShip) { 
+            //Debug.Log("Interacting with Chip inside ship"); /*Dialogue, Search for rocks, remove them, +HP*/
+            foreach (Item item in itemList) {
+                if (item.isRock() && item.amount>=10) { item.amount -= 10; }
+                if (item.amount <= 0) { inventory.RemoveItem(item); }
+                ChipInWild.SetActive(false);
+                ChipAtShip.SetActive(true);
+                ChipIsInShip = true;
+            }
+        }
         else { /*Dialogue, Search for 10 rocks, if found go to ship*/ }
     }
 }

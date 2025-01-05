@@ -10,7 +10,7 @@ public class Item
         // --- Item Types --- //
         Compass,
         Wrench,
-        Pebble,
+        //Pebble,
         Rock,
 
         // --- Weapon Types --- //
@@ -85,6 +85,11 @@ public class Item
 
     public bool isCompass() { 
         if (itemType == ItemType.Compass) { return true; }
+        else { return false; }
+    }
+
+    public bool isRock() {
+        if (itemType == ItemType.Rock) { return true; }
         else { return false; }
     }
 
