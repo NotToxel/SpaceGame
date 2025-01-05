@@ -64,6 +64,7 @@ public class PlayerController : MonoBehaviour
     // --- Components and References ---
     private CharacterController controller; // CharacterController component for movement
     private InputManager inputManager; // Input manager to handle player input
+    public GameObject camera; // Reference to main camera GameObject
     public Transform cameraTransform; // Reference to the main camera's transform
     private HealthBar healthBar; // Reference to the player's health bar
     private Collider playerCollider; // Collider for the player (used to disable collision with held objects)
@@ -221,12 +222,12 @@ public class PlayerController : MonoBehaviour
 
     private void InteractWithTablet()
     {
-        FirstPersonCamera firstPersonCamera = FindObjectOfType<FirstPersonCamera>();
+        FirstPersonCamera cameraScript = FindObjectOfType<FirstPersonCamera>();
         if (isTabletOpen)
         {
-            if (firstPersonCamera != null)
+            if (cameraScript != null)
             {
-                firstPersonCamera.currentMouseSensitivity = firstPersonCamera.mouseSensitivity;
+                cameraScript.EnableCam();
             }
 
             audioManager.PlaySFX(audioManager.closeTablet);
@@ -237,9 +238,9 @@ public class PlayerController : MonoBehaviour
         }
         else
         {   
-            if (firstPersonCamera != null)
+            if (cameraScript != null)
             {
-                firstPersonCamera.currentMouseSensitivity = 0.0f;
+                cameraScript.DisableCam();
             }
 
             audioManager.PlaySFX(audioManager.openTablet);

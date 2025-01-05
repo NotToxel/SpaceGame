@@ -118,7 +118,10 @@ public class InventoryUI : MonoBehaviour
             // Disable or enable Cinemachine camera input
             if (camera != null) {
                 FirstPersonCamera cameraScript = FindObjectOfType<FirstPersonCamera>();
-                if (cameraScript != null) { cameraScript.toggleCam(); }
+                if (cameraScript != null) { 
+                    if (inventoryIsOpen) { cameraScript.DisableCam(); }
+                    else { cameraScript.EnableCam(); }
+                }
             }
             else { Debug.Log("camera is null"); }
         }

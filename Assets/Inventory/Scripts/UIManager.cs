@@ -136,7 +136,7 @@ public class UIManager : MonoBehaviour
     }
 
     public void refreshCompass() {
-        if (inventory.ContainsCompass()) { compass.SetActive(true); Debug.Log("No Compass"); }
-        else { compass.SetActive(false); Debug.Log("Compass"); }
+        if (inventory.ContainsCompass()) { compass.SetActive(true); /*Debug.Log("No Compass");*/ }
+        else { compass.SetActive(false); /*Debug.Log("Compass");*/ }
     }
 }

@@ -9,7 +9,7 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI dialogueText;
     private Queue<string> sentences;
-    public FirstPersonCamera firstPersonCamera;
+    public GameObject camera;
 
     public GameObject inputManager;
 
@@ -25,6 +25,12 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue (Dialogue dialogue) 
     {
+        if (camera != null) {
+            FirstPersonCamera cameraScript = FindObjectOfType<FirstPersonCamera>();
+            if (cameraScript != null) { cameraScript.DisableCam(); }
+        }
+        else { Debug.Log("camera is null"); }
+
         animator.SetBool("isOpen", true);
         Debug.Log("Should be showing");
 
@@ -54,8 +60,14 @@ public class DialogueManager : MonoBehaviour
 
     void EndDialogue() 
     {
+        if (camera != null) {
+            FirstPersonCamera cameraScript = FindObjectOfType<FirstPersonCamera>();
+            if (cameraScript != null) { cameraScript.EnableCam(); }
+        }
+        else { Debug.Log("camera is null"); }
+        
         animator.SetBool("isOpen", false);
-        firstPersonCamera.currentMouseSensitivity = firstPersonCamera.mouseSensitivity;
+        //firstPersonCamera.currentMouseSensitivity = firstPersonCamera.mouseSensitivity;
         inputManager.SetActive(true);
     }
 }

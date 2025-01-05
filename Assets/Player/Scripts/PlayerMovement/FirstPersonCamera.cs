@@ -66,7 +66,11 @@ public class FirstPersonCamera : MonoBehaviour
         AdjustSpeed();
     }
 
-    public void toggleCam() {
-        camEnabled = !camEnabled;
+    public void EnableCam() {
+        camEnabled = true;
+    }
+
+    public void DisableCam() {
+        camEnabled = false;
     }
 }
