@@ -31,11 +31,13 @@ public class HealthBar : MonoBehaviour
     void Update() {
         // Update Health Slider
         if(healthSlider.value != health) {
+            healthSlider.maxValue = maxHP+bonusHP;
             healthSlider.value = health;
         }
 
         // Update Ease Health Slider
         if(healthSlider.value != easeHealthSlider.value) {
+            easeHealthSlider.maxValue = maxHP+bonusHP;
             easeHealthSlider.value = Mathf.Lerp(easeHealthSlider.value, health, lerpSpeed);
         }
 
