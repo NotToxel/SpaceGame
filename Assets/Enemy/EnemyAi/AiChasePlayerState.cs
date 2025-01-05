@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class AiChasePlayerState : AiState
 {
 
 
     float timer = 0.0f;
+    private const float maxChaseDistance = 30f;
+    private const float maxDistanceToPlayer = 30f;
 
     //float timer = 0.0f;
 
@@ -17,15 +20,16 @@ public class AiChasePlayerState : AiState
 
     public void Enter(AiAgent agent)
     {
-       
+        timer = agent.config.maxTime;
+        agent.navMeshAgent.SetDestination(agent.playerTransform.position);
     }
 
     public void Exit(AiAgent agent)
     {
-        
+
     }
 
-    
+
 
     public void Update(AiAgent agent)
     {
@@ -34,20 +38,23 @@ public class AiChasePlayerState : AiState
             return;
         }
 
-        timer -= Time.deltaTime;
+        float distanceToPlayer = Vector3.Distance(agent.transform.position, agent.playerTransform.position);
 
-        if (!agent.navMeshAgent.hasPath)
+        if (distanceToPlayer > maxDistanceToPlayer)
         {
-            agent.navMeshAgent.destination = agent.playerTransform.position;
+            agent.stateMachine.ChangeState(AiStateId.Roam);
+            return;
         }
+
+        if (agent.navMeshAgent.remainingDistance <= agent.navMeshAgent.stoppingDistance)
+        {
+            agent.navMeshAgent.SetDestination(agent.playerTransform.position);
+        }
+
+        timer -= Time.deltaTime;
 
         if (timer < 0.0f)
         {
-            float sqDistance = (agent.playerTransform.position - agent.navMeshAgent.destination).sqrMagnitude;
-            if (sqDistance > agent.config.maxDistance)
-            {
-                agent.navMeshAgent.destination = agent.playerTransform.position;
-            }
             timer = agent.config.maxTime;
         }
     }

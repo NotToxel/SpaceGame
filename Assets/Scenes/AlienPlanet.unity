@@ -95075,6 +95075,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 756006671}
     - target: {fileID: 4093244806149543547, guid: 0614acd6345572548ae4911cc6117be0, type: 3}
+      propertyPath: initialState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4093244806149543547, guid: 0614acd6345572548ae4911cc6117be0, type: 3}
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 546936770}
