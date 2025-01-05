@@ -19,8 +19,6 @@ public class DialogueManager : MonoBehaviour
     void Start()
     {
         sentences = new Queue<string>();
-        // firstPersonCamera.currentMouseSensitivity = 0f;
-        // inputManager.SetActive(false);
     }
 
     public void StartDialogue (Dialogue dialogue) 
@@ -33,8 +31,8 @@ public class DialogueManager : MonoBehaviour
         else { Debug.Log("camera is null"); }
 
         // Enable cursor controls
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        // Cursor.visible = true;
+        // Cursor.lockState = CursorLockMode.None;
 
         animator.SetBool("isOpen", true);
         Debug.Log("Should be showing");

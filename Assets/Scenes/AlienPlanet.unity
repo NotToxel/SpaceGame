@@ -3695,6 +3695,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teleportDestination: {fileID: 909124105}
   playerTag: Player
+  questCatalyst: {fileID: 905296660}
 --- !u!114 &68613243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17242,6 +17243,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teleportDestination: {fileID: 2042667868}
   playerTag: Player
+  questCatalyst: {fileID: 905296660}
 --- !u!135 &398123098
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -38137,6 +38139,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teleportDestination: {fileID: 2042667868}
   playerTag: Player
+  questCatalyst: {fileID: 905296660}
 --- !u!135 &865133725
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -51439,6 +51442,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teleportDestination: {fileID: 2042667868}
   playerTag: Player
+  questCatalyst: {fileID: 905296660}
 --- !u!135 &1133779210
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -54949,6 +54953,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teleportDestination: {fileID: 2042667868}
   playerTag: Player
+  questCatalyst: {fileID: 905296660}
 --- !u!135 &1186090620
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -78193,6 +78198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teleportDestination: {fileID: 2042667868}
   playerTag: Player
+  questCatalyst: {fileID: 905296660}
 --- !u!135 &1682476500
 SphereCollider:
   m_ObjectHideFlags: 0
