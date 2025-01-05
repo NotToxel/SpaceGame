@@ -6,11 +6,13 @@ using TMPro;
 
 public class HealthBar : MonoBehaviour
 {
+    [SerializeField] ArmorPanel armorPanel;
     [SerializeField] GameObject amount;
     //public OxygenTrigger oxygenTrigger;
     public Slider healthSlider;
     public Slider easeHealthSlider;
     public float maxHP = 100f;
+    public float bonusHP;
     public float health;
     public float naturalRegenRate = 1f;
     private float lerpSpeed = 0.025f;
@@ -29,11 +31,13 @@ public class HealthBar : MonoBehaviour
     void Update() {
         // Update Health Slider
         if(healthSlider.value != health) {
+            healthSlider.maxValue = maxHP+bonusHP;
             healthSlider.value = health;
         }
 
         // Update Ease Health Slider
         if(healthSlider.value != easeHealthSlider.value) {
+            easeHealthSlider.maxValue = maxHP+bonusHP;
             easeHealthSlider.value = Mathf.Lerp(easeHealthSlider.value, health, lerpSpeed);
         }
 
@@ -54,17 +58,20 @@ public class HealthBar : MonoBehaviour
             }
         }
 
+        // Check for armor bonuses
+        bonusHP = armorPanel.bonusHP();
+
         UpdateAmount();
     }
 
     private void UpdateAmount() {
         TextMeshProUGUI text = amount.GetComponent<TextMeshProUGUI>();
-        text.SetText(health + "/" + maxHP);
+        text.SetText(health + "/" + (maxHP+bonusHP));
     }
 
     public void regenHP(float rate) {
         health += rate;
-        health = Mathf.Clamp(health, 0, maxHP);
+        health = Mathf.Clamp(health, 0, maxHP+bonusHP);
     }
 
     public void EnterCombat() {
@@ -79,6 +86,6 @@ public class HealthBar : MonoBehaviour
     public void TakeDamage(float damage) {
         EnterCombat();
         health -= damage;
-        health = Mathf.Clamp(health, 0, maxHP);
+        health = Mathf.Clamp(health, 0, maxHP+bonusHP);
     }
 }
