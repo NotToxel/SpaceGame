@@ -55,7 +55,7 @@ public class UIManager : MonoBehaviour
 
         // Try to swap equipped armor
         if (indexA>=inventory.GetMaxSize() ^ indexB>=inventory.GetMaxSize()) { 
-            Debug.Log("Trying armor swap");
+            //Debug.Log("Trying armor swap");
             SwapArmor(indexA, indexB);
             return;
         }
@@ -122,14 +122,15 @@ public class UIManager : MonoBehaviour
 
         // New Equip case
         if (equippedArmor == null) { 
-            armorPanel.Equip(storedArmor, armorSlot);
-            inventory.RemoveItem(itemList[inventorySlot]);
-            Debug.Log("Removing slot " + inventorySlot);
+            //Debug.Log(armorSlot);
+            bool success = armorPanel.Equip(storedArmor, armorSlot);
+            if (success) { inventory.RemoveItem(itemList[inventorySlot]); }
+            //Debug.Log("Removing slot " + inventorySlot);
             return;
         }
 
         // Not same armor piece case
-        if (equippedArmor.itemType != storedArmor.itemType) { Debug.Log("Not the same armor piece"); return; }
+        if (equippedArmor.itemType != storedArmor.itemType) { /*Debug.Log("Not the same armor piece");*/ return; }
 
         // Swap Case
         itemList[inventorySlot] = armorPanel.SwapArmor(storedArmor, armorSlot);

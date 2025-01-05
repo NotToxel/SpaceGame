@@ -153,13 +153,50 @@ public class ArmorPanel : MonoBehaviour
         return oldArmor;
     }
 
-    public void Equip(Item item, int index) {
+    public bool Equip(Item item, int index) {
+        //Debug.Log(index);
+        //Debug.Log(helmetIndex);
         switch (index)
         {
-            case helmetIndex: currentHelmet = item; return;
-            case chestIndex: currentChest = item; return;
-            case legsIndex: currentLegs = item; return;
-            case bootsIndex: currentBoots = item; return;
+            case helmetIndex: 
+                if (item.IsHelmet()) {
+                    currentHelmet = item;
+                    return true;
+                }
+                else {
+                    Debug.Log("Not a helmet");
+                    return false;
+                }
+            case chestIndex:
+                if (item.IsChest()) {
+                    currentChest = item;
+                    return true;
+                }
+                else {
+                    Debug.Log("Not a chest");
+                    return false;
+                }
+            case legsIndex: 
+                if (item.IsLegs()) {
+                    currentLegs = item;
+                    return true;
+                }
+                else {
+                    Debug.Log("Not a legs");
+                    return false;
+                }
+            case bootsIndex:
+                if (item.IsBoots()) {
+                    currentBoots = item;
+                    return true;
+                }
+                else {
+                    Debug.Log("Not a boots");
+                    return false;
+                }
+            default:
+                Debug.Log("Invalid equip");
+                return false;
         }
     }
 
