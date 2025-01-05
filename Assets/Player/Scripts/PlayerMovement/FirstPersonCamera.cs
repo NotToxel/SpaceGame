@@ -11,7 +11,7 @@ public class FirstPersonCamera : MonoBehaviour
     // --- Player Camera Settings ---
     [Header("First Player Camera")]
     [SerializeField] private float clampAngle = 80f;
-    public float mouseSensitivity = 100f;
+    public float mouseSensitivity = 1f;
     public float currentMouseSensitivity;
     float camVerticalRotation = 0f;
     public Transform player;
