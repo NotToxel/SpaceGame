@@ -8,8 +8,11 @@ public class Item
 {
     public enum ItemType {
         // --- Item Types --- //
-        Sword,
+        Compass,
         Wrench,
+
+        // --- Weapon Types --- //
+        Sword,
         Knife,
 
         // --- Armour Types --- //
@@ -76,6 +79,11 @@ public class Item
                 return true;
         }
         return false;
+    }
+
+    public bool isCompass() { 
+        if (itemType == ItemType.Compass) { return true; }
+        else { return false; }
     }
 
     //public bool IsConsumable() {}

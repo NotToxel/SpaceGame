@@ -10,16 +10,25 @@ public class UIManager : MonoBehaviour
     [SerializeField] private InventoryUI inventoryUI;
     [SerializeField] private Hotbar hotbar;
     [SerializeField] private ArmorPanel armorPanel;
+    [SerializeField] private GameObject compass;
+
+    [Header("Slot References")]
     [SerializeField] private Transform inventorySlotContainer;
     [SerializeField] private Transform hotbarSlotContainer;
     [SerializeField] private RectTransform inventorySlotTemplate;
     [SerializeField] private RectTransform hotbarSlotTemplate;
+
+    [Header("Player References")]
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject camera;
 
     private int firstSelectedSlot = -1;
     public Color selectedSlotColor = Color.blue;
     public Color defaultSlotColor = Color.white;
+
+    void Start() {
+        RefreshUI();
+    }
 
     public void SlotClicked(int slotIndex) {
         if (firstSelectedSlot == -1) {
@@ -87,6 +96,7 @@ public class UIManager : MonoBehaviour
         hotbar.RefreshHotbar();
         inventoryUI.RefreshInventory();
         armorPanel.RefreshArmorPanel();
+        refreshCompass();
     }
 
     public void SwapArmor(int indexA, int indexB) {
@@ -112,7 +122,6 @@ public class UIManager : MonoBehaviour
 
         // New Equip case
         if (equippedArmor == null) { 
-            // storedArmor -> equippedArmor, remove storedArmor
             armorPanel.Equip(storedArmor, armorSlot);
             inventory.RemoveItem(itemList[inventorySlot]);
             Debug.Log("Removing slot " + inventorySlot);
@@ -124,5 +133,10 @@ public class UIManager : MonoBehaviour
 
         // Swap Case
         itemList[inventorySlot] = armorPanel.SwapArmor(storedArmor, armorSlot);
+    }
+
+    public void refreshCompass() {
+        if (inventory.ContainsCompass()) { compass.SetActive(true); Debug.Log("No Compass"); }
+        else { compass.SetActive(false); Debug.Log("Compass"); }
     }
 }

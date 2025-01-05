@@ -124,4 +124,11 @@ public class Inventory
     public int GetMaxSize() {
         return maxSize;
     }
+
+    public bool ContainsCompass() {
+        foreach (Item item in itemList) {
+            if (item.isCompass()) { return true; }
+        }
+        return false;
+    }
 }
