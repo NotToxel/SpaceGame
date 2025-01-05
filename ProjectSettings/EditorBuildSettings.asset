@@ -8,9 +8,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Main_Menu.unity
     guid: dfbf71dacfca5914b923fcfe389c35d7
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Planet.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/AlienPlanet.unity
+    guid: 21b9ed023d2d8174da6bc9e5ee4c8481
   - enabled: 1
     path: Assets/Scenes/Credits.unity
     guid: 2762da14b390c9d438b53603c7ae32cd
