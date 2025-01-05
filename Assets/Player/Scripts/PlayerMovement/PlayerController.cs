@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
 
     public float sprintingSpeed = 10f;
     public float currentSpeed; // Current movement speed (varies based on crouching, walking or running)
-    private bool groundedPlayer; // Tracks if the player is grounded
+    public bool groundedPlayer; // Tracks if the player is grounded
     private bool isCrouching = false; // Tracks if the player is currently crouching
     public bool isRunning = false;
     public bool isSprinting = false;
@@ -38,12 +38,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float pickupRange = 2.5f; // Range within which objects can be picked up
     [SerializeField] private Transform holdPoint; // Position where held objects are placed
     [SerializeField] private float throwForce = 10f; // Force applied when throwing an object
-    [SerializeField] private float puzzle1Range = 5f; // Interaction range for Puzzle1 objects
+    // [SerializeField] private float puzzle1Range = 5f; // Interaction range for Puzzle1 objects
     private bool isTabletOpen = false;
+    public float interactingRange = 5f;
+    public bool isInteracting;
 
     private GameObject heldObject; // Currently held objects
-    private int currentColorIndex = 0;
-    private Color[] colors = { Color.red, Color.green, Color.blue, Color.yellow, Color.magenta };
+    // private int currentColorIndex = 0;
+    // private Color[] colors = { Color.red, Color.green, Color.blue, Color.yellow, Color.magenta };
 
 
     // --- Combat Settings ---
@@ -89,6 +91,9 @@ public class PlayerController : MonoBehaviour
     // --- Audio ---
     [Header("Audio")]
     public AudioManager audioManager;
+
+    //TESTING
+    public GameObject dialogueTrigger;
 
     private void Start()
     {
@@ -246,16 +251,56 @@ public class PlayerController : MonoBehaviour
         if (inputManager.PlayerDroppedItem())
             DropObject(); // Implement tryDropItem which identifies what kind of item player is holding.
 
-        if (inputManager.PlayerInteract())
-            InteractWithObject();
+        if (inputManager.PlayerInteract() == true)
+            // isInteracting = true;
+            TriggerDialogue(dialogueTrigger);
+
+            // InteractWithObject();
         //Debug.Log(inputManager.HotbarScrollSelect());
 
         if (inputManager.PlayerUsedTablet())
             InteractWithTablet();
+
+        
         
         if (inputManager.PlayerContinuesDialogue())
             NextSentence();
     }
+
+    private void TriggerDialogue(GameObject dialogueTrigger)
+    {
+        Debug.Log("triggering");
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, interactingRange))
+        {
+            Debug.Log("hit");
+            if (hit.collider.CompareTag("NPC"))
+                InteractWithNPC(hit.collider.gameObject, dialogueTrigger);
+        }
+    }
+
+    private void InteractWithNPC(GameObject obj, GameObject dialogueTrigger)
+    {
+        dialogueTrigger.SetActive(true);   
+    }
+
+       // private void InteractWithObject()
+    // {
+    //     if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, puzzle1Range))
+    //     {
+    //         if (hit.collider.CompareTag("Puzzle1"))
+    //             CycleObjectColor(hit.collider.gameObject);
+    //     }
+    // }
+
+    // private void CycleObjectColor(GameObject obj)
+    // {
+    //     Renderer renderer = obj.GetComponent<Renderer>();
+    //     if (renderer != null)
+    //     {
+    //         currentColorIndex = (currentColorIndex + 1) % colors.Length;
+    //         renderer.material.color = colors[currentColorIndex];
+    //     }
+    // }
 
     private void NextSentence()
     {
@@ -370,24 +415,24 @@ public class PlayerController : MonoBehaviour
         UpdateHeldItem();
     }
 
-    private void InteractWithObject()
-    {
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, puzzle1Range))
-        {
-            if (hit.collider.CompareTag("Puzzle1"))
-                CycleObjectColor(hit.collider.gameObject);
-        }
-    }
+    // private void InteractWithObject()
+    // {
+    //     if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, puzzle1Range))
+    //     {
+    //         if (hit.collider.CompareTag("Puzzle1"))
+    //             CycleObjectColor(hit.collider.gameObject);
+    //     }
+    // }
 
-    private void CycleObjectColor(GameObject obj)
-    {
-        Renderer renderer = obj.GetComponent<Renderer>();
-        if (renderer != null)
-        {
-            currentColorIndex = (currentColorIndex + 1) % colors.Length;
-            renderer.material.color = colors[currentColorIndex];
-        }
-    }
+    // private void CycleObjectColor(GameObject obj)
+    // {
+    //     Renderer renderer = obj.GetComponent<Renderer>();
+    //     if (renderer != null)
+    //     {
+    //         currentColorIndex = (currentColorIndex + 1) % colors.Length;
+    //         renderer.material.color = colors[currentColorIndex];
+    //     }
+    // }
 
     private void UpdateHeldItem() {
         if (heldObject != null) {
