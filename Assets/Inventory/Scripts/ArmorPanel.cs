@@ -164,7 +164,7 @@ public class ArmorPanel : MonoBehaviour
                     return true;
                 }
                 else {
-                    Debug.Log("Not a helmet");
+                    //Debug.Log("Not a helmet");
                     return false;
                 }
             case chestIndex:
@@ -173,7 +173,7 @@ public class ArmorPanel : MonoBehaviour
                     return true;
                 }
                 else {
-                    Debug.Log("Not a chest");
+                    //Debug.Log("Not a chest");
                     return false;
                 }
             case legsIndex: 
@@ -182,7 +182,7 @@ public class ArmorPanel : MonoBehaviour
                     return true;
                 }
                 else {
-                    Debug.Log("Not a legs");
+                    //Debug.Log("Not a legs");
                     return false;
                 }
             case bootsIndex:
@@ -191,7 +191,7 @@ public class ArmorPanel : MonoBehaviour
                     return true;
                 }
                 else {
-                    Debug.Log("Not a boots");
+                    //Debug.Log("Not a boots");
                     return false;
                 }
             default:
