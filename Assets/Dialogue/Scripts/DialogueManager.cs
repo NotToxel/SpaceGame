@@ -12,6 +12,7 @@ public class DialogueManager : MonoBehaviour
     public GameObject camera;
     public FirstPersonCamera cameraScript;
     public GameObject inputManager;
+    public PlayerController playerController;
 
     public Animator animator;
 
@@ -19,12 +20,12 @@ public class DialogueManager : MonoBehaviour
     void Start()
     {
         sentences = new Queue<string>();
-        // firstPersonCamera.currentMouseSensitivity = 0f;
-        // inputManager.SetActive(false);
     }
 
     public void StartDialogue (Dialogue dialogue) 
     {
+        playerController.currentSpeed = 0f;
+
         // Disable camera controls
         if (camera != null) {
             FirstPersonCamera cameraScript = FindObjectOfType<FirstPersonCamera>();
@@ -33,8 +34,8 @@ public class DialogueManager : MonoBehaviour
         else { Debug.Log("camera is null"); }
 
         // Enable cursor controls
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        // Cursor.visible = true;
+        // Cursor.lockState = CursorLockMode.None;
 
         animator.SetBool("isOpen", true);
         Debug.Log("Should be showing");
@@ -72,11 +73,12 @@ public class DialogueManager : MonoBehaviour
         }
         else { Debug.Log("camera is null"); }
 
-        // Disable cursor controls
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        // // Disable cursor controls
+        // Cursor.visible = false;
+        // Cursor.lockState = CursorLockMode.Locked;
 
-        
+        playerController.currentSpeed = playerController.playerSpeed;
+
         animator.SetBool("isOpen", false);
         //firstPersonCamera.currentMouseSensitivity = firstPersonCamera.mouseSensitivity;
         inputManager.SetActive(true);

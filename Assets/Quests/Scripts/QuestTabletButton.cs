@@ -10,6 +10,7 @@ public class QuestTabletButton : MonoBehaviour
     [SerializeField] private GameObject questPage;
     [SerializeField] private  TMP_Text questTextBox;
     [SerializeField] private GameObject notification;
+    [SerializeField] private GameObject completed;
     [SerializeField] private string[] noQuestsText;
     private bool openTablet;  
 
@@ -22,12 +23,13 @@ public class QuestTabletButton : MonoBehaviour
 
     private void CreatePage()
     {
-        if (questPage != null && notification != null)
+        if (questPage != null && notification != null && completed != null)
         {
             if (openTablet)
             {
                 questPage.SetActive(true);
                 notification.SetActive(false);
+                completed.SetActive(false);
             }
             else{
                 questPage.SetActive(false);

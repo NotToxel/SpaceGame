@@ -6,6 +6,7 @@ public class QuestCatalyst : MonoBehaviour
 {
     [SerializeField] private string quest;
     [SerializeField] private GameObject notification;
+    [SerializeField] private GameObject completed;
     private bool questAdded = false;
 
     public void CreateQuest() 
@@ -28,6 +29,7 @@ public class QuestCatalyst : MonoBehaviour
         if (quest != null && MainManager.mainManager.questNames.Contains(quest)) 
         {
             MainManager.mainManager.questNames.Remove(quest);
+            completed.SetActive(true);
         }
     }
 }
