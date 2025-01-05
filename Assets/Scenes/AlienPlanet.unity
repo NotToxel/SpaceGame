@@ -3554,6 +3554,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teleportDestination: {fileID: 909124105}
   playerTag: Player
+  questCatalyst: {fileID: 905296660}
 --- !u!114 &68613243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10682,6 +10683,81 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8ca6433e7a78e346904aef72892f856, type: 3}
+--- !u!1 &246232658
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 246232659}
+  - component: {fileID: 246232661}
+  - component: {fileID: 246232660}
+  m_Layer: 5
+  m_Name: Completed
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &246232659
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 246232658}
+  m_LocalRotation: {x: -0, y: -0, z: 0.025922153, w: 0.99966395}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1522988624}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 2.971}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 12.582, y: 6.494}
+  m_SizeDelta: {x: 122.869, y: 97.54}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &246232660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 246232658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: fad424b0cbe72fb419834c9744dd7bf4, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &246232661
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 246232658}
+  m_CullTransparentMesh: 1
 --- !u!1001 &247052788
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11378,6 +11454,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   quest: You have a quest
   notification: {fileID: 1596328301}
+  completed: {fileID: 0}
 --- !u!61 &270527543
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -17086,6 +17163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teleportDestination: {fileID: 2042667868}
   playerTag: Player
+  questCatalyst: {fileID: 905296660}
 --- !u!135 &398123098
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -37692,6 +37770,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teleportDestination: {fileID: 2042667868}
   playerTag: Player
+  questCatalyst: {fileID: 905296660}
 --- !u!135 &865133725
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -39720,6 +39799,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   quest: Leave the spaceship.
   notification: {fileID: 1596328301}
+  completed: {fileID: 246232658}
 --- !u!1001 &907030228
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -49336,6 +49416,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   quest: You have a quest
   notification: {fileID: 1596328301}
+  completed: {fileID: 0}
 --- !u!114 &1109677264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50888,6 +50969,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teleportDestination: {fileID: 2042667868}
   playerTag: Player
+  questCatalyst: {fileID: 905296660}
 --- !u!135 &1133779210
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -54264,6 +54346,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teleportDestination: {fileID: 2042667868}
   playerTag: Player
+  questCatalyst: {fileID: 905296660}
 --- !u!135 &1186090620
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -63954,6 +64037,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1483371248}
     m_Modifications:
     - target: {fileID: 446684661697961857, guid: ba07f571939efdd419afb7af649a8d08, type: 3}
+      propertyPath: completed
+      value: 
+      objectReference: {fileID: 246232658}
+    - target: {fileID: 446684661697961857, guid: ba07f571939efdd419afb7af649a8d08, type: 3}
       propertyPath: questPage
       value: 
       objectReference: {fileID: 31275180}
@@ -64045,9 +64132,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Quest Tablet Button
       objectReference: {fileID: 0}
+    - target: {fileID: 8191398504968893130, guid: ba07f571939efdd419afb7af649a8d08, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 4860524217179430090, guid: ba07f571939efdd419afb7af649a8d08, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 246232659}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba07f571939efdd419afb7af649a8d08, type: 3}
 --- !u!1001 &1396353336
@@ -77402,6 +77496,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teleportDestination: {fileID: 2042667868}
   playerTag: Player
+  questCatalyst: {fileID: 905296660}
 --- !u!135 &1682476500
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -91868,11 +91963,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2005462289}
+  duration1: 0
+  duration2: 0
+  duration3: 0
   dialogue: {fileID: 860222025}
-  duration1: 6
-  duration2: 4
-  duration3: 1
-  player: {fileID: 546936769}
   cam: {fileID: 2005462287}
   quest: {fileID: 905296660}
 --- !u!4 &2005926883 stripped
@@ -97491,10 +97585,12 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 219072844}
   - {fileID: 331130153}
   - {fileID: 1493747523}
   - {fileID: 201902174}
   - {fileID: 635038994}
+  - {fileID: 179355359}
   - {fileID: 641875791}
   - {fileID: 1842269386}
   - {fileID: 447854274}
@@ -97503,11 +97599,9 @@ SceneRoots:
   - {fileID: 109457007}
   - {fileID: 70902742}
   - {fileID: 1483371248}
-  - {fileID: 219072844}
   - {fileID: 2042667868}
   - {fileID: 1055719709}
   - {fileID: 909124105}
-  - {fileID: 179355359}
   - {fileID: 1441035435}
   - {fileID: 1997521455}
   - {fileID: 860222027}

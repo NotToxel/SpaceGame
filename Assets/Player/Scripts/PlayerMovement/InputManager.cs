@@ -100,4 +100,8 @@ public class InputManager : MonoBehaviour
     public bool PlayerUsedTablet(){
        return playerControls.Player.Tablet.triggered;
     }
+
+    public bool PlayerContinuesDialogue(){
+        return playerControls.Player.NextSentence.triggered;
+    }
 }

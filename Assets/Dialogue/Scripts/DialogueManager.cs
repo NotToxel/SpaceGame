@@ -20,10 +20,9 @@ public class DialogueManager : MonoBehaviour
     {
         sentences = new Queue<string>();
         // firstPersonCamera.currentMouseSensitivity = 0f;
-        inputManager.SetActive(false);
     }
 
-    public void StartDialogue (Dialogue dialogue) 
+    public void StartDialogue(Dialogue dialogue) 
     {
         animator.SetBool("isOpen", true);
         Debug.Log("Should be showing");
@@ -40,7 +39,7 @@ public class DialogueManager : MonoBehaviour
         DisplayNextSentence();
     }
 
-    public void DisplayNextSentence ()
+    public void DisplayNextSentence()
     {
         if (sentences.Count == 0) 
         {

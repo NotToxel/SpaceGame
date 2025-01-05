@@ -5,17 +5,19 @@ using TMPro;
 
 public class GetUp : MonoBehaviour
 {
+    [Header("Animation")]
     public Animator animator;
+    [SerializeField] private float duration1;
+    [SerializeField] private float duration2;
+    [SerializeField] private float duration3;
     public GameObject dialogue;
-    public float duration1;
-    public float duration2;
-    public float duration3;
     public GameObject player;
     public GameObject cam;
     public QuestCatalyst quest;
     
     void Start()
     {
+        // player = GameObject.FindWithTag("Player");
         StartCoroutine(NextAnimation(duration1));
     }
 

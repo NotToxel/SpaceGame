@@ -9,6 +9,7 @@ public class TeleportOnTrigger : MonoBehaviour
 
     // Tag of the player object
     [SerializeField] private string playerTag = "Player";
+    [SerializeField] private QuestCatalyst questCatalyst;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -28,5 +29,7 @@ public class TeleportOnTrigger : MonoBehaviour
 
         Debug.Log("Player teleported to: " + teleportDestination.position);
         }
+
+        questCatalyst.CompleteQuest();
     }
 }

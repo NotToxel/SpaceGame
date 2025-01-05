@@ -64,6 +64,7 @@ public class PlayerController : MonoBehaviour
     // --- Components and References ---
     private CharacterController controller; // CharacterController component for movement
     private InputManager inputManager; // Input manager to handle player input
+    public DialogueManager dialogueManager;
     public Transform cameraTransform; // Reference to the main camera's transform
     private HealthBar healthBar; // Reference to the player's health bar
     private Collider playerCollider; // Collider for the player (used to disable collision with held objects)
@@ -217,6 +218,15 @@ public class PlayerController : MonoBehaviour
 
         if (inputManager.PlayerUsedTablet())
             InteractWithTablet();
+
+        if (inputManager.PlayerContinuesDialogue())
+            NextSentence();
+    }
+
+    private void NextSentence()
+    {
+        Debug.Log("Displaying next");
+        dialogueManager.DisplayNextSentence();
     }
 
     private void InteractWithTablet()

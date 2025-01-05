@@ -224,6 +224,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NextSentence"",
+                    ""type"": ""Button"",
+                    ""id"": ""a554f6bb-d5b2-4095-9c99-6df8301695ef"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -512,6 +521,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Tablet"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bf547fbc-4557-4a3a-8192-bc2a72a23b93"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NextSentence"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -570,6 +590,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_SelectHotbarSlot9 = m_Player.FindAction("SelectHotbarSlot9", throwIfNotFound: true);
         m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
         m_Player_Tablet = m_Player.FindAction("Tablet", throwIfNotFound: true);
+        m_Player_NextSentence = m_Player.FindAction("NextSentence", throwIfNotFound: true);
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
         m_Menu_Escape = m_Menu.FindAction("Escape", throwIfNotFound: true);
@@ -656,6 +677,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_SelectHotbarSlot9;
     private readonly InputAction m_Player_Inventory;
     private readonly InputAction m_Player_Tablet;
+    private readonly InputAction m_Player_NextSentence;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -682,6 +704,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @SelectHotbarSlot9 => m_Wrapper.m_Player_SelectHotbarSlot9;
         public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
         public InputAction @Tablet => m_Wrapper.m_Player_Tablet;
+        public InputAction @NextSentence => m_Wrapper.m_Player_NextSentence;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -757,6 +780,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Tablet.started += instance.OnTablet;
             @Tablet.performed += instance.OnTablet;
             @Tablet.canceled += instance.OnTablet;
+            @NextSentence.started += instance.OnNextSentence;
+            @NextSentence.performed += instance.OnNextSentence;
+            @NextSentence.canceled += instance.OnNextSentence;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -827,6 +853,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Tablet.started -= instance.OnTablet;
             @Tablet.performed -= instance.OnTablet;
             @Tablet.canceled -= instance.OnTablet;
+            @NextSentence.started -= instance.OnNextSentence;
+            @NextSentence.performed -= instance.OnNextSentence;
+            @NextSentence.canceled -= instance.OnNextSentence;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -914,6 +943,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnSelectHotbarSlot9(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
         void OnTablet(InputAction.CallbackContext context);
+        void OnNextSentence(InputAction.CallbackContext context);
     }
     public interface IMenuActions
     {
