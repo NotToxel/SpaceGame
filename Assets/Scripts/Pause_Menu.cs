@@ -17,6 +17,7 @@ public class Pause_Menu : MonoBehaviour
     private InputAction menu;
 
     [SerializeField] private GameObject pauseUI;
+    [SerializeField] private GameObject optionsUI;
     private bool isPaused; // tracks whether game is paused
 
     // This is called when the script is loaded
@@ -44,11 +45,19 @@ public class Pause_Menu : MonoBehaviour
     // Called when escape[enter] key is pressed 
     void Pause(InputAction.CallbackContext context)
     {
+
+        if (optionsUI.activeSelf)
+        {
+            closeOptions();
+            return; 
+        }
+
         isPaused = !isPaused;
 
         if (isPaused)
         {
             ActivateMenu();
+
         }
         else
         {
@@ -88,6 +97,23 @@ public class Pause_Menu : MonoBehaviour
          }*/
         firstPersonCamera.EnableCam();
     }
+
+    public void Settings()
+    {
+        pauseUI.SetActive(false);
+        optionsUI.SetActive(true);
+    }
+    public void closeOptions()
+    {
+        pauseUI.SetActive(true);
+        optionsUI.SetActive(false);
+    }
+
+    public void disableoptions()
+    { 
+        optionsUI.SetActive(false); 
+    }
+    
 
     // Load the main menu scene
     public void MainScreen()
