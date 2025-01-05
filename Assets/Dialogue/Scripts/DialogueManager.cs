@@ -10,7 +10,7 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI dialogueText;
     private Queue<string> sentences;
     public GameObject camera;
-
+    public FirstPersonCamera cameraScript;
     public GameObject inputManager;
 
     public Animator animator;
@@ -20,7 +20,7 @@ public class DialogueManager : MonoBehaviour
     {
         sentences = new Queue<string>();
         // firstPersonCamera.currentMouseSensitivity = 0f;
-        inputManager.SetActive(false);
+        // inputManager.SetActive(false);
     }
 
     public void StartDialogue (Dialogue dialogue) 
