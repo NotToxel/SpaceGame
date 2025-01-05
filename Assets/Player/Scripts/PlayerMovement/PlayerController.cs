@@ -15,16 +15,19 @@ public class PlayerController : MonoBehaviour
 {
     // --- Player movement settings --- 
     [Header("Player Movement")]
-    public float playerSpeed = 5.0f; // Defaul walking speed
+    public float playerSpeed = 5.0f; // Default walking speed
     [SerializeField] private float jumpHeight = 1.0f; // Height the player can jump
+    [SerializeField] private float sprintingJumpHeight = 2.0f; // Height the player can jump while sprinting
     [SerializeField] private float gravityValue = -9.81f; // Gravity applied to the player
     [SerializeField] private float normalHeight, crouchHeight; // Character heights for standing and crouching
     [SerializeField] private float crouchingSpeed = 2.0f; // Speed while crouching
 
+    public float sprintingSpeed = 10f;
     public float currentSpeed; // Current movement speed (varies based on crouching, walking or running)
     private bool groundedPlayer; // Tracks if the player is grounded
     private bool isCrouching = false; // Tracks if the player is currently crouching
     public bool isRunning = false;
+    public bool isSprinting = false;
     private bool readyToJump = true;
     private Vector3 playerVelocity; // Tracks the player's vertical velocity
     private Quaternion currentRotation;
@@ -140,6 +143,17 @@ public class PlayerController : MonoBehaviour
         
 
         // Movement input
+        if (inputManager.PlayerIsSprinting() != 0.0f && !isSprinting)
+        {
+            currentSpeed = sprintingSpeed;
+            isSprinting = true;
+        } 
+        else if (inputManager.PlayerIsSprinting() == 0.0 && isSprinting)
+        {
+            currentSpeed = playerSpeed;
+            isSprinting = false;
+        }
+
         Vector2 movementInput = inputManager.GetPlayerMovement();
         Vector3 move = new Vector3(movementInput.x, 0f, movementInput.y);
         move = cameraTransform.forward * move.z + cameraTransform.right * move.x;
@@ -149,7 +163,15 @@ public class PlayerController : MonoBehaviour
         // Jumping
         if (inputManager.PlayerJumpedThisFrame() && groundedPlayer)
         {
-            playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+            if (!isSprinting)
+            {
+                playerVelocity.y += Mathf.Sqrt(sprintingJumpHeight * -3.0f * gravityValue);
+            }
+            else
+            {
+                playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+            }
+
             groundedPlayer = false;
             animator.SetTrigger("isJumping");
             StartCoroutine(InitialiseJump());
@@ -161,6 +183,17 @@ public class PlayerController : MonoBehaviour
         else if (inputManager.PlayerCrouchedThisFrame() == 0.0 && isCrouching)
             ToggleCrouch(false);
     }
+
+    // private void ToggleSprint(bool sprint)
+    // {
+    //     // if (crouchCoroutine != null)
+    //     //     StopCoroutine(crouchCoroutine);
+
+    //     float targetSpeed = spint ? sprintingSpeed : playerSpeed;
+
+    //     crouchCoroutine = StartCoroutine(CrouchTransition(targetHeight, targetSpeed));
+    //     isCrouching = crouch;
+    // }
 
     private IEnumerator InitialiseJump()
     {
