@@ -5,6 +5,7 @@ DefaultImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+<<<<<<< Updated upstream
 AssetOrigin:
   serializedVersion: 1
   productId: 271334
@@ -12,3 +13,5 @@ AssetOrigin:
   packageVersion: 1.0
   assetPath: Assets/JC_StylizedRocks_Lite/JC_StylizedRocks_Lite_2022.3.1_URP_v1.0.unitypackage
   uploadId: 629493
+=======
+>>>>>>> Stashed changes

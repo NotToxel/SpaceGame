@@ -8,6 +8,8 @@ TagManager:
   - Puzzle1
   - HoldingKnife
   - Audio
+  - Chip
+  - Item
   layers:
   - Default
   - TransparentFX

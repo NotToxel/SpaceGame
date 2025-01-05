@@ -10,6 +10,8 @@ public class Item
         // --- Item Types --- //
         Compass,
         Wrench,
+        Pebble,
+        Rock,
 
         // --- Weapon Types --- //
         Sword,

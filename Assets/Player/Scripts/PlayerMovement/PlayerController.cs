@@ -87,6 +87,10 @@ public class PlayerController : MonoBehaviour
     [Header("Audio")]
     public AudioManager audioManager;
 
+    // --- NPCs ---
+    [Header("NPCs")]
+    [SerializeField] private Chip chip;
+
     private void Start()
     {
         //Initialize references
@@ -269,61 +273,8 @@ public class PlayerController : MonoBehaviour
             if (hit.collider.CompareTag("Item")){
                  PickupObject(hit.collider.gameObject); 
             }
-
-            //if (hit.collider.CompareTag("Knife")) 
-            //{
-            //    PickUpMelee(hit.collider.gameObject);
-            //    animator.SetBool("isHoldingMelee", true);
-            //}
         }
     }
-
-    /*private void PickUpMelee(GameObject melee)
-    {
-        // Add the item to inventory
-        hotbar.PickupItem(obj.GetComponent<Collider>());
-        UpdateHeldItem();
-        Rigidbody rb = melee.GetComponent<Rigidbody>();
-        if (rb != null) rb.isKinematic = true;
-
-        Collider meleeCollider = melee.GetComponent<Collider>();
-        if (meleeCollider != null && playerCollider != null)
-            Physics.IgnoreCollision(playerCollider, meleeCollider, true);
-
-        melee.transform.SetParent(holdPoint);
-        melee.transform.localPosition = Vector3.zero;
-        
-        melee.transform.localRotation = Quaternion.identity;
-
-        holdingWeapon = true;
-        heldObject = melee;
-        melee.SetActive(false);
-        holdingMelee.SetActive(true);
-    }
-
-    private void DropMelee()
-    {
-        // Remove the item from inventory
-        hotbar.DropItem();
-        UpdateHeldItem();
-        if (heldObject == null) return;
-
-        Rigidbody rb = heldObject.GetComponent<Rigidbody>();
-        if (rb != null) rb.isKinematic = false;
-
-        Collider objCollider = heldObject.GetComponent<Collider>();
-        if (objCollider != null && playerCollider != null)
-            Physics.IgnoreCollision(playerCollider, objCollider, false);
-
-        heldObject.SetActive(true);
-        holdingMelee.SetActive(false);
-
-        heldObject.transform.parent = null;
-        heldObject = null;
-
-        holdingWeapon = false;
-        animator.SetBool("isHoldingMelee", false);
-    }*/
 
     private void PickupObject(GameObject obj)
     {
@@ -343,6 +294,10 @@ public class PlayerController : MonoBehaviour
         {
             if (hit.collider.CompareTag("Puzzle1"))
                 CycleObjectColor(hit.collider.gameObject);
+
+            if (hit.collider.CompareTag("Chip"))
+                //Debug.Log("Interacting with Chip");
+                chip.Interact();
         }
     }
 
