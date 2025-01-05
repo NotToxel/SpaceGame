@@ -15,13 +15,13 @@ public class PlayerController : MonoBehaviour
 {
     // --- Player movement settings --- 
     [Header("Player Movement")]
-    [SerializeField] private float playerSpeed = 5.0f; // Defaul walking speed
+    public float playerSpeed = 5.0f; // Defaul walking speed
     [SerializeField] private float jumpHeight = 1.0f; // Height the player can jump
     [SerializeField] private float gravityValue = -9.81f; // Gravity applied to the player
     [SerializeField] private float normalHeight, crouchHeight; // Character heights for standing and crouching
     [SerializeField] private float crouchingSpeed = 2.0f; // Speed while crouching
 
-    private float currentSpeed; // Current movement speed (varies based on crouching, walking or running)
+    public float currentSpeed; // Current movement speed (varies based on crouching, walking or running)
     private bool groundedPlayer; // Tracks if the player is grounded
     private bool isCrouching = false; // Tracks if the player is currently crouching
     public bool isRunning = false;
