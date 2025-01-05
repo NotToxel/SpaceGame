@@ -11533,6 +11533,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   quest: You have a quest
   notification: {fileID: 1596328301}
+  completed: {fileID: 0}
 --- !u!61 &270527543
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -27315,6 +27316,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1694534434}
     - target: {fileID: 879713319274263370, guid: 2a6a49d936880ca4e97692333d0aea67, type: 3}
+      propertyPath: cameraScript
+      value: 
+      objectReference: {fileID: 3065301}
+    - target: {fileID: 879713319274263370, guid: 2a6a49d936880ca4e97692333d0aea67, type: 3}
       propertyPath: dialogueText
       value: 
       objectReference: {fileID: 1694534433}
@@ -40264,6 +40269,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   quest: Leave the spaceship.
   notification: {fileID: 1596328301}
+  completed: {fileID: 1395725266}
 --- !u!1001 &907030228
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -49880,6 +49886,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   quest: You have a quest
   notification: {fileID: 1596328301}
+  completed: {fileID: 0}
 --- !u!114 &1109677264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64632,6 +64639,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1483371248}
     m_Modifications:
     - target: {fileID: 446684661697961857, guid: ba07f571939efdd419afb7af649a8d08, type: 3}
+      propertyPath: completed
+      value: 
+      objectReference: {fileID: 1395725266}
+    - target: {fileID: 446684661697961857, guid: ba07f571939efdd419afb7af649a8d08, type: 3}
       propertyPath: questPage
       value: 
       objectReference: {fileID: 31275180}
@@ -64723,11 +64734,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Quest Tablet Button
       objectReference: {fileID: 0}
+    - target: {fileID: 7387597648655766651, guid: ba07f571939efdd419afb7af649a8d08, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba07f571939efdd419afb7af649a8d08, type: 3}
+--- !u!1 &1395725266 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7387597648655766651, guid: ba07f571939efdd419afb7af649a8d08, type: 3}
+  m_PrefabInstance: {fileID: 1395725265}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1396353336
 PrefabInstance:
   m_ObjectHideFlags: 0
