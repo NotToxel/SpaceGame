@@ -15,7 +15,18 @@ public class TeleportOnTrigger : MonoBehaviour
     [SerializeField] GameObject UiHealthBar;
     [SerializeField] private QuestCatalyst questCatalyst1;
     public GameObject dialogueTrigger;
+    [SerializeField] private RocketBuilder rocketBuilder;
+    private Inventory inventory;
+        private void Start()
+    {
+        // Access the Inventory singleton
+        inventory = Inventory.Instance;
 
+        if (inventory == null)
+        {
+            Debug.LogError("Inventory instance not found!");
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
         // Check if the object entering the trigger has the correct tag
@@ -31,6 +42,15 @@ public class TeleportOnTrigger : MonoBehaviour
             {
                 rb.velocity = Vector3.zero;
                 rb.angularVelocity = Vector3.zero;
+            }
+                        if (inventory != null && inventory.HasRequiredItems())
+            {
+                Debug.Log("Required items found! Upgrading rocket...");
+                rocketBuilder.RocketUpgrade();
+            }
+            else
+            {
+                Debug.Log("Required items not found! Cannot upgrade the rocket.");
             }
 
             Debug.Log("Player teleported to: " + teleportDestination.position);

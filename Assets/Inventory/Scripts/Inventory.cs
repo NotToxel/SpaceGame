@@ -128,4 +128,19 @@ public class Inventory
         }
         return false;
     }
+
+    public bool HasRequiredItems()
+{
+    // Check if the inventory contains Hammer, HammerStatic, or Plier
+    foreach (Item item in itemList)
+    {
+        if (item.itemType == Item.ItemType.Hammer || 
+            item.itemType == Item.ItemType.HammerStatic || 
+            item.itemType == Item.ItemType.Pliers)
+        {
+            return true;
+        }
+    }
+    return false;
+}
 }
