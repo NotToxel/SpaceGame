@@ -8,8 +8,8 @@ TagManager:
   - Puzzle1
   - HoldingKnife
   - Audio
-  - Pickup
-  - Knife
+  - Chip
+  - Item
   - NPC
   layers:
   - Default

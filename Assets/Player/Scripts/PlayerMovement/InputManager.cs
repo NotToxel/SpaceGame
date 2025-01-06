@@ -89,6 +89,7 @@ public class InputManager : MonoBehaviour
 
     public bool PlayerInteract()
     {
+        //if (playerControls.Player.Interact.triggered) { Debug.Log("Interacting"); }
         return playerControls.Player.Interact.triggered;
     }
 

@@ -47,6 +47,7 @@ public class Inventory
         AddItem(new Item { itemType = Item.ItemType.Chest, amount = 1 });
         AddItem(new Item { itemType = Item.ItemType.Legs, amount = 1 });
         AddItem(new Item { itemType = Item.ItemType.Boots, amount = 1 });
+        AddItem(new Item { itemType = Item.ItemType.Rock, amount = 15 });
         //Debug.Log(itemList.Count);
     }
 
