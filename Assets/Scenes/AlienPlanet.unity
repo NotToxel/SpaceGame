@@ -24077,15 +24077,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1579957678805869464, guid: 118cf8246f2bfaf4b9f09aee3361d1b5, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2452587360005779870, guid: 118cf8246f2bfaf4b9f09aee3361d1b5, type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3388933233194457527, guid: 118cf8246f2bfaf4b9f09aee3361d1b5, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3507265134006074143, guid: 118cf8246f2bfaf4b9f09aee3361d1b5, type: 3}
       propertyPath: m_Name
@@ -100975,3 +100971,4 @@ SceneRoots:
   - {fileID: 1370727162}
   - {fileID: 783220293}
   - {fileID: 666895406}
+  - {fileID: 783220293}
