@@ -9,13 +9,13 @@ public class Item
     public enum ItemType {
         // --- Item Types --- //
         Compass,
-        Wrench,
+        Hammer,
+        Multitool,
         //Pebble,
         Rock,
 
         // --- Weapon Types --- //
-        Sword,
-        Knife,
+     
 
         // --- Armour Types --- //
         Helmet,
@@ -30,9 +30,7 @@ public class Item
     public Sprite GetSprite() {
         switch (itemType) {
         default:
-        case ItemType.Sword: return ItemAssets.Instance.swordSprite;
-        case ItemType.Wrench: return ItemAssets.Instance.wrenchSprite;
-        case ItemType.Knife: return ItemAssets.Instance.swordSprite;
+        case ItemType.Hammer: return ItemAssets.Instance.hammerSprite;
         case ItemType.Helmet: return ItemAssets.Instance.helmetSprite;
         case ItemType.Chest: return ItemAssets.Instance.chestSprite;
         case ItemType.Legs: return ItemAssets.Instance.legsSprite;
@@ -45,9 +43,7 @@ public class Item
         //Debug.Log("ItemAssets.Instance: " + (ItemAssets.Instance != null));
         switch (itemType) {
             default:
-                case ItemType.Sword: return ItemAssets.Instance.swordPrefab;
-                case ItemType.Wrench: return ItemAssets.Instance.wrenchPrefab;
-                case ItemType.Knife: return ItemAssets.Instance.knifePrefab;
+                case ItemType.Hammer: return ItemAssets.Instance.hammerPrefab;
         }
     }
 
@@ -66,20 +62,16 @@ public class Item
     // --- Item Behaviours --- //
     // Only true cases needed
     public bool IsStackable() {
-        switch (itemType) {
-            case ItemType.Sword:
-            case ItemType.Knife:
-                return true;
-        }
+        //switch (itemType) {
+        //        return true;
+        //}
         return false;
     }
 
     public bool IsWeapon() {
-        switch (itemType) {
-            case ItemType.Sword:
-            case ItemType.Knife:
-                return true;
-        }
+        //switch (itemType) {
+        //        return true;
+        //}
         return false;
     }
 

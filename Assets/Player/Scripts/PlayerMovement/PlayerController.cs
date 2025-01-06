@@ -113,10 +113,6 @@ public class PlayerController : MonoBehaviour
         hotbar.SetInventory(inventory); // Setup the hotbar
 
         // --- Testing --- //
-        ItemWorld.SpawnItemWorld(new Vector3(-7, 1, 2), Quaternion.identity, new Item { itemType = Item.ItemType.Sword, amount = 1 });
-        ItemWorld.SpawnItemWorld(new Vector3(-7, 1, 1), Quaternion.identity, new Item { itemType = Item.ItemType.Wrench, amount = 1 });
-        ItemWorld.SpawnItemWorld(new Vector3(-7, 1, 3), Quaternion.identity, new Item { itemType = Item.ItemType.Sword, amount = 1 });
-        ItemWorld.SpawnItemWorld(new Vector3(-7, 1, 4), Quaternion.identity, new Item { itemType = Item.ItemType.Wrench, amount = 1 });
     }
 
     void Update()
@@ -409,8 +405,9 @@ public class PlayerController : MonoBehaviour
 
         heldObject.transform.SetParent(holdPoint);
         heldObject.transform.localPosition = Vector3.zero;
-        if (heldObject.CompareTag("Sword"))
-            heldObject.transform.localRotation = Quaternion.identity;
+        heldObject.transform.localRotation = Quaternion.identity;
+        //if (heldObject.CompareTag("Sword"))
+        //    heldObject.transform.localRotation = Quaternion.identity;
     }
     #endregion
 
@@ -467,8 +464,10 @@ public class PlayerController : MonoBehaviour
     }
 
     private void InventoryToggleInterface() {
-        inventoryUI.ToggleInventory(inventoryIsOpen);
-        inventoryIsOpen = !inventoryIsOpen;
+        //Debug.Log("Toggling Inventory");
+        if (inventoryIsOpen) { inventoryUI.closeInventory(); }
+        else { inventoryUI.openInventory(); }
+        inventoryIsOpen = inventoryUI.IsOpen();
     }
     #endregion
 }
