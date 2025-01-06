@@ -12,6 +12,7 @@ public class Item
         // --- Item Types --- //
         Compass,
         Hammer,
+        HammerStatic,
         Multitool,
         //Pebble,
         Rock,
@@ -88,7 +89,7 @@ public class Item
     }
 
     public bool isHammer() {
-        if (itemType == ItemType.Hammer) { return true; }
+        if (itemType==ItemType.Hammer || itemType==ItemType.HammerStatic) { return true; }
         else { return false; }
     }
 

@@ -33,4 +33,5 @@ public class ItemAssets : MonoBehaviour
     // === Prefabs === //
     // Add more prefabs here
     public GameObject hammerPrefab;
+    public GameObject hammerStaticPrefab;
 }
