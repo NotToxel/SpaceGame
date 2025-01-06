@@ -351,7 +351,8 @@ public class PlayerController : MonoBehaviour
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, pickupRange))
         {
             if (hit.collider.CompareTag("Item")){
-                 PickupObject(hit.collider.gameObject); 
+                PickupObject(hit.collider.gameObject); 
+                Destroy(hit.collider.gameObject);
             }
         }
     }

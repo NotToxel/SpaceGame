@@ -82,7 +82,8 @@ public class InventoryUI : MonoBehaviour
                     {
                     PointerEventData pointerData = (PointerEventData)data;
                     if (pointerData.button == PointerEventData.InputButton.Right)
-                    {
+                    {  
+                        Debug.Log("Dropping item at slot " + currentSlotIndex);
                         uiManager.DropItem(currentSlotIndex);
                     }
                     });
