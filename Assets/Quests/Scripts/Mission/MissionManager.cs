@@ -45,14 +45,4 @@ public class MissionManager : MonoBehaviour
     {
         Debug.Log("All missions have been completed");
     }
-
-    // void Update()
-    // {
-        
-    //     if (playerController.groundedPlayer == false)
-    //     {
-    //         titleText.text = titles.Dequeue();
-    //         rewardsText.text = rewards.Dequeue();
-    //     }
-    // }
 }
