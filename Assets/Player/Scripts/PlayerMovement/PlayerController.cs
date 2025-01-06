@@ -261,12 +261,6 @@ public class PlayerController : MonoBehaviour
 
             // InteractWithObject();
         //Debug.Log(inputManager.HotbarScrollSelect());
-        
-        if (inputManager.PlayerInteract())
-            //Debug.Log("Interacting");
-            //InteractWithObject();
-            //InteractWithChip();
-
         if (inputManager.PlayerUsedTablet())
             InteractWithTablet();
 
