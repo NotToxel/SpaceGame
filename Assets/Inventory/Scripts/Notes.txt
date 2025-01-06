@@ -4,7 +4,7 @@ When adding an item (that is intended to be picked up) ensure:
     - The item name into the enum class
     - GetSprite() case
     - GetPrefab() case
-    - IsStackable() case
+    - Any item behaiour cases
 
 - In ItemAssets.cs add:
     - sprite field
@@ -18,7 +18,9 @@ When adding an item (that is intended to be picked up) ensure:
 
 - Prefab
     - Needs "Item" tag
-    - Needs ITemWorld script
+    - Needs ItemWorld script
+    - Needs Rigidbody to enable physics
+    - Needs a Collider to enable collisions
 
 
 

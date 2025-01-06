@@ -101,6 +101,7 @@ public class Hotbar : MonoBehaviour
 
     public GameObject GetSelectedItemPrefab() {
         if (selectedSlot==-1) { return null; }
+        if (hotbarSize <= 0) { return null; }
         List<Item> itemList = inventory.GetItemList();
         return itemList[selectedSlot].GetPrefab();
     }
@@ -220,6 +221,7 @@ public class Hotbar : MonoBehaviour
 
     public bool isHoldingWeapon() {
         if (selectedSlot == -1) { return false; }
+        if (hotbarSize <= 0) { return false; }
         return inventory.GetItem(selectedSlot).IsWeapon();
     }
 

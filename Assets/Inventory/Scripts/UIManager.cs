@@ -97,6 +97,7 @@ public class UIManager : MonoBehaviour
         inventoryUI.RefreshInventory();
         armorPanel.RefreshArmorPanel();
         refreshCompass();
+        //Debug.Log("Refreshing UI");
     }
 
     public void SwapArmor(int indexA, int indexB) {
