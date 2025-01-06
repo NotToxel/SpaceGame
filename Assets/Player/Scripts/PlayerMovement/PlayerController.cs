@@ -251,16 +251,22 @@ public class PlayerController : MonoBehaviour
             DropObject(); // Implement tryDropItem which identifies what kind of item player is holding.
 
         if (inputManager.PlayerInteract())
-            Debug.Log("Interacting");
+            //Debug.Log("Interacting");
             InteractWithObject();
-            InteractWithChip();
-        //Debug.Log(inputManager.HotbarScrollSelect());
+            //InteractWithChip();
 
         if (inputManager.PlayerUsedTablet())
             InteractWithTablet();
         
         if (inputManager.PlayerContinuesDialogue())
             NextSentence();
+
+        if (inputManager.PlayerInteract() && Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, pickupRange)) {
+            if (hit.collider.gameObject.CompareTag("Chip")) {
+                    Debug.Log("Interacting with Chip");
+                    chip.Interact();
+            }
+        }
     }
 
     private void NextSentence()
@@ -332,15 +338,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void InteractWithChip() {
+    /*private void InteractWithChip() {
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, pickupRange)) {
-            GameObject rootObject = hit.collider.transform.root.gameObject;
-            if (rootObject.CompareTag("Chip")) {
+            Debug.Log(hit.collider.gameObject);
+            if (hit.collider.gameObject.CompareTag("Chip")) {
                     Debug.Log("Interacting with Chip");
                     chip.Interact();
             }
         }
-    }
+    }*/
 
     private void CycleObjectColor(GameObject obj)
     {

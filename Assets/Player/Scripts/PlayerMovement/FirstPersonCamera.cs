@@ -11,7 +11,7 @@ public class FirstPersonCamera : MonoBehaviour
     // --- Player Camera Settings ---
     [Header("First Player Camera")]
     [SerializeField] private float clampAngle = 80f;
-    public float savedSensitivity;
+    public float savedSensitivity = 2f;
     public float mouseSensitivity = 1f;
     public float currentMouseSensitivity;
     float camVerticalRotation = 0f;
@@ -23,7 +23,7 @@ public class FirstPersonCamera : MonoBehaviour
     [SerializeField] private Slider sensitivitySlider;
 
     void Awake() {
-        savedSensitivity = sensitivitySlider.value;
+        sensitivitySlider.value = savedSensitivity;
     }
 
     void Start() 
@@ -31,11 +31,11 @@ public class FirstPersonCamera : MonoBehaviour
         camEnabled = true;
         if (PlayerPrefs.HasKey("currentSensitivity"))
         {
-            LoadSensitivity();
+            //LoadSensitivity();
         }
         else
         {
-            AdjustSpeed();
+            //AdjustSpeed();
         }
     }
 
@@ -61,13 +61,13 @@ public class FirstPersonCamera : MonoBehaviour
 
     public void AdjustSpeed()
     {
-        mouseSensitivity = sensitivitySlider.value;
+        //mouseSensitivity = savedSensitivity.value;
         PlayerPrefs.SetFloat("currentSensitivity", mouseSensitivity);   
     }
 
     public void LoadSensitivity() 
     {
-        //sensitivitySlider.value = PlayerPrefs.GetFloat("currentSensitivity");
+        sensitivitySlider.value = savedSensitivity;
         AdjustSpeed();
     }
 
