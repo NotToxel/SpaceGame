@@ -20,7 +20,7 @@ public class QuestCatalyst : MonoBehaviour
         if (notification != null && questAdded == true) 
         {
             notification.SetActive(true);
-            Debug.Log("notifaction active");
+            //Debug.Log("notifaction active");
         }
     }
 

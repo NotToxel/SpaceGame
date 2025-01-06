@@ -88,4 +88,8 @@ public class HealthBar : MonoBehaviour
         health -= damage;
         health = Mathf.Clamp(health, 0, maxHP+bonusHP);
     }
+
+    public void bonusHPfromChip(float numberOfRocks) {
+        maxHP += numberOfRocks;
+    }
 }
