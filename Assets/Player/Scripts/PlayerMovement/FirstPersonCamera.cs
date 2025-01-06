@@ -42,7 +42,7 @@ public class FirstPersonCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (camEnabled) {
+        if (camEnabled == true) {
             currentMouseSensitivity = mouseSensitivity;
 
             // Collect mouse inputs

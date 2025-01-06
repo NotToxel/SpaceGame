@@ -5,9 +5,12 @@ using UnityEngine;
 public class OxygenTankTrigger : MonoBehaviour
 {
     [SerializeField] private float oxygenTank = 10f;
-    [SerializeField] private float wait = 20f;
+    [SerializeField] private float wait = 100f;
     public GameObject oxygen;
     public OxygenManager oxygenManager;
+    public QuestCatalyst questCatalyst;
+    public QuestCatalyst questCatalyst1;
+    public GameObject dialogueTrigger;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -15,6 +18,13 @@ public class OxygenTankTrigger : MonoBehaviour
         {
             oxygenManager.AddOxygen(oxygenTank); //Increases player's oxygen
             oxygen.SetActive(false); // Deactivates the oxygen tank
+            if (MainManager.mainManager.questNames.Contains("Pick Up Oxygen."))
+            {
+                MainManager.mainManager.discoveryNames.Add("If you are low in oxygen, look for the flowers with a bubble on top. They will give you some oxygen!");
+                questCatalyst.CompleteQuest();
+                questCatalyst1.CreateQuest();
+                dialogueTrigger.SetActive(true);
+            }
             StartCoroutine(ResetOxygen()); // Starts the coroutine to reset the tank
         }
     }
