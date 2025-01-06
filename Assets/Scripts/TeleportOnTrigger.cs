@@ -11,6 +11,9 @@ public class TeleportOnTrigger : MonoBehaviour
     [SerializeField] private string playerTag = "Player";
 
     [SerializeField] private QuestCatalyst questCatalyst;
+    
+    [SerializeField] GameObject UiHealthBar;
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -20,6 +23,7 @@ public class TeleportOnTrigger : MonoBehaviour
             // Teleport the player to the teleportDestination
             other.transform.position = teleportDestination.position;
             other.transform.rotation = teleportDestination.rotation;
+            UiHealthBar.SetActive(true);
             // Optionally, reset velocity if the player has a Rigidbody
             Rigidbody rb = other.GetComponent<Rigidbody>();
             if (rb != null)
