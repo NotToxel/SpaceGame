@@ -21,7 +21,6 @@ public class InventoryUI : MonoBehaviour
     private static int height = 3; // 3 slots high
     public static int inventorySize = width*height;
     private int hotbarSize = 9;
-    private int firstSelectedSlot = -1;
     private bool invIsOpen;
 
     void Awake() {
