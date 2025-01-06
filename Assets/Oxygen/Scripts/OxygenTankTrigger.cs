@@ -11,6 +11,7 @@ public class OxygenTankTrigger : MonoBehaviour
     public QuestCatalyst questCatalyst;
     public QuestCatalyst questCatalyst1;
     public GameObject dialogueTrigger;
+    public AudioSource getOxygenSound;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -20,6 +21,7 @@ public class OxygenTankTrigger : MonoBehaviour
             oxygen.SetActive(false); // Deactivates the oxygen tank
             if (MainManager.mainManager.questNames.Contains("Pick Up Oxygen."))
             {
+                getOxygenSound.Play();
                 MainManager.mainManager.discoveryNames.Add("If you are low in oxygen, look for the flowers with a bubble on top. They will give you some oxygen!");
                 questCatalyst.CompleteQuest();
                 questCatalyst1.CreateQuest();
