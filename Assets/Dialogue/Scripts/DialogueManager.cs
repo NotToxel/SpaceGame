@@ -15,6 +15,7 @@ public class DialogueManager : MonoBehaviour
     public PlayerController playerController;
 
     public Animator animator;
+    public bool inDialogue = false;
 
     // Start is called before the first frame update
     void Start()
@@ -24,12 +25,15 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue (Dialogue dialogue) 
     {
+        inDialogue = true;
         // Disable camera controls
         if (camera != null) {
             FirstPersonCamera cameraScript = FindObjectOfType<FirstPersonCamera>();
             if (cameraScript != null) { cameraScript.DisableCam(); }
         }
         else { Debug.Log("camera is null"); }
+
+
 
         // Enable cursor controls
         Cursor.visible = true;
@@ -75,8 +79,8 @@ public class DialogueManager : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
+        inDialogue = false;
         animator.SetBool("isOpen", false);
         //firstPersonCamera.currentMouseSensitivity = firstPersonCamera.mouseSensitivity;
-        inputManager.SetActive(true);
     }
 }

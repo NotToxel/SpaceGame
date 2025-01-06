@@ -117,17 +117,28 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        HandleMovement();
         HandleInteraction();
-        HandleCombat();
-
-        if (attacking && animator.GetCurrentAnimatorStateInfo(1).normalizedTime >= animationFinishTime)
+        if (dialogueManager.inDialogue == false) 
         {
-            attacking = false;
+            HandleMovement();
+            HandleCombat();
+
+            if (attacking && animator.GetCurrentAnimatorStateInfo(1).normalizedTime >= animationFinishTime)
+            {
+                attacking = false;
+            }
+
+            ApplyGravity();
+            HandleUI();
         }
 
-        ApplyGravity();
-        HandleUI();
+        if (dialogueManager.inDialogue == true)
+        {
+            isRunning = false;
+            animator.SetBool("isRunning", false);
+            isCrouching = false;
+            isSprinting = false;
+        }
     }
 
     #region Movement
