@@ -14,6 +14,8 @@ public class TeleportOnTrigger : MonoBehaviour
     
     [SerializeField] GameObject UiHealthBar;
     [SerializeField] private QuestCatalyst questCatalyst1;
+    [SerializeField] private QuestCatalyst questCatalyst2;
+    [SerializeField] private QuestCatalyst questCatalyst3;
     public GameObject dialogueTrigger;
     [SerializeField] private RocketBuilder rocketBuilder;
     private Inventory inventory;
@@ -59,6 +61,11 @@ public class TeleportOnTrigger : MonoBehaviour
         questCatalyst.CompleteQuest();
         dialogueTrigger.SetActive(true);
         questCatalyst1.CreateQuest();
+
+        questCatalyst2.CompleteQuest();
+        if (MainManager.mainManager.questNames.Count == 0) {
+            questCatalyst3.CreateQuest();
+        }
 
     }
 }

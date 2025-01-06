@@ -67,7 +67,7 @@ public class FirstPersonCamera : MonoBehaviour
 
     public void LoadSensitivity() 
     {
-        sensitivitySlider.value = savedSensitivity;
+        sensitivitySlider.value = mouseSensitivity;
         AdjustSpeed();
     }
 

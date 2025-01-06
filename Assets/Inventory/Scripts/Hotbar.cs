@@ -20,6 +20,10 @@ public class Hotbar : MonoBehaviour
     private int selectedSlot = 0;
     public bool inventoryIsOpen;
 
+    public GameObject dialogueTrigger;
+    public QuestCatalyst questCatalyst1;
+    public QuestCatalyst questCatalyst2;
+
     void Awake() {
         uiManager = FindObjectOfType<UIManager>();
     }
@@ -83,6 +87,9 @@ public class Hotbar : MonoBehaviour
     }
 
     public void PickupItem(Collider objCollider) {
+        dialogueTrigger.SetActive(true);
+        questCatalyst1.CompleteQuest();
+        questCatalyst2.CreateQuest();
         ItemWorld itemWorld = objCollider.GetComponent<ItemWorld>();
         //Debug.Log("Picking up " + itemWorld.GetItem());
         inventory.AddItem(itemWorld.GetItem());
