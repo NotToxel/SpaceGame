@@ -15,6 +15,9 @@ public class QuestTabletButton : MonoBehaviour
     [SerializeField] private string[] noQuestsText;
     [SerializeField] private string[] noDiscoveriesText;
 
+    public AudioSource openTabletClip;
+    public AudioSource closeTabletClip;
+
     private bool openTablet;  
 
     public void OpenQuestTablet()
@@ -31,11 +34,13 @@ public class QuestTabletButton : MonoBehaviour
         {
             if (openTablet)
             {
+                openTabletClip.Play();
                 questPage.SetActive(true);
                 notification.SetActive(false);
                 completed.SetActive(false);
             }
             else{
+                openTabletClip.Play();
                 questPage.SetActive(false);
             }
         }

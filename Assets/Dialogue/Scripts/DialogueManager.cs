@@ -17,6 +17,9 @@ public class DialogueManager : MonoBehaviour
     public Animator animator;
     public bool inDialogue = false;
 
+    public AudioSource dialogueSound;
+    public AudioSource nextSentenceSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +28,7 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue (Dialogue dialogue) 
     {
+        dialogueSound.Play();
         inDialogue = true;
         // Disable camera controls
         if (camera != null) {
@@ -56,6 +60,7 @@ public class DialogueManager : MonoBehaviour
 
     public void DisplayNextSentence ()
     {
+        nextSentenceSound.Play();
         if (sentences.Count == 0) 
         {
             EndDialogue();
@@ -75,9 +80,12 @@ public class DialogueManager : MonoBehaviour
         }
         else { Debug.Log("camera is null"); }
 
+        inDialogue = false;
         // // Disable cursor controls
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        
 
         inDialogue = false;
         animator.SetBool("isOpen", false);

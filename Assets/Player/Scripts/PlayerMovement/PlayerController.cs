@@ -268,9 +268,7 @@ public class PlayerController : MonoBehaviour
         if (inputManager.PlayerUsedTablet())
             InteractWithTablet();
 
-        
-        
-        if (inputManager.PlayerContinuesDialogue())
+        if (inputManager.PlayerContinuesDialogue() && dialogueManager.inDialogue == true)
             NextSentence();
 
         if (inputManager.PlayerInteract() && Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, pickupRange)) {

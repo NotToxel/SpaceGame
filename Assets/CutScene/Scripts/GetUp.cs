@@ -28,8 +28,10 @@ public class GetUp : MonoBehaviour
         yield return new WaitForSeconds(duration3);
         player.SetActive(true);
         dialogue.SetActive(true);
-        quest.CreateQuest();
         cam.SetActive(false);
+
+        yield return new WaitForSeconds(5f);
+        quest.CreateQuest();
     }
 
 }
