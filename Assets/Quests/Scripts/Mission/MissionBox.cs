@@ -10,7 +10,6 @@ public class MissionBox : MonoBehaviour
 
     [TextArea(3,10)]
     public string[] rewardsList;
-    public MissionManager missionManager;
     public Slider progressSlider;
     public int currentProgress;
     // public GameObject missionTrigger;
@@ -22,7 +21,8 @@ public class MissionBox : MonoBehaviour
     public PlayerController playerController;
     public bool hasMissionEnded = false;
     public GameObject completedNotification;
-    public GameObject completedInTablet;
+    public GameObject completedInTablet1;
+    public GameObject completedInTablet2;
 
 
     void Start()
@@ -39,6 +39,9 @@ public class MissionBox : MonoBehaviour
         {
             if (currentProgress == progressSlider.maxValue)
             {
+                completedNotification.SetActive(true);
+                completedInTablet1.SetActive(true);
+                completedInTablet2.SetActive(true);
                 DisplayNextMission();
                 currentProgress = 0;
             }
@@ -79,9 +82,6 @@ public class MissionBox : MonoBehaviour
 
         string reward = rewards.Dequeue();
         rewardsText.text = reward;
-
-        completedNotification.SetActive(true);
-        completedInTablet.SetActive(true);
     }
 
     public void EndMissions()

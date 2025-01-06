@@ -7,7 +7,8 @@ public class TabletButtons : MonoBehaviour
     [SerializeField] private GameObject questSection;
     [SerializeField] private GameObject discoverySection;
     [SerializeField] private GameObject missionSection;
-    public GameObject completedInTablet;
+    [SerializeField] private GameObject completedInTablet1;
+    [SerializeField] private GameObject completedInTablet2;
 
     public void QuestButtonClicked()
     {
@@ -25,7 +26,8 @@ public class TabletButtons : MonoBehaviour
 
     public void MissionButtonClicked()
     {
-        completedInTablet.SetActive(false);
+        completedInTablet1.SetActive(false);
+        completedInTablet2.SetActive(false);
         missionSection.SetActive(true);
         questSection.SetActive(false);
         discoverySection.SetActive(false);
