@@ -16,16 +16,19 @@ public class ItemAssets : MonoBehaviour
     // Add more sprites here
     // Make sure to add them in the enum class in Item.cs
     // Uses: Displaying items in the UI
-    public Sprite swordSprite;
-    public Sprite wrenchSprite;
+
+    // - Items - //
+    public Sprite hammerSprite;
+
+    // - Armor - //
     public Sprite helmetSprite;
     public Sprite chestSprite;
     public Sprite legsSprite;
     public Sprite bootsSprite;
 
+
+
     // === Prefabs === //
     // Add more prefabs here
-    public GameObject swordPrefab;
-    public GameObject wrenchPrefab;
-    public GameObject knifePrefab;
+    public GameObject hammerPrefab;
 }

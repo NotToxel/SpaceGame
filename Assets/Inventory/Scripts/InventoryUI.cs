@@ -104,23 +104,21 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
-    public void ToggleInventory(bool inventoryIsOpen) {
-        invIsOpen = !inventoryIsOpen;
+    public void openInventory() {
+        invIsOpen = true;
 
         if (InventoryPanel != null) {
-            bool isOpen = InventoryPanel.activeSelf;
-            InventoryPanel.SetActive(!isOpen);
+            InventoryPanel.SetActive(true);
 
             // Cursor state
-            Cursor.lockState = isOpen ? CursorLockMode.Locked : CursorLockMode.None;
-            Cursor.visible = !isOpen;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
 
             // Disable or enable Cinemachine camera input
             if (camera != null) {
                 FirstPersonCamera cameraScript = FindObjectOfType<FirstPersonCamera>();
                 if (cameraScript != null) { 
-                    if (invIsOpen) { cameraScript.DisableCam(); }
-                    else { cameraScript.EnableCam(); }
+                    cameraScript.DisableCam();
                 }
             }
             else { Debug.Log("camera is null"); }
@@ -128,6 +126,27 @@ public class InventoryUI : MonoBehaviour
         uiManager.RefreshUI();
     }
 
+    public void closeInventory() {
+        invIsOpen = false;
+
+        if (InventoryPanel != null) {
+            InventoryPanel.SetActive(false);
+
+            // Cursor state
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+
+            // Disable or enable Cinemachine camera input
+            if (camera != null) {
+                FirstPersonCamera cameraScript = FindObjectOfType<FirstPersonCamera>();
+                if (cameraScript != null) { 
+                    cameraScript.EnableCam();
+                }
+            }
+            else { Debug.Log("camera is null"); }
+        }
+        uiManager.RefreshUI();
+    }
     public bool IsOpen() { return invIsOpen; }
 }
 

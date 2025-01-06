@@ -26,28 +26,18 @@ public class Inventory
     private Inventory() {
         itemList = new List<Item>();
         
-        AddItem(new Item { itemType = Item.ItemType.Sword, amount = 1 });
-        AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
-        AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
-        AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
-        AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
-        AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
-        AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
-        AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
-        AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
-        AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
-        AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
-        AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
-        AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
-        AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
-        AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
-        AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
-        AddItem(new Item { itemType = Item.ItemType.Wrench, amount = 1 });
-        AddItem(new Item { itemType = Item.ItemType.Helmet, amount = 1 });
-        AddItem(new Item { itemType = Item.ItemType.Chest, amount = 1 });
-        AddItem(new Item { itemType = Item.ItemType.Legs, amount = 1 });
-        AddItem(new Item { itemType = Item.ItemType.Boots, amount = 1 });
-        AddItem(new Item { itemType = Item.ItemType.Rock, amount = 15 });
+        AddItem(new Item { itemType = Item.ItemType.Hammer, amount = 1 });
+        AddItem(new Item { itemType = Item.ItemType.Hammer, amount = 1 });
+        AddItem(new Item { itemType = Item.ItemType.Hammer, amount = 1 });
+        AddItem(new Item { itemType = Item.ItemType.Hammer, amount = 1 });
+        AddItem(new Item { itemType = Item.ItemType.Hammer, amount = 1 });
+        AddItem(new Item { itemType = Item.ItemType.Hammer, amount = 1 });
+        AddItem(new Item { itemType = Item.ItemType.Hammer, amount = 1 });
+        AddItem(new Item { itemType = Item.ItemType.Hammer, amount = 1 });
+        AddItem(new Item { itemType = Item.ItemType.Hammer, amount = 1 });
+        AddItem(new Item { itemType = Item.ItemType.Hammer, amount = 1 });
+        AddItem(new Item { itemType = Item.ItemType.Hammer, amount = 1 });
+        AddItem(new Item { itemType = Item.ItemType.Hammer, amount = 1 });
         //Debug.Log(itemList.Count);
     }
 
