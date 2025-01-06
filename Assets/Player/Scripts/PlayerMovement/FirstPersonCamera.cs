@@ -59,12 +59,13 @@ public class FirstPersonCamera : MonoBehaviour
         }
     }
 
+    // Adjusts players sensitivity
     public void AdjustSpeed()
     {
-        //mouseSensitivity = savedSensitivity.value;
         PlayerPrefs.SetFloat("currentSensitivity", mouseSensitivity);   
     }
 
+    // Loads players sensitivity
     public void LoadSensitivity() 
     {
         sensitivitySlider.value = mouseSensitivity;
@@ -73,7 +74,6 @@ public class FirstPersonCamera : MonoBehaviour
 
     public void EnableCam() {
         camEnabled = true;
-        //mouseSensitivity = savedSensitivity;
     }
 
     public void DisableCam() {

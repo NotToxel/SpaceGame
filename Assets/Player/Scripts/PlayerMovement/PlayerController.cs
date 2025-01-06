@@ -15,38 +15,34 @@ public class PlayerController : MonoBehaviour
 {
     // --- Player movement settings --- 
     [Header("Player Movement")]
-    public float playerSpeed = 5.0f; // Default walking speed
-    [SerializeField] private float jumpHeight = 1.0f; // Height the player can jump
-    [SerializeField] private float sprintingJumpHeight = 2.0f; // Height the player can jump while sprinting
-    [SerializeField] private float gravityValue = -9.81f; // Gravity applied to the player
-    [SerializeField] private float normalHeight, crouchHeight; // Character heights for standing and crouching
-    [SerializeField] private float crouchingSpeed = 2.0f; // Speed while crouching
+    public float playerSpeed = 5.0f;
+    [SerializeField] private float jumpHeight = 1.0f;
+    [SerializeField] private float sprintingJumpHeight = 2.0f;
+    [SerializeField] private float gravityValue = -9.81f;
+    [SerializeField] private float normalHeight, crouchHeight;
+    [SerializeField] private float crouchingSpeed = 2.0f;
 
     public float sprintingSpeed = 10f;
-    public float currentSpeed; // Current movement speed (varies based on crouching, walking or running)
-    public bool groundedPlayer; // Tracks if the player is grounded
-    private bool isCrouching = false; // Tracks if the player is currently crouching
+    public float currentSpeed;
+    public bool groundedPlayer;
+    private bool isCrouching = false;
     public bool isRunning = false;
     public bool isSprinting = false;
     private bool readyToJump = true;
-    private Vector3 playerVelocity; // Tracks the player's vertical velocity
+    private Vector3 playerVelocity;
     private Quaternion currentRotation;
 
 
     // --- Interaction Settings ---
     [Header("Item Interaction")]
-    [SerializeField] private float pickupRange = 2.5f; // Range within which objects can be picked up
-    [SerializeField] private Transform holdPoint; // Position where held objects are placed
-    [SerializeField] private float throwForce = 10f; // Force applied when throwing an object
-    // [SerializeField] private float puzzle1Range = 5f; // Interaction range for Puzzle1 objects
+    [SerializeField] private float pickupRange = 2.5f;
+    [SerializeField] private Transform holdPoint;
+    [SerializeField] private float throwForce = 10f;
     private bool isTabletOpen = false;
     public float interactingRange = 5f;
     public bool isInteracting;
 
-    private GameObject heldObject; // Currently held objects
-    // private int currentColorIndex = 0;
-    // private Color[] colors = { Color.red, Color.green, Color.blue, Color.yellow, Color.magenta };
-
+    private GameObject heldObject;
 
     // --- Combat Settings ---
     [Header("Combat")]
@@ -67,14 +63,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float animationFinishTime = 0.9f;
 
     // --- Components and References ---
-    private CharacterController controller; // CharacterController component for movement
-    private InputManager inputManager; // Input manager to handle player input
-    public GameObject camera; // Reference to main camera GameObject
-    public Transform cameraTransform; // Reference to the main camera's transform
-    private HealthBar healthBar; // Reference to the player's health bar
-    private Collider playerCollider; // Collider for the player (used to disable collision with held objects)
-    private Coroutine crouchCoroutine; // Coroutine for smooth crouching transitions
-    public GameObject holdingMelee; // Stores Melee player is currently holding
+    private CharacterController controller;
+    private InputManager inputManager;
+    public GameObject camera;
+    public Transform cameraTransform;
+    private HealthBar healthBar;
+    private Collider playerCollider;
+    private Coroutine crouchCoroutine;
+    public GameObject holdingMelee;
     public GameObject tablet;
     public QuestTabletButton questTabletButton;
     public DialogueManager dialogueManager;
@@ -103,16 +99,14 @@ public class PlayerController : MonoBehaviour
     {
         //Initialize references
         controller = GetComponent<CharacterController>();
-        inputManager = InputManager.Instance; // Get the input manager instance
-        playerCollider = GameObject.FindWithTag("Player").GetComponent<Collider>(); // Get the player's collider
+        inputManager = InputManager.Instance;
+        playerCollider = GameObject.FindWithTag("Player").GetComponent<Collider>();
 
-        currentSpeed = playerSpeed; // Set initial speed
-        normalHeight = controller.height; // Store the default character height
+        currentSpeed = playerSpeed;
+        normalHeight = controller.height;
 
-        inventory = Inventory.Instance; // New instance of Inventory
-        hotbar.SetInventory(inventory); // Setup the hotbar
-
-        // --- Testing --- //
+        inventory = Inventory.Instance;
+        hotbar.SetInventory(inventory);
     }
 
     void Update()
@@ -196,17 +190,6 @@ public class PlayerController : MonoBehaviour
             ToggleCrouch(false);
     }
 
-    // private void ToggleSprint(bool sprint)
-    // {
-    //     // if (crouchCoroutine != null)
-    //     //     StopCoroutine(crouchCoroutine);
-
-    //     float targetSpeed = spint ? sprintingSpeed : playerSpeed;
-
-    //     crouchCoroutine = StartCoroutine(CrouchTransition(targetHeight, targetSpeed));
-    //     isCrouching = crouch;
-    // }
-
     private IEnumerator InitialiseJump()
     {
         yield return new WaitForSeconds(0.1f);
@@ -275,7 +258,6 @@ public class PlayerController : MonoBehaviour
 
         if (inputManager.PlayerInteract() && Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, pickupRange)) {
             if (hit.collider.gameObject.CompareTag("Chip")) {
-                    Debug.Log("Interacting with Chip");
                     chip.Interact();
             }
         }
@@ -283,10 +265,8 @@ public class PlayerController : MonoBehaviour
 
     private void TriggerDialogue(GameObject dialogueTrigger)
     {
-        Debug.Log("triggering");
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, interactingRange))
         {
-            Debug.Log("hit");
             if (hit.collider.CompareTag("NPC"))
                 InteractWithNPC(hit.collider.gameObject, dialogueTrigger);
         }
@@ -297,28 +277,8 @@ public class PlayerController : MonoBehaviour
         dialogueTrigger.SetActive(true);   
     }
 
-       // private void InteractWithObject()
-    // {
-    //     if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, puzzle1Range))
-    //     {
-    //         if (hit.collider.CompareTag("Puzzle1"))
-    //             CycleObjectColor(hit.collider.gameObject);
-    //     }
-    // }
-
-    // private void CycleObjectColor(GameObject obj)
-    // {
-    //     Renderer renderer = obj.GetComponent<Renderer>();
-    //     if (renderer != null)
-    //     {
-    //         currentColorIndex = (currentColorIndex + 1) % colors.Length;
-    //         renderer.material.color = colors[currentColorIndex];
-    //     }
-    // }
-
     private void NextSentence()
     {
-        //Debug.Log("Displaying next");
         dialogueManager.DisplayNextSentence();
     }
 
@@ -377,25 +337,6 @@ public class PlayerController : MonoBehaviour
         UpdateHeldItem();
     }
 
-    // private void InteractWithObject()
-    // {
-    //     if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, puzzle1Range))
-    //     {
-    //         if (hit.collider.CompareTag("Puzzle1"))
-    //             CycleObjectColor(hit.collider.gameObject);
-    //     }
-    // }
-
-    // private void CycleObjectColor(GameObject obj)
-    // {
-    //     Renderer renderer = obj.GetComponent<Renderer>();
-    //     if (renderer != null)
-    //     {
-    //         currentColorIndex = (currentColorIndex + 1) % colors.Length;
-    //         renderer.material.color = colors[currentColorIndex];
-    //     }
-    // }
-
     private void UpdateHeldItem() {
         if (heldObject != null) {
             Destroy(heldObject);
@@ -415,15 +356,12 @@ public class PlayerController : MonoBehaviour
         heldObject.transform.SetParent(holdPoint);
         heldObject.transform.localPosition = Vector3.zero;
         heldObject.transform.localRotation = Quaternion.identity;
-        //if (heldObject.CompareTag("Sword"))
-        //    heldObject.transform.localRotation = Quaternion.identity;
     }
     #endregion
 
 
     #region Combat
     private void HandleCombat(){
-        //Debug.Log(hotbar.isHoldingWeapon());
         if (inputManager.PlayerLightAttack() && readyToAttack && (hotbar.isHoldingWeapon() || hotbar.isBareFist()) && !inventoryIsOpen)
             PerformLightAttack();
     }
@@ -434,7 +372,6 @@ public class PlayerController : MonoBehaviour
         attacking = true;
         animator.SetTrigger("lightAttack");
         StartCoroutine(AttackCooldown());
-        //Debug.Log("Performing Light Attack");
     }
 
     private IEnumerator AttackCooldown()
@@ -472,7 +409,6 @@ public class PlayerController : MonoBehaviour
     }
 
     private void InventoryToggleInterface() {
-        //Debug.Log("Toggling Inventory");
         if (inventoryIsOpen) { inventoryUI.closeInventory(); }
         else { inventoryUI.openInventory(); }
         inventoryIsOpen = inventoryUI.IsOpen();
