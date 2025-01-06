@@ -78,15 +78,30 @@ public class AiChasePlayerState : AiState
 
     private void Attack(AiAgent agent)
     {
-        // Stop the NavMeshAgent from moving while attacking
         agent.navMeshAgent.SetDestination(agent.transform.position);
 
-        // Trigger the attack animation in the animator
         animator.SetTrigger("Attack");
 
-        // Start the cooldown timer to prevent immediate re-attacking
         cooldownTimer = attackCooldown;
 
-        // Optionally, add additional logic for dealing damage or applying effects here
+        if (agent.healthBarObject != null)
+        {
+            HealthBar playerHealthBar = agent.healthBarObject.GetComponent<HealthBar>();
+
+            if (playerHealthBar != null)
+            {
+                playerHealthBar.TakeDamage(10);
+                Debug.Log(playerHealthBar.health);
+            }
+            else
+            {
+                Debug.LogWarning("HealthBar component not found on the HealthBar object.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("HealthBar object is not assigned.");
+        }
     }
+
 }

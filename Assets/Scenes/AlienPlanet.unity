@@ -9058,7 +9058,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2967054720560188422, guid: 7d9eca3491a41fb46841887134a85e1b, type: 3}
   m_PrefabInstance: {fileID: 1836788833}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1141762618}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a55a603b6eac789489e83cc6b4238fb1, type: 3}
@@ -53405,6 +53405,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8ca6433e7a78e346904aef72892f856, type: 3}
+--- !u!1 &1141762618 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 49281692846173952, guid: 7d9eca3491a41fb46841887134a85e1b, type: 3}
+  m_PrefabInstance: {fileID: 1836788833}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1142449571
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -95383,6 +95388,10 @@ PrefabInstance:
       propertyPath: initialState
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4093244806149543547, guid: 0614acd6345572548ae4911cc6117be0, type: 3}
+      propertyPath: healthBarObject
+      value: 
+      objectReference: {fileID: 1141762618}
     - target: {fileID: 4093244806149543547, guid: 0614acd6345572548ae4911cc6117be0, type: 3}
       propertyPath: playerTransform
       value: 

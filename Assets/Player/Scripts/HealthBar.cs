@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class HealthBar : MonoBehaviour
 {
@@ -62,6 +63,12 @@ public class HealthBar : MonoBehaviour
         bonusHP = armorPanel.bonusHP();
 
         UpdateAmount();
+
+        if (health <= 0)
+        {
+            SceneManager.LoadSceneAsync(0);
+        }
+
     }
 
     private void UpdateAmount() {
@@ -87,5 +94,7 @@ public class HealthBar : MonoBehaviour
         EnterCombat();
         health -= damage;
         health = Mathf.Clamp(health, 0, maxHP+bonusHP);
+        Debug.Log(health);
     }
+
 }
