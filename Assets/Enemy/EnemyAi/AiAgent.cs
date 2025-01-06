@@ -15,7 +15,9 @@ public class AiAgent : MonoBehaviour
     public SkinnedMeshRenderer mesh;
     public UIHealthBar ui;
     public Transform playerTransform;
-     
+    public HealthBar healthBar;
+    public GameObject healthBarObject;
+
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +26,7 @@ public class AiAgent : MonoBehaviour
         mesh = GetComponentInChildren<SkinnedMeshRenderer>();
         ui = GetComponentInChildren<UIHealthBar>();
         navMeshAgent = GetComponent<NavMeshAgent>();
+        healthBar = GetComponent<HealthBar>();
         if (playerTransform == null)
         {
             playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
@@ -32,6 +35,7 @@ public class AiAgent : MonoBehaviour
         stateMachine.RegisterState(new AiChasePlayerState());
         stateMachine.RegisterState(new AiDeathState());
         stateMachine.RegisterState(new AiIdleState());
+        stateMachine.RegisterState(new AiRoamState());
         stateMachine.ChangeState(initialState);
     }
 

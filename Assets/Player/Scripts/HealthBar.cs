@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class HealthBar : MonoBehaviour
 {
@@ -23,36 +24,44 @@ public class HealthBar : MonoBehaviour
     private float regenTimer = 0f;   // Internal timer for regen
 
     // Start is called before the first frame update
-    void Start() {
+    void Start()
+    {
         health = maxHP;
     }
 
     // Update is called once per frame
-    void Update() {
+    void Update()
+    {
         // Update Health Slider
-        if(healthSlider.value != health) {
-            healthSlider.maxValue = maxHP+bonusHP;
+        if (healthSlider.value != health)
+        {
+            healthSlider.maxValue = maxHP + bonusHP;
             healthSlider.value = health;
         }
 
         // Update Ease Health Slider
-        if(healthSlider.value != easeHealthSlider.value) {
-            easeHealthSlider.maxValue = maxHP+bonusHP;
+        if (healthSlider.value != easeHealthSlider.value)
+        {
+            easeHealthSlider.maxValue = maxHP + bonusHP;
             easeHealthSlider.value = Mathf.Lerp(easeHealthSlider.value, health, lerpSpeed);
         }
 
         // Exit combat state if Player has not taken any damage in 10s
-        if (isInCombat == true) {
+        if (isInCombat == true)
+        {
             combatTimer -= Time.deltaTime;
-            if (combatTimer <= 0) {
+            if (combatTimer <= 0)
+            {
                 ExitCombat();
             }
         }
 
         // Regenerate Health while Player is out of Combat
-        if (isInCombat == false) {
+        if (isInCombat == false)
+        {
             regenTimer -= Time.deltaTime;
-            if (regenTimer <= 0f) {
+            if (regenTimer <= 0f)
+            {
                 regenHP(naturalRegenRate);
                 regenTimer = regenCooldown; // Reset the regen timer
             }
@@ -62,34 +71,47 @@ public class HealthBar : MonoBehaviour
         bonusHP = armorPanel.bonusHP();
 
         UpdateAmount();
+
+        if (health <= 0)
+        {
+            SceneManager.LoadSceneAsync(0);
+        }
+
     }
 
-    private void UpdateAmount() {
+    private void UpdateAmount()
+    {
         TextMeshProUGUI text = amount.GetComponent<TextMeshProUGUI>();
-        text.SetText(health + "/" + (maxHP+bonusHP));
+        text.SetText(health + "/" + (maxHP + bonusHP));
     }
 
-    public void regenHP(float rate) {
+    public void regenHP(float rate)
+    {
         health += rate;
-        health = Mathf.Clamp(health, 0, maxHP+bonusHP);
+        health = Mathf.Clamp(health, 0, maxHP + bonusHP);
     }
 
-    public void EnterCombat() {
+    public void EnterCombat()
+    {
         isInCombat = true;
         combatTimer = combatCD;
     }
 
-    public void ExitCombat() {
+    public void ExitCombat()
+    {
         isInCombat = false;
     }
-    
-    public void TakeDamage(float damage) {
+
+    public void TakeDamage(float damage)
+    {
         EnterCombat();
         health -= damage;
-        health = Mathf.Clamp(health, 0, maxHP+bonusHP);
+        health = Mathf.Clamp(health, 0, maxHP + bonusHP);
+        Debug.Log(health);
     }
 
-    public void bonusHPfromChip(float numberOfRocks) {
+    public void bonusHPfromChip(float numberOfRocks)
+    {
         maxHP += numberOfRocks;
     }
 }
