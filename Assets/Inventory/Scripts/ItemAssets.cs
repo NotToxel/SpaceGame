@@ -21,6 +21,7 @@ public class ItemAssets : MonoBehaviour
 
     // - Items - //
     public Sprite hammerSprite;
+    public Sprite pliersSprite;
 
     // - Armor - //
     public Sprite helmetSprite;
@@ -34,4 +35,6 @@ public class ItemAssets : MonoBehaviour
     // Add more prefabs here
     public GameObject hammerPrefab;
     public GameObject hammerStaticPrefab;
+    public GameObject pliersPrefab;
+    //public GameObject pliersStaticPrefab;
 }

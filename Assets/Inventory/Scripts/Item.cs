@@ -13,7 +13,8 @@ public class Item
         Compass,
         Hammer,
         HammerStatic,
-        Multitool,
+        Pliers,
+        //PliersStatic,
         //Pebble,
         Rock,
 
@@ -34,6 +35,9 @@ public class Item
         switch (itemType) {
         default:
         case ItemType.Hammer: return ItemAssets.Instance.hammerSprite;
+        case ItemType.HammerStatic: return ItemAssets.Instance.hammerSprite;
+        case ItemType.Pliers: return ItemAssets.Instance.pliersSprite;
+        //case ItemType.PliersStatic: return ItemAssets.Instance.pliersSprite;
         case ItemType.Helmet: return ItemAssets.Instance.helmetSprite;
         case ItemType.Chest: return ItemAssets.Instance.chestSprite;
         case ItemType.Legs: return ItemAssets.Instance.legsSprite;
@@ -47,6 +51,9 @@ public class Item
         switch (itemType) {
             default:
                 case ItemType.Hammer: return ItemAssets.Instance.hammerPrefab;
+                case ItemType.HammerStatic: return ItemAssets.Instance.hammerStaticPrefab;
+                case ItemType.Pliers: return ItemAssets.Instance.pliersPrefab;
+                //case ItemType.PliersStatic: return ItemAssets.Instance.pliersStaticPrefab;
         }
     }
 
@@ -90,6 +97,11 @@ public class Item
 
     public bool isHammer() {
         if (itemType==ItemType.Hammer || itemType==ItemType.HammerStatic) { return true; }
+        else { return false; }
+    }
+
+    public bool isPliers() {
+        if (itemType==ItemType.Pliers) { return true; }
         else { return false; }
     }
 
