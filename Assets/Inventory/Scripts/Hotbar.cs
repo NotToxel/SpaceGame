@@ -31,6 +31,7 @@ public class Hotbar : MonoBehaviour
     public void HandleScrollInput(float scrollValue)
     {  
         if (inventoryIsOpen) { return; } // Disable when inventory is open
+        if (hotbarSize == 0) { return; }
 
         //Debug.Log("Scroll Value: " + scrollValue);
         if (scrollValue == 0) { return; } // Return if no change in scrollValue

@@ -31,11 +31,11 @@ public class FirstPersonCamera : MonoBehaviour
         camEnabled = true;
         if (PlayerPrefs.HasKey("currentSensitivity"))
         {
-            //LoadSensitivity();
+            LoadSensitivity();
         }
         else
         {
-            //AdjustSpeed();
+            AdjustSpeed();
         }
     }
 
@@ -61,7 +61,7 @@ public class FirstPersonCamera : MonoBehaviour
 
     public void AdjustSpeed()
     {
-        //mouseSensitivity = savedSensitivity.value;
+        mouseSensitivity = savedSensitivity.value;
         PlayerPrefs.SetFloat("currentSensitivity", mouseSensitivity);   
     }
 
