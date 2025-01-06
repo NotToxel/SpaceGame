@@ -6,6 +6,7 @@ public class MainManager : MonoBehaviour
 {
     public static MainManager mainManager;
     public List<string> questNames = new();
+    public List<string> discoveryNames = new();
 
     private void Awake()
     {

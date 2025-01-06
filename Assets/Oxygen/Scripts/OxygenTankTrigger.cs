@@ -1,22 +1,37 @@
-/*****************
-This script checks if the player has collided with the oxygen tank.
-If the player has collided, the player will gain more oxygen 
-and the oxygen tank will be destroyed.
-*******************/
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class OxygenTankTrigger : MonoBehaviour
 {
-    public float oxygenTank = 10f;
+    [SerializeField] private float oxygenTank = 10f;
+    [SerializeField] private float wait = 100f;
+    public GameObject oxygen;
     public OxygenManager oxygenManager;
-    private void OnTriggerEnter(Collider other){
-        if(other.CompareTag("Player")){ //Checks if player has collided with tank
+    public QuestCatalyst questCatalyst;
+    public QuestCatalyst questCatalyst1;
+    public GameObject dialogueTrigger;
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player")) //Checks if player has collided with tank
+        {
             oxygenManager.AddOxygen(oxygenTank); //Increases player's oxygen
-            // Destroy(gameObject); //Destroys oxygen tank once player has used it
-            transform.position = new Vector3(3.4f, 1f, 3.85f);
+            oxygen.SetActive(false); // Deactivates the oxygen tank
+            if (MainManager.mainManager.questNames.Contains("Pick Up Oxygen."))
+            {
+                MainManager.mainManager.discoveryNames.Add("If you are low in oxygen, look for the flowers with a bubble on top. They will give you some oxygen!");
+                questCatalyst.CompleteQuest();
+                questCatalyst1.CreateQuest();
+                dialogueTrigger.SetActive(true);
+            }
+            StartCoroutine(ResetOxygen()); // Starts the coroutine to reset the tank
         }
+    }
+
+    private IEnumerator ResetOxygen()
+    {
+        yield return new WaitForSeconds(wait); // Waits for the specified time
+        oxygen.SetActive(true); // Reactivates the oxygen tank
     }
 }

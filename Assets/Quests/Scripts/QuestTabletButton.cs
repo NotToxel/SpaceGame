@@ -9,9 +9,12 @@ public class QuestTabletButton : MonoBehaviour
 {
     [SerializeField] private GameObject questPage;
     [SerializeField] private  TMP_Text questTextBox;
+    [SerializeField] private  TMP_Text discoveryTextBox;
     [SerializeField] private GameObject notification;
     [SerializeField] private GameObject completed;
     [SerializeField] private string[] noQuestsText;
+    [SerializeField] private string[] noDiscoveriesText;
+
     private bool openTablet;  
 
     public void OpenQuestTablet()
@@ -19,6 +22,7 @@ public class QuestTabletButton : MonoBehaviour
         openTablet = !openTablet;
         CreatePage();
         WriteQuests();
+        WriteDiscovery();
     }
 
     private void CreatePage()
@@ -62,6 +66,33 @@ public class QuestTabletButton : MonoBehaviour
 
             questTextBox.rectTransform.sizeDelta = new Vector2(questTextBox.rectTransform.sizeDelta.x, questTextBox.preferredHeight);
 
+        }
+    }
+
+    private void WriteDiscovery()
+    {
+        if (discoveryTextBox != null) 
+        {
+            if (MainManager.mainManager.discoveryNames.Count == 0)
+            {
+                if (noDiscoveriesText != null)
+                {
+                    int randomNum = (Random.Range(0, noDiscoveriesText.Length));
+                    discoveryTextBox.text = noDiscoveriesText[randomNum];
+                }
+            }
+
+            else
+                {
+                    StringBuilder stringBuilder = new();
+                    foreach (string discovery in MainManager.mainManager.discoveryNames)
+                    {
+                        stringBuilder.AppendLine(discovery);
+                    }
+                    discoveryTextBox.text = stringBuilder.ToString();
+                }
+
+                discoveryTextBox.rectTransform.sizeDelta = new Vector2(questTextBox.rectTransform.sizeDelta.x, questTextBox.preferredHeight);
         }
     }
 }

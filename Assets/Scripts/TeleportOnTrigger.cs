@@ -13,6 +13,8 @@ public class TeleportOnTrigger : MonoBehaviour
     [SerializeField] private QuestCatalyst questCatalyst;
     
     [SerializeField] GameObject UiHealthBar;
+    [SerializeField] private QuestCatalyst questCatalyst1;
+    public GameObject dialogueTrigger;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -35,5 +37,8 @@ public class TeleportOnTrigger : MonoBehaviour
         }
 
         questCatalyst.CompleteQuest();
+        dialogueTrigger.SetActive(true);
+        questCatalyst1.CreateQuest();
+
     }
 }

@@ -7,7 +7,7 @@ This script manages the player's movement, interactions, and environmental respo
 
 using UnityEngine;
 using System.Collections;
-
+using UnityEngine.UI;
 
 // Requires a CharacterController component to be attached to the same GameObject
 [RequireComponent(typeof(CharacterController))]
@@ -117,17 +117,28 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        HandleMovement();
         HandleInteraction();
-        HandleCombat();
-
-        if (attacking && animator.GetCurrentAnimatorStateInfo(1).normalizedTime >= animationFinishTime)
+        if (dialogueManager.inDialogue == false) 
         {
-            attacking = false;
+            HandleMovement();
+            HandleCombat();
+
+            if (attacking && animator.GetCurrentAnimatorStateInfo(1).normalizedTime >= animationFinishTime)
+            {
+                attacking = false;
+            }
+
+            ApplyGravity();
+            HandleUI();
         }
 
-        ApplyGravity();
-        HandleUI();
+        if (dialogueManager.inDialogue == true)
+        {
+            isRunning = false;
+            animator.SetBool("isRunning", false);
+            isCrouching = false;
+            isSprinting = false;
+        }
     }
 
     #region Movement
@@ -252,11 +263,8 @@ public class PlayerController : MonoBehaviour
             DropObject(); // Implement tryDropItem which identifies what kind of item player is holding.
 
         if (inputManager.PlayerInteract() == true)
-            // isInteracting = true;
             TriggerDialogue(dialogueTrigger);
 
-            // InteractWithObject();
-        //Debug.Log(inputManager.HotbarScrollSelect());
         if (inputManager.PlayerUsedTablet())
             InteractWithTablet();
 
@@ -435,7 +443,6 @@ public class PlayerController : MonoBehaviour
         readyToAttack = true;
     }
     #endregion
-
 
     #region Utility
     private void ApplyGravity()
