@@ -63,9 +63,5 @@ public class TeleportOnTrigger : MonoBehaviour
         questCatalyst1.CreateQuest();
 
         questCatalyst2.CompleteQuest();
-        if (MainManager.mainManager.questNames.Count == 0) {
-            questCatalyst3.CreateQuest();
-        }
-
     }
 }
