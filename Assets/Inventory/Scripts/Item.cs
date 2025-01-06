@@ -87,5 +87,10 @@ public class Item
         else { return false; }
     }
 
+    public bool isHammer() {
+        if (itemType == ItemType.Hammer) { return true; }
+        else { return false; }
+    }
+
     //public bool IsConsumable() {}
 }
