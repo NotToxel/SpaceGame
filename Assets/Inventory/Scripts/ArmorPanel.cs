@@ -1,3 +1,5 @@
+// Script reference: https://www.youtube.com/watch?v=2WnAOV7nHW0
+
 using TMPro;
 using System.Collections;
 using System.Collections.Generic;
@@ -29,6 +31,7 @@ public class ArmorPanel : MonoBehaviour
 
 
     void Awake() {
+        // Initialise uiManager reference
         uiManager = FindObjectOfType<UIManager>();
     }
     
@@ -45,6 +48,7 @@ public class ArmorPanel : MonoBehaviour
     }
 
     public void RefreshArmorPanel() {
+        // Generate slots
         int x = 0;
         int y = 0;
         float armorSlotCellSize = 100f;

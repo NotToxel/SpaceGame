@@ -31,15 +31,15 @@ public class UIManager : MonoBehaviour
     }
 
     public void SlotClicked(int slotIndex) {
-        if (firstSelectedSlot == -1) {
+        if (firstSelectedSlot == -1) { // Case: 1st selection
             firstSelectedSlot = slotIndex;
             //Debug.Log("First slot selected: " + slotIndex);
         }
-        else if (firstSelectedSlot == slotIndex) {
+        else if (firstSelectedSlot == slotIndex) { // Case: 2nd selection is same as 1st
             firstSelectedSlot = -1;
             //Debug.Log("Slot deselected");
         }
-        else {
+        else { // Case: difference 2nd selection
             //Debug.Log("Second slot selected: " + slotIndex);
             SwapSlots(firstSelectedSlot, slotIndex);
             firstSelectedSlot = -1;

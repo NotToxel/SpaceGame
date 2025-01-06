@@ -1,3 +1,5 @@
+// Script reference: https://www.youtube.com/watch?v=2WnAOV7nHW0
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,8 +26,11 @@ public class InventoryUI : MonoBehaviour
     private bool invIsOpen;
 
     void Awake() {
+        // Initial states
         InventoryPanel.SetActive(false);
         invIsOpen = false;
+
+        // Initialise uiManager reference
         uiManager = FindObjectOfType<UIManager>();
     }
 
@@ -37,6 +42,7 @@ public class InventoryUI : MonoBehaviour
             }
         }
 
+        // Generate slots
         List<Item> itemList = inventory.GetItemList();
         int x = 0;
         int y = 0;

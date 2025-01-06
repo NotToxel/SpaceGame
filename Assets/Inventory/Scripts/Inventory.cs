@@ -1,3 +1,5 @@
+// Script reference: https://www.youtube.com/watch?v=2WnAOV7nHW0
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -74,7 +76,7 @@ public class Inventory
                 itemList.Add(item);
             }
         }
-        else if (GetItemCount()+1 > maxSize) { // Full Inventory Ccase
+        else if (GetItemCount()+1 > maxSize) { // Full Inventory case
             Debug.Log("Inventory is too full");
             return;
         }
@@ -85,7 +87,7 @@ public class Inventory
     }
 
     public void RemoveItem(Item item) {
-        if (item.IsStackable()){
+        if (item.IsStackable()){ // Stackable case
             Item itemInInventory = null;
             foreach (Item inventoryItem in itemList) {
                 if (inventoryItem.itemType == item.itemType) {

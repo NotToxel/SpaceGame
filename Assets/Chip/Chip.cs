@@ -12,21 +12,18 @@ public class Chip : MonoBehaviour
     private bool ChipIsInShip;
 
 
-    // Start is called before the first frame update
     void Start()
     {
+        // Initial States
         ChipInWild.SetActive(true);
         ChipAtShip.SetActive(false);
         ChipIsInShip = false;
         //Debug.Log(ChipIsInShip);
-
-        //ChipInWild.GetComponent<Collider>().enabled = true;
-        //ChipAtShip.GetComponent<Collider>().enabled = false;
     }
 
     public void Interact() {
         List<Item> itemList = inventory.GetItemList();
-        if (ChipIsInShip==true) { 
+        if (ChipIsInShip==true) { // Case for when Chip is in the ship
             Debug.Log("Interacting with Chip inside ship"); /*Dialogue, Search for rocks, remove them, +HP*/
             //Debug.Log("Checking inv");
             foreach (Item item in itemList) {
@@ -37,7 +34,7 @@ public class Chip : MonoBehaviour
                 }
             }
         }
-        else { /*Dialogue, Search for 10 rocks, if found go to ship*/
+        else { // Case for when Chip is in the wild
             Debug.Log("Interacting with Chip in the wild");
             foreach (Item item in itemList) {
                 if (item.isRock() && item.amount>=10) {

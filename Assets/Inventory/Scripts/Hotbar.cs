@@ -1,3 +1,6 @@
+// Script reference: https://www.youtube.com/watch?v=2WnAOV7nHW0
+// Design reference: https://www.youtube.com/playlist?list=PLOyj0nn-asmaqBZ_hGoCh-PBlraNaHLyA
+
 using TMPro;
 using System.Collections;
 using System.Collections.Generic;
@@ -30,8 +33,8 @@ public class Hotbar : MonoBehaviour
     #region Item Selection
     public void HandleScrollInput(float scrollValue)
     {  
-        if (inventoryIsOpen) { return; } // Disable when inventory is open
-        if (hotbarSize == 0) { return; }
+        if (inventoryIsOpen) { return; } // Not needed when inventory is open
+        if (hotbarSize == 0) { return; } // Not needed when nothing is in hotbar
 
         //Debug.Log("Scroll Value: " + scrollValue);
         if (scrollValue == 0) { return; } // Return if no change in scrollValue
@@ -54,9 +57,9 @@ public class Hotbar : MonoBehaviour
 
     public void HandleNumberKeyInput(int keyPressed)
     {
-        if (inventoryIsOpen) { return; } // Disable when inventory is open
+        if (inventoryIsOpen) { return; } // Not needed when inventory is open
+        if (keyPressed == -1) { return; } // not needed if no key is pressed
 
-        if (keyPressed == -1) { return; } // return if no key is pressed
         int targetSlot = keyPressed-1;
         //Debug.Log("Key Pressed: " + keyPressed);
         //Debug.Log("Target Slot: " + targetSlot);
@@ -88,10 +91,6 @@ public class Hotbar : MonoBehaviour
     public void DropItem() {
         if (selectedSlot==-1) { return; }
         //Debug.Log("Dropping item from slot: " + (selectedSlot+1));
-        //List<Item> itemList = inventory.GetItemList();
-        //Item item = itemList[selectedSlot];
-        //inventory.RemoveItem(item);
-        //ItemWorld.DropItem(player.GetComponent<Transform>(), item);
         uiManager.DropItem(selectedSlot);
 
         if (selectedSlot>=inventory.GetItemCount()-1) { selectedSlot = -1; } // deselect slot when out of range
@@ -100,8 +99,9 @@ public class Hotbar : MonoBehaviour
     }
 
     public GameObject GetSelectedItemPrefab() {
-        if (selectedSlot==-1) { return null; }
-        if (hotbarSize <= 0) { return null; }
+        if (selectedSlot==-1) { return null; } // not needed when no slot is selected
+        if (hotbarSize <= 0) { return null; } // not needed when there is nothing in hotbar
+
         List<Item> itemList = inventory.GetItemList();
         return itemList[selectedSlot].GetPrefab();
     }
@@ -138,6 +138,7 @@ public class Hotbar : MonoBehaviour
             }
         }
 
+        // Generate slots
         List<Item> itemList = inventory.GetItemList();
         int x = 0;
         int y = 0;
@@ -220,8 +221,9 @@ public class Hotbar : MonoBehaviour
 
 
     public bool isHoldingWeapon() {
-        if (selectedSlot == -1) { return false; }
-        if (hotbarSize <= 0) { return false; }
+        if (selectedSlot == -1) { return false; } // Not needed when no slot is selected
+        if (hotbarSize <= 0) { return false; } // Not needed when hotbar is empty
+
         return inventory.GetItem(selectedSlot).IsWeapon();
     }
 
