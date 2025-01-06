@@ -61,6 +61,11 @@ public class HealthBar : MonoBehaviour
         // Check for armor bonuses
         bonusHP = armorPanel.bonusHP();
 
+        // if (Input.GetKeyDown("space"))
+        // {
+        //     TakeDamage(10);
+        // }
+
         UpdateAmount();
     }
 
