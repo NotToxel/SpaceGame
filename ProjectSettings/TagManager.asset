@@ -8,6 +8,9 @@ TagManager:
   - Puzzle1
   - HoldingKnife
   - Audio
+  - Pickup
+  - Knife
+  - NPC
   layers:
   - Default
   - TransparentFX
