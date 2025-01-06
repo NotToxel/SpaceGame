@@ -13,6 +13,8 @@ public class DialogueManager : MonoBehaviour
     public FirstPersonCamera cameraScript;
     public GameObject inputManager;
     public PlayerController playerController;
+    public AudioSource nextSentenceSound;
+    public AudioSource startSentenceSound;
 
     public Animator animator;
     public bool inDialogue = false;
@@ -25,6 +27,7 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue (Dialogue dialogue) 
     {
+        startSentenceSound.Play();
         inDialogue = true;
         // Disable camera controls
         if (camera != null) {
@@ -56,6 +59,7 @@ public class DialogueManager : MonoBehaviour
 
     public void DisplayNextSentence ()
     {
+        nextSentenceSound.Play();
         if (sentences.Count == 0) 
         {
             EndDialogue();
